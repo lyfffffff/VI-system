@@ -1,0 +1,60 @@
+﻿:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root) {
+  .workbench-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .workbench-filter__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .workbench-filter__title {
+    color: var(--el-text-color-primary);
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .workbench-filter__actions,
+  .workbench-filter__time-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .workbench-filter__field--rule {
+    width: 148px;
+  }
+
+  .workbench-filter__field--granularity {
+    width: 124px;
+  }
+
+  .workbench-filter__field--date-range {
+    width: 260px;
+  }
+
+  .workbench-filter__field--channel,
+  .workbench-filter__field--game,
+  .workbench-filter__field--app {
+    width: 170px;
+  }
+
+  .workbench-filter__selected-pill {
+    display: inline-flex;
+    align-items: center;
+    height: 30px;
+    border-radius: 999px;
+    border: 1px solid var(--wb-tag-border);
+    background: var(--wb-tag-bg);
+    color: var(--wb-tag-text);
+    padding: 0 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+}

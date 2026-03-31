@@ -1,0 +1,12 @@
+{
+  "name": "vi-system",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@9.12.0",
+  "scripts": {
+    "build:vi": "pnpm --filter @yyxxfe/vi build",
+    "dev:storybook": "pnpm build:vi && pnpm --filter @vi/storybook dev",
+    "build:storybook": "pnpm build:vi && pnpm --filter @vi/storybook build",
+    "preview:storybook": "pnpm --filter @vi/storybook preview"
+  }
+}

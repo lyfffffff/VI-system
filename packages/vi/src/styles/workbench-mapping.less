@@ -1,0 +1,89 @@
+﻿:root {
+  --wb-page-bg: var(--vi-page-bg);
+  --wb-app-bg: transparent;
+  --wb-topbar-height: var(--vi-layout-topbar-height);
+  --wb-sidebar-width: var(--vi-layout-sidebar-width);
+  --wb-sidebar-collapsed-width: var(--vi-layout-sidebar-collapsed-width);
+  --wb-content-gap: var(--vi-layout-content-gap);
+  --wb-content-padding-right: var(--vi-layout-content-padding-right);
+
+  --wb-panel-strong: var(--vi-surface-panel);
+  --wb-panel-muted: var(--vi-surface-panel-muted);
+  --wb-panel-border: var(--vi-border-light);
+  --wb-surface-blank: var(--vi-surface-panel);
+  --wb-surface-overlay: var(--vi-surface-overlay);
+
+  --wb-input-bg: var(--vi-surface-panel);
+  --wb-input-border: var(--vi-border-default);
+
+  --wb-table-header-bg: var(--vi-fill-soft);
+  --wb-table-row-hover-bg: rgba(var(--vi-color-primary-rgb), 0.05);
+
+  --wb-chart-axis-label: var(--vi-chart-axis-label);
+  --wb-chart-axis-line: var(--vi-chart-axis-line);
+  --wb-chart-split-line: var(--vi-chart-split-line);
+  --wb-chart-legend-color: var(--vi-chart-legend-color);
+  --wb-chart-comparison: var(--vi-chart-comparison);
+
+  --wb-sidebar-item-active: var(--vi-sidebar-item-active);
+  --wb-sidebar-item-hover: var(--vi-sidebar-item-hover);
+  --wb-tag-bg: var(--vi-tag-bg);
+  --wb-tag-border: var(--vi-tag-border);
+  --wb-tag-text: var(--vi-tag-text);
+
+  --wb-trend-up: var(--vi-trend-up);
+  --wb-success: var(--vi-success);
+
+  --wb-radius-xs: var(--vi-radius-xs);
+  --wb-radius-sm: var(--vi-radius-sm);
+  --wb-radius-md: var(--vi-radius-md);
+  --wb-radius-lg: var(--vi-radius-lg);
+
+  --wb-panel-shadow: var(--vi-shadow-panel);
+  --wb-card-shadow: var(--vi-shadow-card);
+  --wb-popover-shadow: var(--vi-shadow-popover);
+
+  --wb-close-hover-bg: var(--vi-fill-soft);
+  --wb-theme-drawer-bg: var(--vi-surface-overlay);
+}
+
+html,
+body {
+  font-family: var(--vi-font-family);
+  font-size: var(--vi-font-size-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code,
+pre,
+.code {
+  font-family: var(--vi-font-family-mono);
+}
+
+:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root) .el-table,
+:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root) .el-table .cell,
+:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root) .metric-value,
+:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root) .stat-number,
+:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root) [data-numeric='true'] {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1, 'lnum' 1;
+}
+
+/* 自动集成页面背景：消费方安装库后无需额外写 body 背景绑定。 */
+body {
+  background: var(--wb-page-bg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-color: transparent !important;
+}
+
+#app {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+html.dark {
+  --wb-close-hover-bg: rgba(255, 255, 255, 0.08);
+}

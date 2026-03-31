@@ -1,0 +1,22 @@
+﻿:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root) {
+  // 弹窗中的输入圆角为业务视觉要求，使用限定作用域覆盖。
+  .el-dialog .el-input__wrapper,
+  .el-dialog .el-select__wrapper,
+  .el-dialog .el-textarea__inner {
+    border-radius: var(--vi-radius-xs);
+  }
+
+  .el-dialog .el-button {
+    border-radius: var(--el-border-radius-base);
+  }
+
+  .el-dialog__footer .el-button + .el-button {
+    margin-left: 0;
+  }
+
+  .dialog-footer-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+}

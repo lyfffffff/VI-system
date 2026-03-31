@@ -1,0 +1,53 @@
+﻿:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root) {
+  .workbench-metrics {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .workbench-metric-card {
+    padding: 14px;
+    border: 1px solid var(--wb-panel-border);
+    border-radius: var(--wb-radius-sm);
+    background: var(--wb-panel-strong);
+    box-shadow: var(--wb-card-shadow);
+  }
+
+  .workbench-metric-card__title {
+    color: var(--el-text-color-secondary);
+    font-size: var(--vi-font-size-sm);
+  }
+
+  .workbench-metric-card__value {
+    margin-top: 8px;
+    color: var(--el-text-color-primary);
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .workbench-metric-card__footer {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--el-text-color-secondary);
+    font-size: 12px;
+  }
+
+  .workbench-metric-card__trend.is-up {
+    color: var(--wb-trend-up);
+  }
+
+  .workbench-metric-card__trend.is-down {
+    color: var(--wb-success);
+  }
+
+  @media (max-width: 1366px) {
+    .workbench-metrics {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}

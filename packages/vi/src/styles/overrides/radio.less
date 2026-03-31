@@ -1,0 +1,48 @@
+﻿:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root) {
+  .el-radio-group.dimension-radio-group {
+    display: inline-flex;
+    border: 1px solid var(--el-border-color-light);
+    border-radius: var(--vi-radius-xs);
+    overflow: hidden;
+    background: var(--el-fill-color-light);
+  }
+
+  .el-radio-group.dimension-radio-group .el-radio-button__inner {
+    height: 32px;
+    padding: 0 17px;
+    border: 0;
+    border-left: 1px solid var(--el-border-color-light);
+    border-radius: 0;
+    background: transparent;
+    color: var(--el-text-color-secondary);
+    box-shadow: none;
+  }
+
+  .el-radio-group.dimension-radio-group .el-radio-button:first-child .el-radio-button__inner {
+    border-left: 0;
+  }
+
+  .el-radio-group.dimension-radio-group .el-radio-button__original-radio:checked + .el-radio-button__inner {
+    background: var(--el-color-primary);
+    color: #fff;
+  }
+
+  .el-radio-group.dimension-radio-group .el-radio-button__inner:hover {
+    color: var(--el-color-primary);
+  }
+
+  // 业务中的快捷按钮为分段胶囊形态，保留 class 定向覆盖。
+  .shortcut-btn.el-button,
+  .shortcut-btn + .shortcut-btn.el-button {
+    border-radius: 0;
+    margin-left: -1px;
+  }
+
+  .shortcut-btn.el-button:first-of-type {
+    border-radius: var(--vi-radius-xs) 0 0 var(--vi-radius-xs);
+  }
+
+  .shortcut-btn.el-button:last-of-type {
+    border-radius: 0 var(--vi-radius-xs) var(--vi-radius-xs) 0;
+  }
+}

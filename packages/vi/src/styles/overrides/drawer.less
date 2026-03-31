@@ -1,0 +1,32 @@
+﻿.vi-theme-drawer {
+  .el-drawer {
+    background: var(--wb-theme-drawer-bg, var(--vi-surface-overlay));
+  }
+
+  .el-drawer__body {
+    padding: var(--vi-spacing-xl);
+  }
+}
+
+:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root) {
+  // 抽屉中的输入圆角为业务视觉要求，使用限定作用域覆盖。
+  .el-drawer .el-input__wrapper,
+  .el-drawer .el-select__wrapper,
+  .el-drawer .el-textarea__inner {
+    border-radius: var(--vi-radius-xs);
+  }
+
+  .el-drawer .el-button {
+    border-radius: var(--el-border-radius-base);
+  }
+
+  .el-drawer__footer .el-button + .el-button {
+    margin-left: 0;
+  }
+
+  .drawer-footer-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+}

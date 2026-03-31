@@ -1,0 +1,66 @@
+﻿:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root) {
+  .workbench-chart-panel {
+    padding: 14px;
+    border: 1px solid var(--wb-panel-border);
+    border-radius: var(--wb-radius-sm);
+    background: var(--wb-panel-strong);
+    box-shadow: var(--wb-panel-shadow);
+  }
+
+  .workbench-chart-panel__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .workbench-chart-panel__title {
+    color: var(--el-text-color-primary);
+    font-size: 30px;
+    font-weight: 700;
+  }
+
+  .workbench-chart-panel__legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 8px;
+    color: var(--wb-chart-legend-color);
+    font-size: 12px;
+  }
+
+  .workbench-chart-mock {
+    position: relative;
+    height: 270px;
+    border-radius: var(--wb-radius-sm);
+    border: 1px solid var(--wb-panel-border);
+    background-image: linear-gradient(to bottom, transparent 0%, transparent 19%, var(--wb-chart-split-line) 20%, transparent 21%);
+    background-size: 100% 54px;
+    background-color: color-mix(in srgb, var(--wb-panel-muted) 55%, transparent);
+    overflow: hidden;
+  }
+
+  .workbench-chart-mock__line {
+    position: absolute;
+    inset: auto 6% 40px 6%;
+    height: 2px;
+    border-radius: 2px;
+  }
+
+  .workbench-chart-mock__line--primary {
+    bottom: 110px;
+    background: linear-gradient(90deg, transparent 0%, var(--el-color-primary) 15%, var(--el-color-primary) 90%, transparent 100%);
+  }
+
+  .workbench-chart-mock__line--comparison {
+    bottom: 70px;
+    background: linear-gradient(90deg, transparent 0%, var(--wb-chart-comparison) 15%, var(--wb-chart-comparison) 90%, transparent 100%);
+  }
+
+  .workbench-chart-mock__line--accent {
+    bottom: 42px;
+    background: linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--el-color-primary) 72%, #ff7a00) 20%, color-mix(in srgb, var(--el-color-primary) 72%, #ff7a00) 90%, transparent 100%);
+  }
+}

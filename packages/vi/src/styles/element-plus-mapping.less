@@ -1,0 +1,95 @@
+﻿:root {
+  --el-color-primary: var(--vi-color-primary);
+  --el-color-primary-rgb: var(--vi-color-primary-rgb);
+  --el-color-primary-light-3: var(--vi-color-primary-light-3);
+  --el-color-primary-light-5: var(--vi-color-primary-light-5);
+  --el-color-primary-light-7: var(--vi-color-primary-light-7);
+  --el-color-primary-light-8: var(--vi-color-primary-light-8);
+  --el-color-primary-light-9: var(--vi-color-primary-light-9);
+  --el-color-primary-dark-2: var(--vi-color-primary-dark-2);
+
+  --el-bg-color-page: var(--vi-surface-body);
+  --el-bg-color: var(--vi-surface-panel);
+  --el-bg-color-overlay: var(--vi-surface-overlay);
+
+  --el-text-color-primary: var(--vi-text-primary);
+  --el-text-color-regular: var(--vi-text-secondary);
+  --el-text-color-secondary: var(--vi-text-muted);
+  --el-text-color-placeholder: var(--vi-text-muted);
+  --el-text-color-disabled: var(--vi-text-disabled);
+
+  --el-border-color: var(--vi-border-default);
+  --el-border-color-light: var(--vi-border-light);
+  --el-border-color-lighter: var(--vi-border-light);
+  --el-border-color-dark: var(--vi-border-strong);
+
+  --el-fill-color: var(--vi-fill-soft);
+  --el-fill-color-light: var(--vi-fill-soft);
+  --el-fill-color-lighter: var(--vi-fill-soft);
+  --el-fill-color-dark: var(--vi-fill-muted);
+  --el-fill-color-blank: var(--vi-surface-panel);
+
+  --el-mask-color: rgba(0, 0, 0, 0.48);
+  --el-overlay-color: rgba(0, 0, 0, 0.36);
+
+  --el-box-shadow-light: var(--vi-shadow-panel);
+  --el-box-shadow: var(--vi-shadow-popover);
+
+  --el-border-radius-base: var(--vi-radius-sm);
+  --el-border-radius-small: var(--vi-radius-xs);
+  --el-border-radius-round: var(--vi-radius-md);
+
+  --el-font-size-base: var(--vi-font-size-body);
+  --el-font-family: var(--vi-font-family);
+
+  --el-input-bg-color: var(--vi-surface-panel);
+  --el-input-text-color: var(--vi-text-primary);
+  --el-input-border-color: var(--vi-border-default);
+  --el-input-hover-border-color: var(--vi-border-strong);
+  --el-input-focus-border-color: var(--vi-color-primary);
+
+  --el-select-input-focus-border-color: var(--vi-color-primary);
+
+  --el-button-border-color: var(--vi-border-default);
+  --el-button-hover-text-color: var(--vi-color-primary);
+  --el-button-hover-border-color: var(--vi-color-primary-light-5);
+  --el-button-hover-bg-color: rgba(var(--vi-color-primary-rgb), 0.08);
+
+  --el-table-border-color: var(--vi-border-light);
+  --el-table-header-bg-color: var(--vi-fill-soft);
+  --el-table-header-text-color: var(--vi-text-secondary);
+  --el-table-row-hover-bg-color: rgba(var(--vi-color-primary-rgb), 0.08);
+  --el-table-bg-color: var(--vi-surface-panel);
+  --el-table-tr-bg-color: var(--vi-surface-panel);
+  --el-table-text-color: var(--vi-text-primary);
+
+  --el-drawer-bg-color: var(--vi-surface-overlay);
+  --el-drawer-padding-primary: var(--vi-spacing-xl);
+
+  --el-tabs-header-height: 32px;
+  --el-tabs-item-active-color: var(--vi-color-primary);
+  --el-tabs-item-hover-color: var(--vi-color-primary);
+
+  --el-radio-button-checked-bg-color: var(--vi-color-primary);
+  --el-radio-button-checked-border-color: var(--vi-color-primary);
+  --el-radio-button-checked-text-color: #fff;
+}
+
+html.dark {
+  /* 修复：暗黑模式下 Element Plus 默认会回退到自身主色，这里强制跟随 VI 主色。 */
+  --el-color-primary: var(--vi-color-primary);
+  --el-color-primary-rgb: var(--vi-color-primary-rgb);
+  --el-color-primary-light-3: var(--vi-color-primary-light-3);
+  --el-color-primary-light-5: var(--vi-color-primary-light-5);
+  --el-color-primary-light-7: var(--vi-color-primary-light-7);
+  --el-color-primary-light-8: var(--vi-color-primary-light-8);
+  --el-color-primary-light-9: var(--vi-color-primary-light-9);
+  --el-color-primary-dark-2: var(--vi-color-primary-dark-2);
+
+  --el-button-hover-text-color: var(--vi-color-primary);
+  --el-button-hover-border-color: var(--vi-color-primary-light-5);
+  --el-button-hover-bg-color: rgba(var(--vi-color-primary-rgb), 0.14);
+
+  --el-mask-color: rgba(0, 0, 0, 0.68);
+  --el-overlay-color: rgba(0, 0, 0, 0.54);
+}

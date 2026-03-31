@@ -1,0 +1,116 @@
+﻿@import './tokens.less';
+
+:root {
+  --vi-color-primary: @vi-token-primary;
+  --vi-color-primary-rgb: 20, 184, 166;
+  --vi-color-primary-light-3: #5bcdc1;
+  --vi-color-primary-light-5: #8adcd3;
+  --vi-color-primary-light-7: #b9eae4;
+  --vi-color-primary-light-8: #d0f1ed;
+  --vi-color-primary-light-9: #e8f8f6;
+  --vi-color-primary-dark-2: #149789;
+
+  --vi-page-bg: radial-gradient(circle at top right, rgba(20, 184, 166, 0.12), transparent 32%),
+    linear-gradient(180deg, #eef3fb 0%, #f4f7fc 48%, #f6f8fb 100%);
+
+  --vi-surface-body: @vi-token-surface-body-light;
+  --vi-surface-panel: @vi-token-surface-panel-light;
+  --vi-surface-panel-muted: @vi-token-surface-panel-muted-light;
+  --vi-surface-overlay: rgba(248, 250, 252, 0.96);
+
+  --vi-text-primary: @vi-token-text-primary-light;
+  --vi-text-secondary: @vi-token-text-secondary-light;
+  --vi-text-muted: @vi-token-text-muted-light;
+  --vi-text-disabled: @vi-token-text-disabled-light;
+
+  --vi-border-default: @vi-token-border-default-light;
+  --vi-border-light: @vi-token-border-light-light;
+  --vi-border-strong: @vi-token-border-strong-light;
+
+  --vi-fill-soft: @vi-token-fill-soft-light;
+  --vi-fill-muted: @vi-token-fill-muted-light;
+  --vi-focus-ring: fade(@vi-token-primary, 8%);
+
+  --vi-trend-up: @vi-token-trend-up;
+  --vi-success: @vi-token-success;
+
+  --vi-radius-xs: @vi-radius-xs;
+  --vi-radius-sm: @vi-radius-sm;
+  --vi-radius-md: @vi-radius-md;
+  --vi-radius-lg: @vi-radius-lg;
+  --vi-radius-xl: @vi-radius-xl;
+
+  --vi-spacing-xs: @vi-spacing-xs;
+  --vi-spacing-sm: @vi-spacing-sm;
+  --vi-spacing-md: @vi-spacing-md;
+  --vi-spacing-lg: @vi-spacing-lg;
+  --vi-spacing-xl: @vi-spacing-xl;
+
+  --vi-font-size-xs: @vi-font-size-xs;
+  --vi-font-size-sm: @vi-font-size-sm;
+  --vi-font-size-body: @vi-font-size-body;
+
+  --vi-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei UI', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Noto Color Emoji';
+  --vi-font-family-mono: 'SF Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Monaco, monospace;
+
+  --vi-shadow-panel: @vi-shadow-panel-light;
+  --vi-shadow-card: @vi-shadow-card-light;
+  --vi-shadow-popover: @vi-shadow-popover-light;
+
+  --vi-layout-topbar-height: 64px;
+  --vi-layout-sidebar-width: 192px;
+  --vi-layout-sidebar-collapsed-width: 56px;
+  --vi-layout-content-gap: 16px;
+  --vi-layout-content-padding-right: 16px;
+
+  --vi-chart-axis-label: #95a0b2;
+  --vi-chart-axis-line: #e8edf4;
+  --vi-chart-split-line: #eef2f7;
+  --vi-chart-legend-color: var(--vi-text-secondary);
+  --vi-chart-comparison: #9ca3af;
+
+  --vi-sidebar-item-active: rgba(20, 184, 166, 0.14);
+  --vi-sidebar-item-hover: rgba(20, 184, 166, 0.06);
+  --vi-tag-bg: rgba(20, 184, 166, 0.1);
+  --vi-tag-border: rgba(20, 184, 166, 0.16);
+  --vi-tag-text: @vi-token-primary;
+}
+
+html.dark {
+  --vi-page-bg: radial-gradient(circle at top right, rgba(20, 184, 166, 0.06), transparent 32%),
+    linear-gradient(180deg, #141618 0%, #111214 48%, #0f1012 100%);
+
+  --vi-surface-body: @vi-token-surface-body-dark;
+  --vi-surface-panel: @vi-token-surface-panel-dark;
+  --vi-surface-panel-muted: @vi-token-surface-panel-muted-dark;
+  --vi-surface-overlay: rgba(20, 28, 32, 0.96);
+
+  --vi-text-primary: @vi-token-text-primary-dark;
+  --vi-text-secondary: @vi-token-text-secondary-dark;
+  --vi-text-muted: @vi-token-text-muted-dark;
+  --vi-text-disabled: @vi-token-text-disabled-dark;
+
+  --vi-border-default: @vi-token-border-default-dark;
+  --vi-border-light: @vi-token-border-light-dark;
+  --vi-border-strong: @vi-token-border-strong-dark;
+
+  --vi-fill-soft: @vi-token-fill-soft-dark;
+  --vi-fill-muted: @vi-token-fill-muted-dark;
+
+  --vi-shadow-panel: @vi-shadow-panel-dark;
+  --vi-shadow-card: @vi-shadow-card-dark;
+  --vi-shadow-popover: @vi-shadow-popover-dark;
+
+  --vi-chart-axis-label: #8d97aa;
+  --vi-chart-axis-line: #2f343d;
+  --vi-chart-split-line: #262b33;
+  --vi-chart-legend-color: var(--vi-text-secondary);
+  --vi-chart-comparison: #7b8496;
+
+  --vi-sidebar-item-active: rgba(20, 184, 166, 0.22);
+  --vi-sidebar-item-hover: rgba(20, 184, 166, 0.14);
+  --vi-tag-bg: rgba(20, 184, 166, 0.2);
+  --vi-tag-border: rgba(20, 184, 166, 0.32);
+}
