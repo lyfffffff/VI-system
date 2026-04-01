@@ -1,0 +1,23 @@
+// ELP Select 覆盖：选择器输入壳与下拉面板视觉差异。
+.el-select__wrapper {
+  border-radius: var(--vi-radius-md);
+  background: var(--wb-input-bg);
+  box-shadow: 0 0 0 1px var(--wb-input-border) inset;
+}
+
+.el-select__wrapper.is-focused {
+  box-shadow:
+    0 0 0 1px rgba(var(--el-color-primary-rgb), 0.42) inset,
+    0 0 0 3px rgba(var(--el-color-primary-rgb), 0.08);
+}
+
+// Select / DatePicker 下拉面板统一走实色面板，避免 overlay 半透明导致偏色。
+.el-popper.is-light {
+  background: var(--el-bg-color-overlay);
+  border-color: var(--wb-panel-border);
+}
+
+.el-popper.is-light .el-popper__arrow::before {
+  background: var(--el-bg-color-overlay);
+  border-color: var(--wb-panel-border);
+}

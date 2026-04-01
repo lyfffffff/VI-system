@@ -1,4 +1,5 @@
-﻿import {
+// ThemeDrawer Story 集合：覆盖基础交互、主题回归、组件回归和前缀/局部覆盖验证。
+import {
   computed,
   nextTick,
   onMounted,
@@ -121,15 +122,18 @@ export const Playground: Story = {
         },
       );
 
+      // 同步 Storybook 控件中的 open 状态。
       function handleUpdateOpen(nextOpen: boolean): void {
         open.value = nextOpen;
         args.onUpdateOpen?.(nextOpen);
       }
 
+      // 透传主题变更事件给 Storybook actions。
       function handleThemeChange(nextThemeKey: ThemeColorKey): void {
         args.onThemeChange?.(nextThemeKey);
       }
 
+      // 透传模式变更事件给 Storybook actions。
       function handleModeChange(nextDark: boolean): void {
         args.onModeChange?.(nextDark);
       }
@@ -197,6 +201,7 @@ export const ThemeRegression: Story = {
         { immediate: true },
       );
 
+      // 顺序切换到下一个预设主题，用于回归轮询。
       function switchNextTheme(): void {
         const nextIndex = (activeIndex.value + 1) % THEME_PRESETS.length;
         activeIndex.value = nextIndex;
@@ -287,6 +292,7 @@ export const ComponentRegression: Story = {
       const activeShortcut = ref("today");
       const reportDate = ref("2026-03-30");
 
+      // 设置时间快捷按钮激活态。
       function setActiveShortcut(value: string): void {
         activeShortcut.value = value;
       }
@@ -354,7 +360,7 @@ export const ComponentRegression: Story = {
                 type="date"
                 format="YYYY-MM-DD"
                 value-format="YYYY-MM-DD"
-                class="time-filter-bar__date"
+                class="time-filter-bar__date date-picker-joined"
                 placeholder="选择日期"
               />
             </div>
@@ -442,6 +448,7 @@ export const PrefixAndScopedOverride: Story = {
         "--vi-tag-border": "rgba(14, 165, 233, 0.24)",
       } as CSSProperties;
 
+      // 刷新调试信息，展示前缀和关键变量值。
       function refreshDebug(): void {
         const rootStyle = getComputedStyle(document.documentElement);
         debug.value = {
@@ -453,6 +460,7 @@ export const PrefixAndScopedOverride: Story = {
         };
       }
 
+      // 切换主题后等待 DOM 更新，再读取调试值。
       async function applyThemeAndRefresh(
         themeKey: ThemeColorKey,
       ): Promise<void> {
@@ -504,4 +512,3 @@ export const PrefixAndScopedOverride: Story = {
     `,
   }),
 };
-

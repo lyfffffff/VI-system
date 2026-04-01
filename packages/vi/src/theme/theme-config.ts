@@ -1,4 +1,5 @@
-﻿import type { IThemePreset } from '../types/theme'
+// 主题配置单一数据源：定义预设主题、默认值和存储键。
+import type { IThemePreset } from '../types/theme'
 import { hexToRgb } from '../utils/color-utils'
 
 const EXPECTED_THEME_COUNT = 17
@@ -26,6 +27,7 @@ const THEME_PRESET_SOURCE = [
 
 export type ThemeColorKey = (typeof THEME_PRESET_SOURCE)[number]['key']
 
+// 启动时校验主题配置，避免重复 key、数量偏差和非法色值进入运行时。
 function validateThemePresetSource(): void {
   if (THEME_PRESET_SOURCE.length !== EXPECTED_THEME_COUNT) {
     throw new Error(`Theme preset count mismatch: expected ${EXPECTED_THEME_COUNT}, got ${THEME_PRESET_SOURCE.length}`)
@@ -59,6 +61,7 @@ export const THEME_PRESETS: IThemePreset<ThemeColorKey>[] = THEME_PRESET_SOURCE.
   rgb: hexToRgb(item.hex),
 }))
 
+// 主题 key 到预设详情的快速查询表。
 export const THEME_PRESET_MAP = THEME_PRESETS.reduce<Record<ThemeColorKey, IThemePreset<ThemeColorKey>>>((acc, item) => {
   acc[item.key] = item
   return acc

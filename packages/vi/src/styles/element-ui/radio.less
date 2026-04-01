@@ -1,21 +1,25 @@
-﻿:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root) {
+// ELP RadioButton 覆盖：时间维度分段按钮与快捷按钮拼接样式。
+.vi-theme-scope {
   .el-radio-group.dimension-radio-group {
     display: inline-flex;
     border: 1px solid var(--el-border-color-light);
     border-radius: var(--vi-radius-xs);
     overflow: hidden;
-    background: var(--el-fill-color-light);
+    background: var(--el-bg-color);
   }
 
   .el-radio-group.dimension-radio-group .el-radio-button__inner {
     height: 32px;
-    padding: 0 17px;
+    padding: 0 15px;
     border: 0;
     border-left: 1px solid var(--el-border-color-light);
     border-radius: 0;
-    background: transparent;
-    color: var(--el-text-color-secondary);
+    background: var(--el-bg-color);
     box-shadow: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
   }
 
   .el-radio-group.dimension-radio-group .el-radio-button:first-child .el-radio-button__inner {
@@ -27,11 +31,7 @@
     color: #fff;
   }
 
-  .el-radio-group.dimension-radio-group .el-radio-button__inner:hover {
-    color: var(--el-color-primary);
-  }
-
-  // 业务中的快捷按钮为分段胶囊形态，保留 class 定向覆盖。
+  // 业务快捷按钮拼接为分段形态。
   .shortcut-btn.el-button,
   .shortcut-btn + .shortcut-btn.el-button {
     border-radius: 0;
@@ -40,6 +40,7 @@
 
   .shortcut-btn.el-button:first-of-type {
     border-radius: var(--vi-radius-xs) 0 0 var(--vi-radius-xs);
+    margin-left: 0;
   }
 
   .shortcut-btn.el-button:last-of-type {

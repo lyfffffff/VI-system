@@ -1,11 +1,44 @@
-﻿import { computed, ref, watch } from 'vue'
+// 主题状态主入口：负责读取存储、注入变量、暗黑切换与对外操作 API。
+import { computed, ref, watch } from 'vue'
 import { DARK_STORAGE_KEY, DEFAULT_THEME, THEME_PRESET_MAP, THEME_STORAGE_KEY, type ThemeColorKey } from '../theme/theme-config'
-import type { IViThemeOptions } from '../types/theme'
+import type { ComputedRef, Ref } from 'vue'
+import type { IThemePreset, IViThemeOptions } from '../types/theme'
 import { createVarName, generatePageBackground, getThemeVariants, normalizePrefix } from '../utils/color-utils'
 
 interface IConfigureResult {
   prefixChanged: boolean
   storageKeyChanged: boolean
+}
+
+interface IUseViThemeResult {
+  /** @description 当前主题 key 响应式引用。 */
+  themeKey: Ref<ThemeColorKey>
+  /** @description 当前暗黑模式状态响应式引用。 */
+  isDark: Ref<boolean>
+  /** @description 当前主题预设的计算属性。 */
+  currentTheme: ComputedRef<IThemePreset<ThemeColorKey>>
+  /**
+   * @description 切换主题 key。
+   * @param themeKey 目标主题 key。
+   * @returns 无返回值。
+   */
+  setTheme: (themeKey: ThemeColorKey) => void
+  /**
+   * @description 设置暗黑模式状态。
+   * @param dark 目标暗黑状态。
+   * @returns 无返回值。
+   */
+  setDark: (dark: boolean) => void
+  /**
+   * @description 反转当前暗黑状态。
+   * @returns 无返回值。
+   */
+  toggleDark: () => void
+  /**
+   * @description 立即应用主题并写入本地存储。
+   * @returns 无返回值。
+   */
+  applyTheme: () => void
 }
 
 const state = {
@@ -22,6 +55,7 @@ function hasWindow(): boolean {
   return typeof window !== 'undefined' && typeof document !== 'undefined'
 }
 
+// 安全读取本地存储，异常时回退默认值。
 function readStorage<T>(key: string, fallback: T): T {
   if (!hasWindow()) return fallback
 
@@ -34,6 +68,7 @@ function readStorage<T>(key: string, fallback: T): T {
   }
 }
 
+// 安全写入本地存储，忽略不可用场景。
 function writeStorage<T>(key: string, value: T): void {
   if (!hasWindow()) return
 
@@ -44,11 +79,13 @@ function writeStorage<T>(key: string, value: T): void {
   }
 }
 
+// 将当前主题状态持久化到本地存储。
 function persistState(): void {
   writeStorage(state.themeStorageKey, state.themeKey.value)
   writeStorage(state.darkStorageKey, state.isDark.value)
 }
 
+// 应用 options 配置并返回配置变化信息。
 function configure(options?: IViThemeOptions): IConfigureResult {
   if (!options) {
     return {
@@ -84,6 +121,7 @@ function configure(options?: IViThemeOptions): IConfigureResult {
   }
 }
 
+// 从存储恢复主题状态，失败时回退默认主题与浅色模式。
 function initStateFromStorage(): void {
   const storedTheme = readStorage<ThemeColorKey>(state.themeStorageKey, DEFAULT_THEME)
   const storedDark = readStorage<boolean>(state.darkStorageKey, false)
@@ -92,11 +130,13 @@ function initStateFromStorage(): void {
   state.isDark.value = storedDark
 }
 
+// 设置根节点 CSS 变量。
 function setVar(name: string, value: string): void {
   if (!hasWindow()) return
   document.documentElement.style.setProperty(name, value)
 }
 
+// 按指定前缀写入整套语义变量。
 function applySemanticVarsForPrefix(prefix: string, themeKey: ThemeColorKey, isDark: boolean): void {
   const preset = THEME_PRESET_MAP[themeKey]
   const variants = getThemeVariants(preset.hex)
@@ -164,6 +204,7 @@ function applySemanticVarsForPrefix(prefix: string, themeKey: ThemeColorKey, isD
   setVar(createVarName(prefix, 'shadow-popover'), isDark ? '0 12px 32px rgba(0, 0, 0, 0.38)' : '0 12px 32px rgba(15, 23, 42, 0.14)')
 }
 
+// 将状态同步到 DOM（变量、dataset、dark class）。
 function applyThemeInternal(): void {
   if (!hasWindow()) return
 
@@ -186,6 +227,7 @@ function applyThemeInternal(): void {
   root.classList.remove('dark')
 }
 
+// 绑定状态监听：主题或模式变化后自动注入变量并持久化。
 function bindWatcher(): void {
   if (state.watcherBound) return
 
@@ -197,7 +239,12 @@ function bindWatcher(): void {
   state.watcherBound = true
 }
 
-export function useViTheme(options?: IViThemeOptions) {
+/**
+ * 主题状态主 composable：提供主题 key、暗黑状态和主题切换方法。
+ * @param options 主题配置（变量前缀与存储 key）。
+ * @returns 主题状态与操作方法集合。
+ */
+export function useViTheme(options?: IViThemeOptions): IUseViThemeResult {
   const configState = configure(options)
 
   if (!state.initialized) {
@@ -214,19 +261,23 @@ export function useViTheme(options?: IViThemeOptions) {
 
   const currentTheme = computed(() => THEME_PRESET_MAP[state.themeKey.value])
 
+  // 切换主题色，仅接受预设主题 key。
   function setTheme(themeKey: ThemeColorKey): void {
     if (!THEME_PRESET_MAP[themeKey]) return
     state.themeKey.value = themeKey
   }
 
+  // 显式设置暗黑模式状态。
   function setDark(dark: boolean): void {
     state.isDark.value = dark
   }
 
+  // 反转当前暗黑模式状态。
   function toggleDark(): void {
     state.isDark.value = !state.isDark.value
   }
 
+  // 手动触发主题应用和持久化（常用于初始化场景）。
   function applyTheme(): void {
     applyThemeInternal()
     persistState()

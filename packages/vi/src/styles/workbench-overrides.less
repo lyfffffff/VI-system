@@ -1,15 +1,15 @@
-﻿// 覆盖层仅处理变量层无法表达的结构差异，按 Element Plus 组件与 Workbench 业务模块拆分以降低影响面。
-@import './overrides/button.less';
-@import './overrides/input.less';
-@import './overrides/select.less';
-@import './overrides/textarea.less';
-@import './overrides/table.less';
-@import './overrides/dialog.less';
-@import './overrides/drawer.less';
-@import './overrides/tabs.less';
-@import './overrides/radio.less';
-
-@import './overrides/workbench-layout.less';
-@import './overrides/workbench-filter.less';
-@import './overrides/workbench-metric-card.less';
-@import './overrides/workbench-chart.less';
+// 覆盖层仅处理变量层无法表达的差异：全局规则使用 .el-*，业务差异放在 .vi-theme-scope。
+@import './element-ui/button.less';
+@import './element-ui/input.less';
+@import './element-ui/select.less';
+@import './element-ui/textarea.less';
+@import './element-ui/table.less';
+@import './element-ui/dialog.less';
+@import './element-ui/drawer.less';
+@import './element-ui/tabs.less';
+@import './element-ui/radio.less';
+@import './workbench/layout.less';
+@import './workbench/filter.less';
+@import './workbench/metric-card.less';
+@import './workbench/chart.less';
+@import './workbench/cockpit.less';

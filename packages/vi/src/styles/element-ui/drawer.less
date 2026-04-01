@@ -1,0 +1,32 @@
+// ELP Drawer 覆盖：抽屉容器背景、内边距与内部控件圆角差异。
+.vi-theme-drawer {
+  .el-drawer {
+    background: var(--wb-theme-drawer-bg, var(--vi-surface-overlay));
+  }
+
+  .el-drawer__body {
+    padding: var(--vi-spacing-xl);
+  }
+}
+
+.el-drawer .el-input__wrapper,
+.el-drawer .el-select__wrapper,
+.el-drawer .el-textarea__inner {
+  border-radius: var(--vi-radius-xs);
+}
+
+.el-drawer .el-button {
+  border-radius: var(--el-border-radius-base);
+}
+
+.el-drawer__footer .el-button + .el-button {
+  margin-left: 0;
+}
+
+.vi-theme-scope {
+  .drawer-footer-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+}

@@ -1,6 +1,6 @@
 import { u as o } from "./use-vi-theme-CTc-UUfV.js";
 import { D as a, T as i } from "./use-vi-theme-CTc-UUfV.js";
-import { T as s } from "./theme-drawer-CbyzU7mq.js";
+import { T as s } from "./theme-drawer-D0r5mpZI.js";
 function m(e) {
   const { applyTheme: T } = o(e);
   T();

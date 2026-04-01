@@ -1,4 +1,5 @@
-﻿import './styles/tokens.less'
+// VI 库主入口：聚合样式注入、主题能力与组件导出。
+import './styles/tokens.less'
 import './styles/semantic-vars.less'
 import './styles/element-plus-mapping.less'
 import './styles/workbench-mapping.less'
