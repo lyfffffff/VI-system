@@ -1,5 +1,5 @@
 import "vue";
-import { u as r } from "./use-vi-theme-CTc-UUfV.js";
+import { u as r } from "./use-vi-theme-BbYqO0Nd.js";
 export {
   r as useViTheme
 };

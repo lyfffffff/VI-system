@@ -1,48 +1,107 @@
 // 原型筛选模块：筛选条布局、字段尺寸和已选标签样式。
 .vi-theme-scope {
   .workbench-filter {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 14px;
+    padding: 0;
   }
 
-  .workbench-filter__header {
+  .workbench-filter__row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
   }
 
-  .workbench-filter__title {
+  .workbench-filter__left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .workbench-filter__meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--el-text-color-placeholder);
+    font-size: 12px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .workbench-filter__right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .wb-query-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .workbench-filter__header,
+  .wb-query-panel__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .workbench-filter__title,
+  .wb-query-panel__title {
+    margin: 0;
     color: var(--el-text-color-primary);
     font-size: 18px;
     font-weight: 700;
   }
 
   .workbench-filter__actions,
-  .workbench-filter__time-bar {
+  .workbench-filter__time-bar,
+  .wb-query-panel__actions,
+  .wb-query-panel__time-bar {
     display: flex;
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
   }
 
-  .workbench-filter__field--rule {
+  .workbench-filter__freshness {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    padding: 2px 6px;
+  }
+
+  .workbench-filter__refresh-btn.el-button {
+    padding: 0;
+    font-size: 12px;
+  }
+
+  .workbench-filter__field--rule,
+  .wb-query-field--rule {
     width: 148px;
   }
 
-  .workbench-filter__field--granularity {
+  .workbench-filter__field--granularity,
+  .wb-query-field--granularity {
     width: 124px;
   }
 
   .workbench-filter__field--channel,
   .workbench-filter__field--game,
-  .workbench-filter__field--app {
+  .workbench-filter__field--app,
+  .wb-query-field--channel,
+  .wb-query-field--game,
+  .wb-query-field--app {
     width: 170px;
   }
 
-  .workbench-filter__selected-pill {
+  .workbench-filter__selected-pill,
+  .wb-query-panel__selected-pill {
     display: inline-flex;
     align-items: center;
     height: 30px;
@@ -53,5 +112,10 @@
     padding: 0 12px;
     font-size: 12px;
     font-weight: 600;
+  }
+
+  .wb-query-panel--compact {
+    gap: 10px;
+    padding: 12px;
   }
 }

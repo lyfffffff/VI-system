@@ -10,7 +10,7 @@
 - 继续沿用 `Vue 3 + TypeScript + Vite + Less + Element Plus`。
 - V1 固定 17 预设主题。
 - V1 明确忽略水印功能。
-- 遵循项目代码风格与变量分层规则（`CODE_STYLE_RULE.md`）。
+- 遵循项目代码风格与变量分层规则（`.codex/skills/vi-system-code-style/SKILL.md`）。
 
 ## Goals / Non-Goals
 

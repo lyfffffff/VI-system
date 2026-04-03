@@ -2,6 +2,8 @@
 :root {
   --wb-page-bg: var(--vi-page-bg);
   --wb-app-bg: transparent;
+  --wb-topbar-bg: transparent;
+  --wb-sidebar-bg: transparent;
   --wb-topbar-height: var(--vi-layout-topbar-height);
   --wb-sidebar-width: var(--vi-layout-sidebar-width);
   --wb-sidebar-collapsed-width: var(--vi-layout-sidebar-collapsed-width);
@@ -31,9 +33,14 @@
   --wb-tag-bg: var(--vi-tag-bg);
   --wb-tag-border: var(--vi-tag-border);
   --wb-tag-text: var(--vi-tag-text);
+  --wb-menu-hover-bg: rgba(var(--el-color-primary-rgb), 0.06);
+  --wb-context-menu-bg: rgba(255, 255, 255, 0.96);
+  --wb-context-menu-backdrop: blur(10px);
 
   --wb-trend-up: var(--vi-trend-up);
   --wb-success: var(--vi-success);
+  --wb-on-primary: #ffffff;
+  --wb-shell-control-hover-bg: rgba(255, 255, 255, 0.8);
 
   --wb-radius-xs: var(--vi-radius-xs);
   --wb-radius-sm: var(--vi-radius-sm);
@@ -62,13 +69,21 @@ pre,
   font-family: var(--vi-font-family-mono);
 }
 
-:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root) .el-table,
-:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root) .el-table .cell,
-:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root) .metric-value,
-:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root) .stat-number,
-:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root) [data-numeric='true'] {
+:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root)
+  .el-table,
+:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root)
+  .el-table
+  .cell,
+:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root)
+  .metric-value,
+:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root)
+  .stat-number,
+:where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root)
+  [data-numeric="true"] {
   font-variant-numeric: tabular-nums;
-  font-feature-settings: 'tnum' 1, 'lnum' 1;
+  font-feature-settings:
+    "tnum" 1,
+    "lnum" 1;
 }
 
 /* 自动集成页面背景：消费方安装库后无需额外写 body 背景绑定。 */
@@ -87,4 +102,8 @@ body {
 
 html.dark {
   --wb-close-hover-bg: rgba(255, 255, 255, 0.08);
+  --wb-shell-control-hover-bg: rgba(50, 51, 53, 0.8);
+  --wb-menu-hover-bg: rgba(var(--el-color-primary-rgb), 0.12);
+  --wb-context-menu-bg: rgba(35, 36, 37, 0.96);
+  --wb-context-menu-backdrop: blur(10px);
 }

@@ -1,0 +1,69 @@
+// 原型表格模块：面板骨架、标题区、高亮行与趋势值等可复用模板。
+.vi-theme-scope {
+  .wb-table-panel,
+  .table-section {
+    padding: 16px 16px 20px;
+  }
+
+  .wb-table-panel__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .wb-table-panel__title {
+    margin: 0;
+    color: var(--el-text-color-primary);
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .wb-table-panel .el-table .el-table__cell,
+  .table-section .el-table .el-table__cell {
+    font-size: 14px;
+    padding: 8px 12px !important;
+    height: 48px !important;
+  }
+
+  .wb-table-row--highlight,
+  .product-row {
+    background-color: var(--el-fill-color-lighter) !important;
+  }
+
+  .wb-table-row--highlight td,
+  .product-row td {
+    font-weight: 600 !important;
+  }
+
+  .wb-tooltip-header,
+  .tooltip-header {
+    cursor: default;
+    border-bottom: 1px dashed var(--el-text-color-secondary);
+    padding-bottom: 2px;
+  }
+
+  .wb-table-header-hint {
+    font-size: 12px;
+    color: var(--el-text-color-placeholder);
+  }
+
+  .workbench-table-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .workbench-table-name--header {
+    font-weight: 600;
+  }
+
+  .workbench-table-name__chevron {
+    color: var(--el-text-color-secondary);
+    font-style: normal;
+    font-size: 14px;
+    line-height: 1;
+    transform: translateY(-1px);
+  }
+}

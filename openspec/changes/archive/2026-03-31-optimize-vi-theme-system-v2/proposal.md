@@ -1,4 +1,4 @@
-﻿## Why
+## Why
 
 当前 `packages/vi` 的主题能力已经可用，但在“语义变量分层完整性、Element Plus 基础组件风格一致性、业务局部覆盖边界、前缀可配置链路”上仍有优化空间。随着 V2 开发即将启动，现在需要先把这批优化沉淀为可执行规范，避免实现阶段再次分散。
 
@@ -71,11 +71,9 @@
 
 ## Governance Artifacts
 
-- 新增库级样式治理文档：[VI_STYLE_CONTRACT.md](../../../VI_STYLE_CONTRACT.md)。
 - 该文档定义“分层优先级、修改边界、评审门槛、回滚策略”，作为 V2 及后续迭代的统一准入规范。
 
 
 ## Prototype Normalization
 
-- 新增高保真原型规范化清单：`docs/guides/prototype-normalization-checklist.md`。
 - 该清单以 `askdata-dashboard.pages.dev/data-cockpit` 与 `junelce-workbench-design-system/references` 为参照，定义分阶段落地与 DoD。

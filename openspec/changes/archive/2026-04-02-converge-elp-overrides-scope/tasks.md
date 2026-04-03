@@ -14,3 +14,7 @@
 - [x] 3.1 执行 `pnpm build:vi` 验证构建通过。
 - [x] 3.2 同步更新任务状态，记录本轮收敛结果。
 
+## 4. Storybook 样式分层（2026-04-02）
+
+- [x] 4.3 将 Storybook 预览样式拆分为宿主基础层（`preview.css`）与故事演示层（`preview.stories.css`）。
+- [x] 4.4 记录本轮实施结果与验证结论（见 `session-summary-2026-04-02.md`）。

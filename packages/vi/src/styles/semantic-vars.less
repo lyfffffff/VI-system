@@ -1,17 +1,23 @@
 // 语义变量层：从基础 token 派生主题语义变量（--vi-*）。
-@import './tokens.less';
+@import "./tokens.less";
 
 :root {
+  // 定义了默认的主题色，以及主题色变体，可以通过主题组件覆盖修改
   --vi-color-primary: @vi-token-primary;
-  --vi-color-primary-rgb: 20, 184, 166;
-  --vi-color-primary-light-3: #5bcdc1;
-  --vi-color-primary-light-5: #8adcd3;
-  --vi-color-primary-light-7: #b9eae4;
-  --vi-color-primary-light-8: #d0f1ed;
-  --vi-color-primary-light-9: #e8f8f6;
-  --vi-color-primary-dark-2: #149789;
+  --vi-color-primary-rgb: red(@vi-token-primary), green(@vi-token-primary), blue(@vi-token-primary);
+  --vi-color-primary-light-3: mix(#fff, @vi-token-primary, 30%);
+  --vi-color-primary-light-5: mix(#fff, @vi-token-primary, 50%);
+  --vi-color-primary-light-7: mix(#fff, @vi-token-primary, 70%);
+  --vi-color-primary-light-8: mix(#fff, @vi-token-primary, 80%);
+  --vi-color-primary-light-9: mix(#fff, @vi-token-primary, 90%);
+  --vi-color-primary-dark-2: mix(#000, @vi-token-primary, 20%);
 
-  --vi-page-bg: radial-gradient(circle at top right, rgba(20, 184, 166, 0.12), transparent 32%),
+  --vi-page-bg:
+    radial-gradient(
+      circle at top right,
+      rgba(20, 184, 166, 0.12),
+      transparent 32%
+    ),
     linear-gradient(180deg, #eef3fb 0%, #f4f7fc 48%, #f6f8fb 100%);
 
   --vi-surface-body: @vi-token-surface-body-light;
@@ -51,10 +57,14 @@
   --vi-font-size-sm: @vi-font-size-sm;
   --vi-font-size-body: @vi-font-size-body;
 
-  --vi-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
-    'Microsoft YaHei UI', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Noto Color Emoji';
-  --vi-font-family-mono: 'SF Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Monaco, monospace;
+  --vi-font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei",
+    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Noto Color Emoji";
+  --vi-font-family-mono:
+    "SF Mono", SFMono-Regular, Consolas, "Liberation Mono", Menlo, Monaco,
+    monospace;
 
   --vi-shadow-panel: @vi-shadow-panel-light;
   --vi-shadow-card: @vi-shadow-card-light;
@@ -80,7 +90,12 @@
 }
 
 html.dark {
-  --vi-page-bg: radial-gradient(circle at top right, rgba(20, 184, 166, 0.06), transparent 32%),
+  --vi-page-bg:
+    radial-gradient(
+      circle at top right,
+      rgba(20, 184, 166, 0.06),
+      transparent 32%
+    ),
     linear-gradient(180deg, #141618 0%, #111214 48%, #0f1012 100%);
 
   --vi-surface-body: @vi-token-surface-body-dark;

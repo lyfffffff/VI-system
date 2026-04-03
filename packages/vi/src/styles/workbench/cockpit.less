@@ -1,4 +1,4 @@
-// 原型驾驶舱模块：非 ELP 业务类（表头提示、状态标签、分页点、动画等）。
+// 原型驾驶舱模块：非 ELP 业务类（状态标签、分页点、动画等）。
 @keyframes vi-cockpit-spin {
   from {
     transform: rotate(0deg);
@@ -21,6 +21,13 @@
 }
 
 .vi-theme-scope {
+  .cockpit-page {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 16px 16px 0;
+  }
+
   .metrics-dropdown-btn:focus,
   .metrics-dropdown-btn:hover {
     outline: none !important;
@@ -33,26 +40,6 @@
 
   .el-button.is-loading .el-icon {
     animation: vi-cockpit-spin 1s linear infinite;
-  }
-
-  .table-section .el-table .el-table__cell {
-    font-size: 14px;
-    padding: 8px 12px !important;
-    height: 48px !important;
-  }
-
-  .product-row {
-    background-color: var(--el-fill-color-lighter) !important;
-  }
-
-  .product-row td {
-    font-weight: 600 !important;
-  }
-
-  .tooltip-header {
-    cursor: default;
-    border-bottom: 1px dashed var(--el-text-color-secondary);
-    padding-bottom: 2px;
   }
 
   .value-updating {

@@ -6,13 +6,19 @@
 ```ts
 import { createApp } from 'vue'
 import App from './App.vue'
-import { initViTheme } from '@yyxxfe/vi'\nimport '@yyxxfe/vi/styles'
+import { initViTheme } from '@yyxxfe/vi'
+import '@yyxxfe/vi/styles'
 
 const app = createApp(App)
 app.mount('#app')
 
-initViTheme()
+initViTheme({ defaultThemeKey: 'blue' })
 ```
+
+说明：
+- `initViTheme(options)` 是主题系统唯一配置入口。
+- `defaultThemeKey` 仅作为“无持久化值时”的初始主题；一旦用户切换主题并写入存储，后续刷新会优先恢复用户选择。
+- `useViTheme()` 仅用于读取与操作全局主题状态，不再承担配置初始化职责。
 
 ## 2. 页面接入抽屉
 
@@ -59,13 +65,14 @@ function showThemeDrawer() {
 - 不建议把直接覆写 `--el-*` 作为常态方案。
 
 ## 4. 前缀配置
-默认语义前缀是 `vi`，可通过 `useViTheme({ prefix })` 自定义。
+默认语义前缀是 `vi`，可通过 `initViTheme({ prefix })` 自定义。
 
 ```ts
-import { useViTheme } from '@yyxxfe/vi'
+import { initViTheme, useViTheme } from '@yyxxfe/vi'
 
-const { applyTheme } = useViTheme({ prefix: 'brand' })
-applyTheme()
+initViTheme({ prefix: 'brand', syncDefaultViPrefix: true })
+const { applyTheme } = useViTheme()
+applyTheme() // 仅用于手动重应用
 ```
 
 ## 5. 本地预览（Storybook）

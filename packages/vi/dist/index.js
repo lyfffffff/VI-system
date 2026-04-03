@@ -1,15 +1,14 @@
-import { u as o } from "./use-vi-theme-CTc-UUfV.js";
-import { D as a, T as i } from "./use-vi-theme-CTc-UUfV.js";
-import { T as s } from "./theme-drawer-D0r5mpZI.js";
-function m(e) {
-  const { applyTheme: T } = o(e);
-  T();
+import { g as i } from "./use-vi-theme-BbYqO0Nd.js";
+import { D as t, T as E, u as a } from "./use-vi-theme-BbYqO0Nd.js";
+import { T as s } from "./theme-drawer-DYc-OGJJ.js";
+function r(e) {
+  i().init(e);
 }
 export {
-  a as DEFAULT_THEME,
-  i as THEME_PRESETS,
+  t as DEFAULT_THEME,
+  E as THEME_PRESETS,
   s as ThemeDrawer,
-  m as initViTheme,
-  o as useViTheme
+  r as initViTheme,
+  a as useViTheme
 };
 //# sourceMappingURL=index.js.map

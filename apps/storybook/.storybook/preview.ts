@@ -6,6 +6,7 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 import { initViTheme, useViTheme } from '@yyxxfe/vi'
 import '@yyxxfe/vi/styles'
 import './preview.css'
+import './preview.stories.css'
 
 setup((app) => {
   app.use(ElementPlus)
@@ -13,7 +14,7 @@ setup((app) => {
 })
 
 function applyStorybookMode(mode: 'light' | 'dark'): void {
-  const { setDark, applyTheme } = useViTheme({ prefix: 'vi' })
+  const { setDark, applyTheme } = useViTheme()
   setDark(mode === 'dark')
   applyTheme()
 }

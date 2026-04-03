@@ -1,35 +1,49 @@
 // 原型指标卡模块：指标网格、卡片结构和趋势色样式。
 .vi-theme-scope {
-  .workbench-metrics {
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 12px;
+  .workbench-metrics-shell {
+    padding-bottom: 3px;
   }
 
-  .workbench-metric-card {
-    padding: 14px;
+  .workbench-metrics,
+  .wb-stat-grid {
+    --wb-stat-grid-columns: 6;
+    --wb-stat-grid-gap: 12px;
+    display: grid;
+    grid-template-columns: repeat(var(--wb-stat-grid-columns), minmax(0, 1fr));
+    gap: var(--wb-stat-grid-gap);
+  }
+
+  .workbench-metric-card,
+  .wb-stat-card {
+    padding: 16px;
     border: 1px solid var(--wb-panel-border);
     border-radius: var(--wb-radius-sm);
     background: var(--wb-panel-strong);
     box-shadow: var(--wb-card-shadow);
   }
 
-  .workbench-metric-card__title {
+  .workbench-metric-card__title,
+  .wb-stat-card__title {
+    display: inline-block;
     color: var(--el-text-color-secondary);
     font-size: var(--vi-font-size-sm);
+    line-height: 1.3;
+    border-bottom: 1px dashed var(--el-text-color-secondary);
+    padding-bottom: 1px;
   }
 
-  .workbench-metric-card__value {
+  .workbench-metric-card__value,
+  .wb-stat-card__value {
     margin-top: 8px;
     color: var(--el-text-color-primary);
-    font-size: 34px;
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.2;
     font-variant-numeric: tabular-nums;
   }
 
-  .workbench-metric-card__footer {
+  .workbench-metric-card__footer,
+  .wb-stat-card__footer {
     margin-top: 8px;
     display: flex;
     align-items: center;
@@ -38,17 +52,57 @@
     font-size: 12px;
   }
 
-  .workbench-metric-card__trend.is-up {
+  .workbench-metric-card__trend.is-up,
+  .wb-stat-card__trend.is-up,
+  .workbench-metric-card__trend-value.is-up,
+  .wb-table-trend--up {
     color: var(--wb-trend-up);
   }
 
-  .workbench-metric-card__trend.is-down {
+  .workbench-metric-card__trend.is-down,
+  .wb-stat-card__trend.is-down,
+  .workbench-metric-card__trend-value.is-down,
+  .wb-table-trend--down {
     color: var(--wb-success);
   }
 
+  .workbench-metric-card__trend,
+  .wb-stat-card__trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .workbench-metric-card__trend-label {
+    color: var(--el-text-color-placeholder);
+  }
+
+  .workbench-metric-card__trend-value {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .wb-stat-grid--4 {
+    --wb-stat-grid-columns: 4;
+  }
+
+  .wb-stat-grid--3 {
+    --wb-stat-grid-columns: 3;
+  }
+
+  .wb-stat-card--compact {
+    padding: 12px;
+  }
+
+  .wb-stat-card--compact .wb-stat-card__value {
+    font-size: 28px;
+  }
+
   @media (max-width: 1366px) {
-    .workbench-metrics {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+    .workbench-metrics,
+    .wb-stat-grid {
+      --wb-stat-grid-columns: 3;
     }
   }
 }

@@ -94,7 +94,7 @@
 ```vue
 <div class="workbench-topbar__user">
   <div class="workbench-topbar__avatar"
-       style="background: var(--wb-user-avatar-bg);">
+       style="background: var(--el-color-primary);">
     <!-- 头像或图标 -->
   </div>
   <div class="workbench-topbar__user-info">

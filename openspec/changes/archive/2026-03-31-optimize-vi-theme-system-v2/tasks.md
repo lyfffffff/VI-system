@@ -1,4 +1,4 @@
-﻿## 1. 主题配置与类型收敛
+## 1. 主题配置与类型收敛
 
 - [x] 1.1 将 `theme-config` 调整为单一数据源，确保 17 预设主题仅维护一处。
 - [x] 1.2 让 `ThemeColorKey` 从主题配置推导，消除类型与配置双维护。
@@ -52,16 +52,13 @@
 - [x] 9.2 更新 `docs/guides/theme-drawer-integration.md`，补充局部覆盖与回滚建议。
 - [x] 9.3 在 OpenSpec 变更中同步维护 proposal/design/specs/tasks 一致性。
 
-## 10. 样式治理规范沉淀
 
-- [x] 10.1 新增 `VI_STYLE_CONTRACT.md`，明确样式分层、修改边界与评审清单。
 - [x] 10.2 将治理规范同步到当前 OpenSpec change（proposal/design/tasks）。
 - [x] 10.3 约定后续组件改造必须通过 Storybook 回归场景验收。
 
 
 ## 11. 高保真原型规范化清单落地
 
-- [x] 11.1 新增 `docs/guides/prototype-normalization-checklist.md`，沉淀规范化目标、分阶段条目与 DoD。
 - [x] 11.2 Foundation Token：完成颜色/圆角/阴影/字号与等宽数字的全量对齐。
 - [x] 11.3 Layout Token：完成顶栏/侧栏/内容区/背景的变量化约束。
 - [x] 11.4 筛选条组件族：完成时间分段、快捷按钮、日期控件的一比一还原。
@@ -72,5 +69,3 @@
 - [x] 11.9 弹层体系：完成 dialog/drawer 的圆角与 footer 行为规范。
 - [x] 11.10 暗黑模式：完成全链路暗色变量配对与交互态校验。
 - [x] 11.11 Storybook：补齐 Prototype Regression 场景并纳入回归门槛。
-
-

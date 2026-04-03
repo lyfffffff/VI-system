@@ -25,6 +25,7 @@ const THEME_PRESET_SOURCE = [
   { key: 'rose', name: '玫瑰红', englishName: 'Rose', hex: '#f43f5e' },
 ] as const
 
+/** 主题预设 key 联合类型。 */
 export type ThemeColorKey = (typeof THEME_PRESET_SOURCE)[number]['key']
 
 // 启动时校验主题配置，避免重复 key、数量偏差和非法色值进入运行时。
@@ -50,18 +51,22 @@ function validateThemePresetSource(): void {
 
 validateThemePresetSource()
 
+/** 系统默认主题 key。 */
 export const DEFAULT_THEME: ThemeColorKey = 'teal'
 
+/** 主题 key 的默认存储键。 */
 export const THEME_STORAGE_KEY = 'vi-theme-key'
+/** 暗黑模式状态的默认存储键。 */
 export const DARK_STORAGE_KEY = 'vi-theme-dark'
 
+/** 对外暴露的主题预设列表。 */
 export const THEME_PRESETS: IThemePreset<ThemeColorKey>[] = THEME_PRESET_SOURCE.map((item, index) => ({
   ...item,
   order: index + 1,
   rgb: hexToRgb(item.hex),
 }))
 
-// 主题 key 到预设详情的快速查询表。
+/** 主题 key 到预设详情的快速查询表。 */
 export const THEME_PRESET_MAP = THEME_PRESETS.reduce<Record<ThemeColorKey, IThemePreset<ThemeColorKey>>>((acc, item) => {
   acc[item.key] = item
   return acc

@@ -35,6 +35,38 @@ TBD - created by archiving change add-vi-theme-drawer. Update Purpose after arch
 - **THEN** 语义变量、映射变量与运行时注入 MUST 同步生效
 - **AND** 不得出现仅 TS 层生效而样式层失效的情况
 
+### Requirement: Element Plus 组件主题改造优先级
+系统 MUST 对基础组件样式改造执行固定优先级：`CSS var` > `业务 class` > `直接覆盖组件内部样式`，并 SHALL 将直接覆盖限制为兜底手段。
+
+#### Scenario: 变量可满足需求
+- **WHEN** 某组件样式差异可通过语义变量与映射变量表达
+- **THEN** 实现 MUST 仅修改变量层，不得新增组件内部样式覆盖
+
+#### Scenario: 变量无法满足需求
+- **WHEN** 某视觉差异无法由变量层表达（如拼接圆角、结构性状态样式）
+- **THEN** 实现 MAY 在业务 class 作用域增加覆盖
+- **AND** 若仍不足才 MAY 使用组件内部样式覆盖作为兜底
+
+### Requirement: 业务局部主题覆盖优先级
+系统 MUST 支持业务局部作用域覆盖语义变量，且 SHALL 保证局部覆盖优先于全局默认主题，不影响作用域外页面。
+
+#### Scenario: 页面局部覆盖生效
+- **WHEN** 业务页面在局部容器内覆写语义变量（例如 `--*-color-primary`）
+- **THEN** 该容器内组件 MUST 使用局部变量渲染
+- **AND** 容器外组件 MUST 继续使用全局主题变量
+
+#### Scenario: 局部未定义变量回退
+- **WHEN** 局部容器仅覆写部分语义变量
+- **THEN** 未覆写变量 MUST 回退到全局主题值
+
+### Requirement: 覆盖样式文件按组件拆分
+系统 MUST 将主题覆盖样式按组件职责拆分并统一聚合引入，以降低改动影响面并提升可维护性。
+
+#### Scenario: 新增组件覆盖
+- **WHEN** 需要新增某组件（如 table、drawer）的覆盖规则
+- **THEN** 规则 MUST 写入对应组件覆盖文件
+- **AND** 聚合入口 MUST 保持稳定引入顺序
+
 ### Requirement: 暗黑模式双层机制
 系统 MUST 同时支持 CSS fallback 与 JS 运行时注入的暗黑模式机制，并 SHALL 明确以 `html.dark` 作为暗黑状态基准。
 
@@ -77,4 +109,97 @@ TBD - created by archiving change add-vi-theme-drawer. Update Purpose after arch
 - **WHEN** 完成 V1 主题系统开发并进行验收
 - **THEN** 主题抽屉 MUST 仅包含“模式设置”和“主题颜色”能力
 - **AND** V1 代码与文档 MUST 不包含水印控制项
+
+### Requirement: ELP 覆盖作用域分层
+系统 MUST 在覆盖层区分“全局覆盖”与“作用域覆盖”，并 SHALL 采用固定选择器策略：全局覆盖直接使用 `.el-*`，作用域覆盖仅允许在 `.vi-theme-scope` 下声明。
+
+#### Scenario: 全局覆盖规则落位
+- **WHEN** 某规则用于修正 Element Plus 默认样式与原型规范的通用差异（与业务容器无关）
+- **THEN** 该规则 MUST 直接使用全局 `.el-*` 选择器
+- **AND** 该规则 MUST NOT 放入 `.vi-theme-scope` 作用域容器
+
+#### Scenario: 作用域覆盖规则落位
+- **WHEN** 某规则依赖业务结构或业务 class（如拼接输入、快捷分段按钮）
+- **THEN** 该规则 MUST 仅在 `.vi-theme-scope` 下声明
+- **AND** 该规则 MUST NOT 直接作为全局 `.el-*` 覆盖
+
+### Requirement: ELP 覆盖最小差异集
+系统 MUST 将 `packages/vi/src/styles/element-ui/*.less` 与 `packages/vi/src/styles/workbench/*.less` 收敛为“仅保留 ELP 默认样式与原型差异”的最小覆盖集。
+
+#### Scenario: 冗余覆盖清理
+- **WHEN** 某覆盖规则与映射层变量能力重复，或不构成 ELP 与原型差异
+- **THEN** 该规则 MUST 从覆盖层组件文件中移除
+
+#### Scenario: 差异覆盖保留
+- **WHEN** 某视觉差异无法仅通过变量映射表达
+- **THEN** 该规则 MUST 保留在覆盖层组件文件中
+- **AND** 规则 SHOULD 优先复用现有变量而非硬编码品牌值
+
+### Requirement: 原型模块还原范围与实现约束
+系统 MUST 以原型页面为基线维护 Storybook 回归场景，并 SHALL 覆盖 `header`、`menu`、`history-tabs`、`filter`、`metrics`、`chart`、`table` 七个模块的视觉与交互基线。
+
+#### Scenario: 模块范围完整
+- **WHEN** 维护 `Theme/Prototype Regression` 场景
+- **THEN** 场景 MUST 按模块提供可对比的稳定结构与 class 锚点
+- **AND** 不得缺失上述七个模块中的任一项
+
+#### Scenario: ELP 优先实现
+- **WHEN** 模块交互存在 Element Plus 对应组件能力（例如菜单、下拉、分页、标签）
+- **THEN** 实现 MUST 以 ELP 组件为基础进行样式改造
+- **AND** 不得使用纯自定义 `div` 结构重写等价基础交互
+
+#### Scenario: 业务模块作用域约束
+- **WHEN** `filter`、`metrics`、`chart`、`table` 需要补充业务样式
+- **THEN** 规则 MUST 落在 `packages/vi/src/styles/workbench/*.less` 的业务作用域内
+- **AND** 规则 MUST 优先复用 `--vi-*` / `--wb-*` / `--el-*` 变量链路
+
+### Requirement: 原型视觉回归验收基线
+系统 MUST 以 `scripts/visual-regression/prototype-vs-storybook.config.mjs` 作为原型对比基线，并 SHALL 将阈值与预操作纳入稳定验收标准。
+
+#### Scenario: 回归执行参数一致
+- **WHEN** 执行原型视觉回归脚本
+- **THEN** 对比流程 MUST 使用配置文件声明的视口、等待、随机种子与模块选择器
+- **AND** 原型端与 Storybook 端 MUST 执行一致的预操作（例如切换至“昨日”）
+
+#### Scenario: 差异阈值判定
+- **WHEN** 任一模块完成截图对比
+- **THEN** 差异判定 MUST 使用配置中的 `pixelmatchThreshold` 与 `maxDiffRate`
+- **AND** 在 `failOnDiff: true` 下，超阈值结果 MUST 视为未通过验收
+
+### Requirement: 主题引擎全局单例
+系统 MUST 采用全局单例主题引擎，所有主题状态读取与写入 SHALL 共享同一状态源。
+
+#### Scenario: 多调用点共享状态
+- **WHEN** 应用内多个模块分别调用 `useViTheme()`
+- **THEN** 它们 MUST 读取到同一 `themeKey` 与 `isDark` 状态
+- **AND** 任一模块触发主题变更后，其他模块观察到的状态 MUST 同步更新
+
+### Requirement: 主题配置入口唯一化
+系统 MUST 将主题配置入口收敛为 `initViTheme(options)`；运行时消费入口 `useViTheme` SHALL 不再作为长期配置入口。
+
+#### Scenario: 初始化配置生效
+- **WHEN** 应用启动时调用 `initViTheme({ prefix, themeStorageKey, darkStorageKey })`
+- **THEN** 主题引擎 MUST 按该配置初始化并应用主题
+- **AND** 后续 `useViTheme()` 调用 MUST 复用已初始化配置
+
+#### Scenario: 多项目初始主题可配置且持久化优先
+- **WHEN** 应用启动时调用 `initViTheme({ defaultThemeKey })`
+- **THEN** 系统 MUST 在“无本地持久化主题值”时使用该初始主题
+- **AND** 用户后续切换主题后，系统 MUST 持久化并在刷新后优先恢复持久化值
+
+### Requirement: 动态主题值单一来源
+系统 MUST 以运行时主题引擎作为动态主题值的单一来源，并 SHALL 统一通过引擎输出更新语义变量。
+
+#### Scenario: 切换主题时统一注入
+- **WHEN** 用户切换主题色或明暗模式
+- **THEN** 系统 MUST 通过引擎完成变量计算与注入
+- **AND** `--el-*` 与 `--wb-*` 映射层 MUST 继续消费语义变量链路
+
+### Requirement: 前缀兼容同步策略
+系统 MUST 支持自定义前缀变量输出，并 SHALL 默认开启 `syncDefaultViPrefix` 以同步输出 `--vi-*` 兼容变量。
+
+#### Scenario: 自定义前缀默认兼容
+- **WHEN** 初始化配置使用自定义前缀且未显式关闭兼容同步
+- **THEN** 系统 MUST 同时输出自定义前缀变量与 `--vi-*` 变量
+- **AND** 既有依赖 `--vi-*` 的样式 MUST 继续生效
 

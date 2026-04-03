@@ -22,6 +22,34 @@
 />
 ```
 
+## ThemeDrawer 结构线框图（纯文本）
+```text
+┌────────────────────────────────────────────────────────┐
+│ ThemeDrawer（vi-theme-drawer）                        │
+├────────────────────────────────────────────────────────┤
+│ Header                                                 │
+│ [主题设置]                                    [✕ 关闭] │
+├────────────────────────────────────────────────────────┤
+│ 模式设置                                               │
+│ ┌──────────────────────┬──────────────────────┐       │
+│ │ 浅色模式             │ 暗黑模式             │       │
+│ │ 明亮清爽             │ 护眼舒适             │       │
+│ └──────────────────────┴──────────────────────┘       │
+├────────────────────────────────────────────────────────┤
+│ 主题颜色（Theme Grid）                                │
+│ [red][orange][amber][yellow]                          │
+│ [lime][green][emerald][teal]                          │
+│ [cyan][sky][blue][indigo]                             │
+│ [violet][purple][fuchsia][pink]                       │
+│ [rose]  （共 17 种）                                   │
+├────────────────────────────────────────────────────────┤
+│ 交互输出（Emits）                                      │
+│ - update:open(open: boolean)                          │
+│ - theme-change(themeKey: ThemeColorKey)               │
+│ - mode-change(isDark: boolean)                        │
+└────────────────────────────────────────────────────────┘
+```
+
 ## Props
 | 名称 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
@@ -40,10 +68,12 @@
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ThemeDrawer } from '@yyxxfe/vi'\nimport '@yyxxfe/vi/styles'
+import { ThemeDrawer, initViTheme } from '@yyxxfe/vi'
+import '@yyxxfe/vi/styles'
 import type { ThemeColorKey } from '@yyxxfe/vi'
 
 const open = ref(false)
+initViTheme({ prefix: 'vi' })
 
 function handleOpen(nextOpen: boolean) {
   open.value = nextOpen
@@ -72,6 +102,6 @@ function handleModeChange(isDark: boolean) {
 
 ## 相关 API
 - `useViTheme()`：主题状态与切换能力。
-- `initViTheme()`：应用初始化主题。
+- `initViTheme()`：应用初始化主题（唯一配置入口）。
 - 变量映射清单：`docs/guides/theme-mapping-checklist.md`。
 

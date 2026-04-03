@@ -9,7 +9,7 @@ import {
 } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { fn } from "@storybook/test";
-import { ThemeDrawer, THEME_PRESETS, useViTheme } from "@yyxxfe/vi";
+import { ThemeDrawer, THEME_PRESETS, initViTheme, useViTheme } from "@yyxxfe/vi";
 import type { IThemePreset, ThemeColorKey } from "@yyxxfe/vi";
 
 const meta: Meta<typeof ThemeDrawer> = {
@@ -103,9 +103,8 @@ export const Playground: Story = {
     components: { ThemeDrawer },
     setup() {
       const open = ref(Boolean(args.open));
-      const { themeKey, isDark, currentTheme, applyTheme } = useViTheme({
-        prefix: "vi",
-      });
+      initViTheme({ prefix: "vi" });
+      const { themeKey, isDark, currentTheme, applyTheme } = useViTheme();
       applyTheme();
 
       const themes = computed<IThemePreset[] | undefined>(() => {
@@ -182,9 +181,8 @@ export const ThemeRegression: Story = {
   },
   render: () => ({
     setup() {
-      const { themeKey, isDark, setTheme, setDark, applyTheme } = useViTheme({
-        prefix: "vi",
-      });
+      initViTheme({ prefix: "vi" });
+      const { themeKey, isDark, setTheme, setDark, applyTheme } = useViTheme();
       const activeIndex = ref(
         THEME_PRESETS.findIndex((item) => item.key === themeKey.value),
       );
@@ -269,7 +267,8 @@ export const ComponentRegression: Story = {
       const textareaValue = ref("这里用于验证 el-textarea 的圆角与边框映射。");
       const tabValue = ref("dashboard");
       const period = ref("day");
-      const { isDark, setDark, applyTheme } = useViTheme({ prefix: "vi" });
+      initViTheme({ prefix: "vi" });
+      const { isDark, setDark, applyTheme } = useViTheme();
 
       applyTheme();
 
@@ -434,7 +433,8 @@ export const PrefixAndScopedOverride: Story = {
   },
   render: () => ({
     setup() {
-      const { setTheme, applyTheme } = useViTheme({ prefix: "brand" });
+      initViTheme({ prefix: "brand" });
+      const { setTheme, applyTheme } = useViTheme();
       const debug = ref({
         activePrefix: "",
         viColor: "",

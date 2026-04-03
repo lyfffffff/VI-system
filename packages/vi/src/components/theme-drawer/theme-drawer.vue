@@ -76,73 +76,75 @@
 
 <script setup lang="ts">
 // 主题抽屉组件：提供主题色与明暗模式切换的统一交互面板。
-import { computed } from 'vue'
-import { BrushFilled, Moon, Select } from '@element-plus/icons-vue'
-import { THEME_PRESETS } from '../../theme/theme-config'
-import { useViTheme } from '../../composables/use-vi-theme'
-import type { IThemePreset, ThemeColorKey } from '../../types/theme'
+import { computed } from "vue";
+import { BrushFilled, Moon, Select } from "@element-plus/icons-vue";
+import { THEME_PRESETS } from "../../theme/theme-config";
+import { useViTheme } from "../../composables/use-vi-theme";
+import type { IThemePreset, ThemeColorKey } from "../../types/theme";
 
 interface Props {
   /**
    * @description 抽屉是否打开。
    * @default false
    */
-  open?: boolean
+  open?: boolean;
   /**
    * @description 抽屉展开方向。
    * @default 'right'
    */
-  placement?: 'right' | 'left'
+  placement?: "right" | "left";
   /**
    * @description 自定义主题列表；未传入时使用内置 `THEME_PRESETS`。
    * @default THEME_PRESETS
    */
-  themes?: IThemePreset<ThemeColorKey>[]
+  themes?: IThemePreset<ThemeColorKey>[];
 }
 
 const props = withDefaults(defineProps<Props>(), {
   open: false,
-  placement: 'right',
+  placement: "right",
   themes: () => THEME_PRESETS,
-})
+});
 
 const emit = defineEmits<{
   /** 更新打开状态 */
-  'update:open': [open: boolean]
+  "update:open": [open: boolean];
   /** 主题变化事件 */
-  'theme-change': [themeKey: ThemeColorKey]
+  "theme-change": [themeKey: ThemeColorKey];
   /** 模式变化事件 */
-  'mode-change': [isDark: boolean]
-}>()
+  "mode-change": [isDark: boolean];
+}>();
 
-const { themeKey, isDark, setTheme, setDark } = useViTheme()
+const { themeKey, isDark, setTheme, setDark } = useViTheme();
 
-const drawerVisible = computed(() => props.open)
-const drawerDirection = computed(() => (props.placement === 'left' ? 'ltr' : 'rtl'))
-const themes = computed(() => props.themes)
+const drawerVisible = computed(() => props.open);
+const drawerDirection = computed(() =>
+  props.placement === "left" ? "ltr" : "rtl",
+);
+const themes = computed(() => props.themes);
 
 // 透传抽屉开关状态到外层 v-model。
 function handleOpenChange(open: boolean): void {
-  emit('update:open', open)
+  emit("update:open", open);
 }
 
 // 关闭抽屉。
 function handleClose(): void {
-  emit('update:open', false)
+  emit("update:open", false);
 }
 
 // 切换主题色并抛出主题变更事件。
 function handleThemeChange(nextThemeKey: ThemeColorKey): void {
-  if (themeKey.value === nextThemeKey) return
-  setTheme(nextThemeKey)
-  emit('theme-change', nextThemeKey)
+  if (themeKey.value === nextThemeKey) return;
+  setTheme(nextThemeKey);
+  emit("theme-change", nextThemeKey);
 }
 
 // 切换明暗模式并抛出模式变更事件。
 function handleModeSwitch(nextDark: boolean): void {
-  if (isDark.value === nextDark) return
-  setDark(nextDark)
-  emit('mode-change', nextDark)
+  if (isDark.value === nextDark) return;
+  setDark(nextDark);
+  emit("mode-change", nextDark);
 }
 </script>
 

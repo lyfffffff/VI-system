@@ -7,6 +7,12 @@
     "build:vi": "pnpm --filter @yyxxfe/vi build",
     "dev:storybook": "pnpm build:vi && pnpm --filter @vi/storybook dev",
     "build:storybook": "pnpm build:vi && pnpm --filter @vi/storybook build",
-    "preview:storybook": "pnpm --filter @vi/storybook preview"
+    "preview:storybook": "pnpm --filter @vi/storybook preview",
+    "visual:compare": "node scripts/visual-regression/prototype-vs-storybook.mjs"
+  },
+  "devDependencies": {
+    "pixelmatch": "^7.1.0",
+    "playwright": "^1.54.1",
+    "pngjs": "^7.0.0"
   }
 }

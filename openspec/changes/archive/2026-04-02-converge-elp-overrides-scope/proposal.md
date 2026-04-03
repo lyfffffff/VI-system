@@ -43,13 +43,17 @@
 
 ### Modified Capabilities
 - `theme-system`：补充 ELP 覆盖最小化与作用域分层规则（全局 `.el-*` / 作用域 `.vi-theme-scope`）。
+- `component-docs`：Storybook 预览样式分层（宿主基础层与 Story 演示层拆分）。
 
 ## Impact
 
 - **受影响代码**
   - `packages/vi/src/styles/overrides/*.less`
   - `packages/vi/src/styles/workbench-overrides.less`
+  - `apps/storybook/.storybook/preview.css`
+  - `apps/storybook/.storybook/preview.stories.css`
 - **受影响系统**
   - VI 样式覆盖层（overrides）
+  - Storybook 预览样式结构
 - **依赖影响**
   - 无新增依赖
