@@ -153,19 +153,6 @@ TBD - created by archiving change add-vi-theme-drawer. Update Purpose after arch
 - **THEN** 规则 MUST 落在 `packages/vi/src/styles/workbench/*.less` 的业务作用域内
 - **AND** 规则 MUST 优先复用 `--vi-*` / `--wb-*` / `--el-*` 变量链路
 
-### Requirement: 原型视觉回归验收基线
-系统 MUST 以 `scripts/visual-regression/prototype-vs-storybook.config.mjs` 作为原型对比基线，并 SHALL 将阈值与预操作纳入稳定验收标准。
-
-#### Scenario: 回归执行参数一致
-- **WHEN** 执行原型视觉回归脚本
-- **THEN** 对比流程 MUST 使用配置文件声明的视口、等待、随机种子与模块选择器
-- **AND** 原型端与 Storybook 端 MUST 执行一致的预操作（例如切换至“昨日”）
-
-#### Scenario: 差异阈值判定
-- **WHEN** 任一模块完成截图对比
-- **THEN** 差异判定 MUST 使用配置中的 `pixelmatchThreshold` 与 `maxDiffRate`
-- **AND** 在 `failOnDiff: true` 下，超阈值结果 MUST 视为未通过验收
-
 ### Requirement: 主题引擎全局单例
 系统 MUST 采用全局单例主题引擎，所有主题状态读取与写入 SHALL 共享同一状态源。
 
@@ -202,4 +189,3 @@ TBD - created by archiving change add-vi-theme-drawer. Update Purpose after arch
 - **WHEN** 初始化配置使用自定义前缀且未显式关闭兼容同步
 - **THEN** 系统 MUST 同时输出自定义前缀变量与 `--vi-*` 变量
 - **AND** 既有依赖 `--vi-*` 的样式 MUST 继续生效
-

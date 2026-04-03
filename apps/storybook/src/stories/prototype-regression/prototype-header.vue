@@ -63,7 +63,22 @@
       <button type="button" class="workbench-topbar__icon-btn" aria-label="帮助中心">
         <el-icon><Service /></el-icon>
       </button>
-      <button type="button" class="workbench-topbar__icon-btn" aria-label="切换暗黑模式" title="切换暗黑模式">
+      <button
+        type="button"
+        class="workbench-topbar__icon-btn"
+        aria-label="主题设置"
+        title="主题设置"
+        @click="handleThemeDrawerOpen"
+      >
+        <el-icon><Setting /></el-icon>
+      </button>
+      <button
+        type="button"
+        class="workbench-topbar__icon-btn"
+        aria-label="切换暗黑模式"
+        title="切换暗黑模式"
+        @click="handleDarkModeToggle"
+      >
         <el-icon><MoonNight /></el-icon>
       </button>
       <span class="workbench-topbar__divider" aria-hidden="true" />
@@ -82,7 +97,7 @@
 </template>
 
 <script setup lang="ts">
-import { ArrowDown, Bell, Download, MoonNight, Service, UserFilled } from "@element-plus/icons-vue";
+import { ArrowDown, Bell, Download, MoonNight, Service, Setting, UserFilled } from "@element-plus/icons-vue";
 
 interface NavItem {
   key: string;
@@ -104,9 +119,19 @@ defineProps<Props>();
 
 const emit = defineEmits<{
   "update:activeNav": [value: string];
+  "open-theme-drawer": [];
+  "toggle-dark": [];
 }>();
 
 function handleNavSelect(key: string): void {
   emit("update:activeNav", key);
+}
+
+function handleDarkModeToggle(): void {
+  emit("toggle-dark");
+}
+
+function handleThemeDrawerOpen(): void {
+  emit("open-theme-drawer");
 }
 </script>

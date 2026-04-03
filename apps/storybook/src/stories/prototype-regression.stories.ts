@@ -1,8 +1,8 @@
-﻿// 原型回归 Story：用于验证 data-cockpit 关键模块在主题系统下的视觉一致性。
+// 原型回归 Story：用于验证 data-cockpit 关键模块在主题系统下的视觉一致性。
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { ArrowDown, ArrowRight, ArrowUp, Operation, Refresh } from "@element-plus/icons-vue";
-import { initViTheme, useViTheme } from "@yyxxfe/vi";
+import { initViTheme, ThemeDrawer, useViTheme } from "@yyxxfe/vi";
 import PrototypeHeader from "./prototype-regression/prototype-header.vue";
 import PrototypeHistoryTabs from "./prototype-regression/prototype-history-tabs.vue";
 import PrototypeMenu from "./prototype-regression/prototype-menu.vue";
@@ -36,7 +36,7 @@ interface ITableRow {
 }
 
 const meta: Meta = {
-  title: "Theme/Prototype Regression",
+  title: "主题/原型回归",
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
@@ -54,6 +54,7 @@ export default meta;
 type Story = StoryObj;
 
 export const DataCockpitPrototype: Story = {
+  name: "数据驾驶舱原型",
   render: () => ({
     components: {
       Refresh,
@@ -61,6 +62,7 @@ export const DataCockpitPrototype: Story = {
       ArrowDown,
       ArrowRight,
       ArrowUp,
+      ThemeDrawer,
       PrototypeHeader,
       PrototypeMenu,
       PrototypeHistoryTabs,
@@ -84,12 +86,13 @@ export const DataCockpitPrototype: Story = {
       const compareGames = ref<string[]>(["fumo-main", "xianyu-main", "origin-main"]);
       const isRefreshing = ref(false);
       const lastUpdateTime = ref(new Date());
+      const themeDrawerOpen = ref(false);
       let clockTimer: number | undefined;
       const metricPageIndex = ref(0);
       const isSidebarCollapsed = ref(false);
 
       initViTheme({ prefix: "vi" });
-      const { themeKey, isDark, setTheme, setDark, applyTheme } = useViTheme();
+      const { setTheme, setDark, toggleDark, applyTheme } = useViTheme();
       applyTheme();
       setTheme("blue");
       setDark(false);
@@ -465,6 +468,7 @@ export const DataCockpitPrototype: Story = {
         compareGames,
         isRefreshing,
         lastUpdateTime,
+        themeDrawerOpen,
         formattedUpdateTime,
         metricPageIndex,
         isSidebarCollapsed,
@@ -507,6 +511,8 @@ export const DataCockpitPrototype: Story = {
             :nav-items="navItems"
             :active-nav="activeNav"
             @update:active-nav="activeNav = $event"
+            @open-theme-drawer="themeDrawerOpen = true"
+            @toggle-dark="toggleDark"
           />
 
           <div class="workbench-shell__body">
@@ -853,6 +859,8 @@ export const DataCockpitPrototype: Story = {
             </div>
           </template>
         </el-dialog>
+
+        <ThemeDrawer v-model:open="themeDrawerOpen" />
 
       </div>
     `,

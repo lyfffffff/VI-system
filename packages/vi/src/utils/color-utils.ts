@@ -4,7 +4,7 @@ import type { IThemeVariants, ThemeColorKey } from '../types/theme'
 const WARM_THEME_KEYS: ThemeColorKey[] = ['red', 'orange', 'amber', 'yellow', 'pink', 'rose']
 
 const WARM_LIGHT_BG = 'linear-gradient(180deg, #fcf3eb 0%, #faf6f0 48%, #f8f6f3 100%)'
-const COLD_LIGHT_BG = 'linear-gradient(180deg, #e8f0fb 0%, #eef3fb 48%, #f2f6fb 100%)'
+const COLD_LIGHT_BG = 'linear-gradient(180deg, #eef3fb 0%, #f4f7fc 48%, #f6f8fb 100%)'
 const DARK_BG = 'linear-gradient(180deg, #141618 0%, #111214 48%, #0f1012 100%)'
 
 function clamp(value: number): number {

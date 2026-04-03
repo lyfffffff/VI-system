@@ -17,23 +17,6 @@ export function resolveThemeVarMap(prefix: string, themeKey: ThemeColorKey, isDa
   const preset = THEME_PRESET_MAP[themeKey]
   const variants = getThemeVariants(preset.hex)
 
-  const surfaceBody = isDark ? '#111214' : '#f4f7fc'
-  const surfacePanel = isDark ? '#1d1e1f' : '#ffffff'
-  const surfacePanelMuted = isDark ? '#232425' : '#f8fafd'
-  const surfaceOverlay = isDark ? 'rgba(20, 28, 32, 0.96)' : 'rgba(248, 250, 252, 0.96)'
-
-  const textPrimary = isDark ? '#e5eaf3' : '#23345f'
-  const textSecondary = isDark ? '#b7c0d0' : '#52607a'
-  const textMuted = isDark ? '#98a2b3' : '#7d8799'
-  const textDisabled = isDark ? '#7f8797' : '#a6adbb'
-
-  const borderDefault = isDark ? '#363637' : '#dfe5ef'
-  const borderLight = isDark ? '#2f3134' : '#edf2f7'
-  const borderStrong = isDark ? '#4b4e53' : '#c7d0dd'
-
-  const fillSoft = isDark ? '#242629' : '#f3f6fb'
-  const fillMuted = isDark ? '#2f3237' : '#e9eff7'
-
   const focusRing = `rgba(${preset.rgb}, 0.26)`
   const sidebarActive = `rgba(${preset.rgb}, ${isDark ? '0.22' : '0.14'})`
   const sidebarHover = `rgba(${preset.rgb}, ${isDark ? '0.14' : '0.06'})`
@@ -53,22 +36,6 @@ export function resolveThemeVarMap(prefix: string, themeKey: ThemeColorKey, isDa
     [createVarName(normalizedPrefix, 'color-primary-dark-2')]: variants.dark2,
 
     [createVarName(normalizedPrefix, 'page-bg')]: pageBg,
-    [createVarName(normalizedPrefix, 'surface-body')]: surfaceBody,
-    [createVarName(normalizedPrefix, 'surface-panel')]: surfacePanel,
-    [createVarName(normalizedPrefix, 'surface-panel-muted')]: surfacePanelMuted,
-    [createVarName(normalizedPrefix, 'surface-overlay')]: surfaceOverlay,
-
-    [createVarName(normalizedPrefix, 'text-primary')]: textPrimary,
-    [createVarName(normalizedPrefix, 'text-secondary')]: textSecondary,
-    [createVarName(normalizedPrefix, 'text-muted')]: textMuted,
-    [createVarName(normalizedPrefix, 'text-disabled')]: textDisabled,
-
-    [createVarName(normalizedPrefix, 'border-default')]: borderDefault,
-    [createVarName(normalizedPrefix, 'border-light')]: borderLight,
-    [createVarName(normalizedPrefix, 'border-strong')]: borderStrong,
-
-    [createVarName(normalizedPrefix, 'fill-soft')]: fillSoft,
-    [createVarName(normalizedPrefix, 'fill-muted')]: fillMuted,
     [createVarName(normalizedPrefix, 'focus-ring')]: focusRing,
 
     [createVarName(normalizedPrefix, 'sidebar-item-active')]: sidebarActive,
@@ -76,13 +43,6 @@ export function resolveThemeVarMap(prefix: string, themeKey: ThemeColorKey, isDa
     [createVarName(normalizedPrefix, 'tag-bg')]: tagBg,
     [createVarName(normalizedPrefix, 'tag-border')]: tagBorder,
     [createVarName(normalizedPrefix, 'tag-text')]: preset.hex,
-
-    [createVarName(normalizedPrefix, 'shadow-panel')]: isDark
-      ? '0 8px 24px rgba(0, 0, 0, 0.36)'
-      : '0 6px 18px rgba(31, 42, 68, 0.04)',
-    [createVarName(normalizedPrefix, 'shadow-popover')]: isDark
-      ? '0 12px 32px rgba(0, 0, 0, 0.38)'
-      : '0 12px 32px rgba(15, 23, 42, 0.14)',
   }
 
   return vars

@@ -37,13 +37,6 @@
   - `packages/vi/src/styles/workbench/*`
 - 目的是把“组件库覆盖”和“业务工作台样式”边界明确化。
 
-### 6) 视觉回归自动化链路（Playwright）
-- 建立原型 vs Storybook 的视觉回归脚本与配置：
-  - `scripts/visual-regression/prototype-vs-storybook.mjs`
-  - `scripts/visual-regression/prototype-vs-storybook.config.mjs`
-- 入口命令：`pnpm visual:compare`
-- 支持场景化截图、diff 输出、报告归档。
-
 ### 8) Storybook 预览样式分层
 - 将 Storybook 预览样式拆分为：
   - 宿主基础层：`apps/storybook/.storybook/preview.css`

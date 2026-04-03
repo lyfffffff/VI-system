@@ -2,7 +2,7 @@
 @import "./tokens.less";
 
 :root {
-  // 定义了默认的主题色，以及主题色变体，可以通过主题组件覆盖修改
+  // 依赖 @vi-token-primary 的主题色变量；切换主题时会被运行时覆盖（resolveThemeVarMap）。
   --vi-color-primary: @vi-token-primary;
   --vi-color-primary-rgb: red(@vi-token-primary), green(@vi-token-primary), blue(@vi-token-primary);
   --vi-color-primary-light-3: mix(#fff, @vi-token-primary, 30%);
@@ -12,10 +12,11 @@
   --vi-color-primary-light-9: mix(#fff, @vi-token-primary, 90%);
   --vi-color-primary-dark-2: mix(#000, @vi-token-primary, 20%);
 
+  // 依赖主题色的页面背景默认值；切换主题时会被运行时覆盖。
   --vi-page-bg:
     radial-gradient(
       circle at top right,
-      rgba(20, 184, 166, 0.12),
+      fade(@vi-token-primary, 12%),
       transparent 32%
     ),
     linear-gradient(180deg, #eef3fb 0%, #f4f7fc 48%, #f6f8fb 100%);
@@ -36,6 +37,7 @@
 
   --vi-fill-soft: @vi-token-fill-soft-light;
   --vi-fill-muted: @vi-token-fill-muted-light;
+  // 依赖主题色的交互高亮默认值；切换主题时会被运行时覆盖。
   --vi-focus-ring: fade(@vi-token-primary, 8%);
 
   --vi-trend-up: @vi-token-trend-up;
@@ -82,18 +84,20 @@
   --vi-chart-legend-color: var(--vi-text-secondary);
   --vi-chart-comparison: #9ca3af;
 
-  --vi-sidebar-item-active: rgba(20, 184, 166, 0.14);
-  --vi-sidebar-item-hover: rgba(20, 184, 166, 0.06);
-  --vi-tag-bg: rgba(20, 184, 166, 0.1);
-  --vi-tag-border: rgba(20, 184, 166, 0.16);
+  // 依赖主题色的业务态默认值；切换主题时会被运行时覆盖。
+  --vi-sidebar-item-active: fade(@vi-token-primary, 14%);
+  --vi-sidebar-item-hover: fade(@vi-token-primary, 6%);
+  --vi-tag-bg: fade(@vi-token-primary, 10%);
+  --vi-tag-border: fade(@vi-token-primary, 16%);
   --vi-tag-text: @vi-token-primary;
 }
 
 html.dark {
+  // 依赖主题色的暗色背景默认值；切换主题时会被运行时覆盖。
   --vi-page-bg:
     radial-gradient(
       circle at top right,
-      rgba(20, 184, 166, 0.06),
+      fade(@vi-token-primary, 6%),
       transparent 32%
     ),
     linear-gradient(180deg, #141618 0%, #111214 48%, #0f1012 100%);
@@ -125,8 +129,9 @@ html.dark {
   --vi-chart-legend-color: var(--vi-text-secondary);
   --vi-chart-comparison: #7b8496;
 
-  --vi-sidebar-item-active: rgba(20, 184, 166, 0.22);
-  --vi-sidebar-item-hover: rgba(20, 184, 166, 0.14);
-  --vi-tag-bg: rgba(20, 184, 166, 0.2);
-  --vi-tag-border: rgba(20, 184, 166, 0.32);
+  // 依赖主题色的暗色业务态默认值；切换主题时会被运行时覆盖。
+  --vi-sidebar-item-active: fade(@vi-token-primary, 22%);
+  --vi-sidebar-item-hover: fade(@vi-token-primary, 14%);
+  --vi-tag-bg: fade(@vi-token-primary, 20%);
+  --vi-tag-border: fade(@vi-token-primary, 32%);
 }

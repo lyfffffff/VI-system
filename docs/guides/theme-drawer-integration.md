@@ -85,9 +85,8 @@ pnpm dev:storybook
 
 打开 `http://localhost:6006`，在 `Theme/Theme Drawer` 查看：
 - Playground
+- ThemeVariantSwatches（主题变体色卡）
 - ThemeRegression（亮/暗 + 17 色）
-- ComponentRegression（组件矩阵）
-- PrefixAndScopedOverride（prefix + 局部覆盖）
 
 ## 6. 回滚建议
 若 V2 改造出现大范围样式回归，建议按以下顺序回滚：
