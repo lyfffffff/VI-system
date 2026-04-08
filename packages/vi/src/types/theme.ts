@@ -34,14 +34,10 @@ export interface IThemeVariants {
 export interface IViThemeOptions {
   /** @description 初始主题 key（仅在无持久化值时生效）。 */
   defaultThemeKey?: ThemeColorKey
-  /** @description CSS 变量前缀。 */
-  prefix?: string
   /** @description 主题 key 本地存储键名。 */
   themeStorageKey?: string
   /** @description 暗黑模式本地存储键名。 */
   darkStorageKey?: string
-  /** @description 是否在自定义前缀场景同步输出默认 `--vi-*` 变量（默认 true）。 */
-  syncDefaultViPrefix?: boolean
 }
 
 export interface IViThemeState {

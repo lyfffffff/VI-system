@@ -30,11 +30,6 @@ TBD - created by archiving change add-vi-theme-drawer. Update Purpose after arch
 - **THEN** 系统 MUST 继续通过映射层驱动组件样式
 - **AND** 不要求业务项目直接覆写 `--el-*`
 
-#### Scenario: 前缀可配置链路完整
-- **WHEN** 业务项目将主题前缀从默认值调整为自定义前缀
-- **THEN** 语义变量、映射变量与运行时注入 MUST 同步生效
-- **AND** 不得出现仅 TS 层生效而样式层失效的情况
-
 ### Requirement: Element Plus 组件主题改造优先级
 系统 MUST 对基础组件样式改造执行固定优先级：`CSS var` > `业务 class` > `直接覆盖组件内部样式`，并 SHALL 将直接覆盖限制为兜底手段。
 
@@ -165,7 +160,7 @@ TBD - created by archiving change add-vi-theme-drawer. Update Purpose after arch
 系统 MUST 将主题配置入口收敛为 `initViTheme(options)`；运行时消费入口 `useViTheme` SHALL 不再作为长期配置入口。
 
 #### Scenario: 初始化配置生效
-- **WHEN** 应用启动时调用 `initViTheme({ prefix, themeStorageKey, darkStorageKey })`
+- **WHEN** 应用启动时调用 `initViTheme({ themeStorageKey, darkStorageKey })`
 - **THEN** 主题引擎 MUST 按该配置初始化并应用主题
 - **AND** 后续 `useViTheme()` 调用 MUST 复用已初始化配置
 
@@ -181,11 +176,3 @@ TBD - created by archiving change add-vi-theme-drawer. Update Purpose after arch
 - **WHEN** 用户切换主题色或明暗模式
 - **THEN** 系统 MUST 通过引擎完成变量计算与注入
 - **AND** `--el-*` 与 `--wb-*` 映射层 MUST 继续消费语义变量链路
-
-### Requirement: 前缀兼容同步策略
-系统 MUST 支持自定义前缀变量输出，并 SHALL 默认开启 `syncDefaultViPrefix` 以同步输出 `--vi-*` 兼容变量。
-
-#### Scenario: 自定义前缀默认兼容
-- **WHEN** 初始化配置使用自定义前缀且未显式关闭兼容同步
-- **THEN** 系统 MUST 同时输出自定义前缀变量与 `--vi-*` 变量
-- **AND** 既有依赖 `--vi-*` 的样式 MUST 继续生效

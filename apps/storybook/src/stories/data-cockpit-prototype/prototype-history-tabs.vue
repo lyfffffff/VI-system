@@ -1,3 +1,4 @@
+<!-- 组件：历史标签 -->
 <template>
   <div class="workbench-tags-view">
     <el-tabs

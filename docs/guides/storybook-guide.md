@@ -50,7 +50,7 @@ pnpm --filter @vi/storybook preview
   - `docs.autodocs`：`tag`
 - `preview.ts`
   - 注册 `ElementPlus`
-  - 初始化 `initViTheme({ prefix: "vi" })`
+  - 初始化 `initViTheme()`
   - 通过 `themeMode`（light/dark）toolbar + decorator 同步全局主题模式
 
 ## 维护要求

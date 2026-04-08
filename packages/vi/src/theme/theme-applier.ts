@@ -1,28 +1,22 @@
-﻿// 主题注入器：负责将变量写入根节点，并同步 dataset 与 dark class。
-import type { ThemeColorKey } from './theme-config'
-import type { IThemeVarMap } from './theme-resolver'
+// 主题注入器：负责将变量写入根节点，并同步 dataset 与 dark class。
+import type { ThemeColorKey } from "./theme-config";
+import type { IThemeVarMap } from "./theme-resolver";
 
 /**
  * 根节点主题注入载荷。
  */
 export interface IThemeApplyPayload {
   /** 当前主题 key。 */
-  themeKey: ThemeColorKey
-  /** 当前变量前缀。 */
-  prefix: string
+  themeKey: ThemeColorKey;
   /** 当前暗黑模式状态。 */
-  isDark: boolean
+  isDark: boolean;
   /** 需要写入根节点的变量映射列表。 */
-  varMaps: IThemeVarMap[]
-}
-
-function canUseDom(): boolean {
-  return typeof document !== 'undefined' && typeof window !== 'undefined'
+  varMaps: IThemeVarMap[];
 }
 
 function applyVarMap(target: HTMLElement, vars: IThemeVarMap): void {
   for (const [name, value] of Object.entries(vars)) {
-    target.style.setProperty(name, value)
+    target.style.setProperty(name, value);
   }
 }
 
@@ -31,21 +25,20 @@ function applyVarMap(target: HTMLElement, vars: IThemeVarMap): void {
  * @param payload 主题注入载荷。
  */
 export function applyThemeToRoot(payload: IThemeApplyPayload): void {
-  if (!canUseDom()) return
-
-  const root = document.documentElement
+  const root = document.documentElement;
 
   for (const vars of payload.varMaps) {
-    applyVarMap(root, vars)
+    applyVarMap(root, vars);
   }
 
-  root.dataset.theme = payload.themeKey
-  root.dataset.viPrefix = payload.prefix
+  // dataset 仅保留当前主题 key，避免遗留历史字段影响排障。
+  root.dataset.theme = payload.themeKey;
+  delete root.dataset.viPrefix;
 
   if (payload.isDark) {
-    root.classList.add('dark')
-    return
+    root.classList.add("dark");
+    return;
   }
 
-  root.classList.remove('dark')
+  root.classList.remove("dark");
 }

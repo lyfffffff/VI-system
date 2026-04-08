@@ -64,7 +64,27 @@
 | `theme-change` | `(themeKey: ThemeColorKey) => void` | 用户在抽屉中选择新主题且切换成功后 |
 | `mode-change` | `(isDark: boolean) => void` | 用户切换浅色/暗黑模式且状态变化后 |
 
-## 页面接入完整示例
+## 初始化约束（必须）
+`initViTheme(options)` 是主题系统唯一配置入口，建议在应用入口执行一次。
+
+```ts
+import { createApp } from 'vue'
+import App from './App.vue'
+import { initViTheme } from '@yyxxfe/vi'
+import '@yyxxfe/vi/styles'
+
+const app = createApp(App)
+app.mount('#app')
+
+initViTheme({ defaultThemeKey: 'blue' })
+```
+
+说明：
+- `defaultThemeKey` 仅在“无持久化值”时生效。
+- 一旦用户切换主题并写入存储，刷新后会优先恢复用户上次选择。
+- `useViTheme()` 只负责读取/操作全局主题状态，不负责初始化配置。
+
+## 页面接入示例
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -73,7 +93,7 @@ import '@yyxxfe/vi/styles'
 import type { ThemeColorKey } from '@yyxxfe/vi'
 
 const open = ref(false)
-initViTheme({ prefix: 'vi' })
+initViTheme({ defaultThemeKey: 'blue' })
 
 function handleOpen(nextOpen: boolean) {
   open.value = nextOpen
@@ -100,8 +120,34 @@ function handleModeChange(isDark: boolean) {
 </template>
 ```
 
+## 局部覆盖推荐（3B）
+优先在局部容器（推荐 `.vi-theme-scope`）覆盖语义变量，不直接常态化覆写 `--el-*`。
+
+```vue
+<template>
+  <section class="vi-theme-scope page-theme-scope">
+    <MyPanel />
+  </section>
+</template>
+
+<style scoped>
+.page-theme-scope {
+  --vi-color-primary: #0ea5e9;
+  --vi-color-primary-rgb: 14, 165, 233;
+  --vi-tag-bg: rgba(14, 165, 233, 0.12);
+}
+</style>
+```
+
+## 本地预览
+```bash
+pnpm install
+pnpm dev:storybook
+```
+
 ## 相关 API
-- `useViTheme()`：主题状态与切换能力。
+- `useViTheme()`：主题状态与切换能力（读取/操作，不做初始化配置）。
 - `initViTheme()`：应用初始化主题（唯一配置入口）。
 - 变量映射清单：`docs/guides/theme-mapping-checklist.md`。
+- Storybook 指南：`docs/guides/storybook-guide.md`。
 

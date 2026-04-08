@@ -1,3 +1,4 @@
+<!-- 组件：侧边栏 -->
 <template>
   <aside class="workbench-sidebar" :class="{ 'is-collapsed': collapsed }">
     <el-scrollbar class="workbench-sidebar__scroll">

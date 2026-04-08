@@ -42,12 +42,18 @@ const isDarkRef = ref<boolean>(themeEngine.getState().isDark)
 
 let subscribed = false
 
+/**
+ * 同步主题引擎状态到响应式引用。
+ */
 function syncStateFromEngine(): void {
   const nextState = themeEngine.getState()
   themeKeyRef.value = nextState.themeKey
   isDarkRef.value = nextState.isDark
 }
 
+/**
+ * 绑定主题引擎订阅。
+ */
 function bindEngineSubscription(): void {
   if (subscribed) return
 

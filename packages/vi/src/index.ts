@@ -7,8 +7,10 @@ import './styles/workbench-overrides.less'
 
 export { initViTheme } from './theme/init-theme'
 export { useViTheme } from './composables/use-vi-theme'
+export { useAutoTableColWidth } from './composables/use-auto-table-col-width'
 export { THEME_PRESETS, DEFAULT_THEME } from './theme/theme-config'
 export { getThemeVariants } from './utils/color-utils'
 export type { ThemeColorKey, IThemePreset, IThemeVariants, IViThemeOptions, IViThemeState } from './types/theme'
+export type { IAutoTableColWidthColumn, IAutoTableColWidthOptions } from './composables/use-auto-table-col-width'
 
 export { default as ThemeDrawer } from './components/theme-drawer'

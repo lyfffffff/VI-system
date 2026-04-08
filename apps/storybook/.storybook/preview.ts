@@ -10,7 +10,7 @@ import './preview.stories.css'
 
 setup((app) => {
   app.use(ElementPlus)
-  initViTheme({ prefix: 'vi' })
+  initViTheme()
 })
 
 function applyStorybookMode(mode: 'light' | 'dark'): void {

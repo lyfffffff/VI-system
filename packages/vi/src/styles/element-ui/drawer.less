@@ -19,8 +19,19 @@
   border-radius: var(--el-border-radius-base);
 }
 
+.el-drawer .el-input-group .el-input__wrapper {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 .el-drawer__footer .el-button + .el-button {
   margin-left: 0;
+}
+
+.el-drawer .el-checkbox-button.is-checked .el-checkbox-button__inner {
+  background-color: var(--el-color-primary);
+  border-color: var(--el-color-primary);
+  box-shadow: -1px 0 0 0 var(--el-color-primary);
 }
 
 .vi-theme-scope {

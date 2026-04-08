@@ -1,26 +1,18 @@
 // ThemeDrawer Story 集合：覆盖基础交互与主题回归场景。
-import {
-  computed,
-  ref,
-  watch,
-} from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { fn } from "@storybook/test";
-import {
-  ThemeDrawer,
-  THEME_PRESETS,
-  getThemeVariants,
-  initViTheme,
-  useViTheme,
-} from "@yyxxfe/vi";
-import type { IThemePreset, IThemeVariants, ThemeColorKey } from "@yyxxfe/vi";
+import { ThemeDrawer, THEME_PRESETS } from "@yyxxfe/vi";
+import type { ThemeColorKey } from "@yyxxfe/vi";
+import ThemeDrawerPlayground from "./theme-drawer/theme-drawer-playground.vue";
+import ThemeDrawerRegressionMatrix from "./theme-drawer/theme-drawer-regression-matrix.vue";
+import ThemeDrawerVariantSwatches from "./theme-drawer/theme-drawer-variant-swatches.vue";
 
 const meta: Meta<typeof ThemeDrawer> = {
   title: "主题/主题抽屉",
   component: ThemeDrawer,
   tags: ["autodocs"],
   args: {
-    open: true,
+    open: false,
     placement: "right",
     themes: THEME_PRESETS,
     onUpdateOpen: fn<(open: boolean) => void>(),
@@ -104,86 +96,31 @@ type Story = StoryObj<typeof meta>;
 export const Playground: Story = {
   name: "Playground",
   render: (args) => ({
-    components: { ThemeDrawer },
+    components: { ThemeDrawerPlayground },
     setup() {
-      const open = ref(Boolean(args.open));
-      initViTheme({ prefix: "vi" });
-      const { themeKey, isDark, currentTheme, applyTheme } = useViTheme();
-      applyTheme();
-
-      const themes = computed<IThemePreset[] | undefined>(() => {
-        if (Array.isArray(args.themes) && args.themes.length > 0) {
-          return args.themes as IThemePreset[];
-        }
-        return THEME_PRESETS;
-      });
-
-      watch(
-        () => args.open,
-        (value) => {
-          open.value = Boolean(value);
-        },
-      );
-
-      // 同步 Storybook 控件中的 open 状态。
-      function handleUpdateOpen(nextOpen: boolean): void {
-        open.value = nextOpen;
-        args.onUpdateOpen?.(nextOpen);
+      function onStoryUpdateOpen(v: boolean): void {
+        args.onUpdateOpen?.(v);
       }
-
-      // 透传主题变更事件给 Storybook actions。
-      function handleThemeChange(nextThemeKey: ThemeColorKey): void {
-        args.onThemeChange?.(nextThemeKey);
+      function onStoryThemeChange(k: ThemeColorKey): void {
+        args.onThemeChange?.(k);
       }
-
-      // 透传模式变更事件给 Storybook actions。
-      function handleModeChange(nextDark: boolean): void {
-        args.onModeChange?.(nextDark);
+      function onStoryModeChange(dark: boolean): void {
+        args.onModeChange?.(dark);
       }
-
-      return {
-        args,
-        open,
-        themes,
-        themeKey,
-        isDark,
-        currentTheme,
-        handleUpdateOpen,
-        handleThemeChange,
-        handleModeChange,
-      };
+      return { args, onStoryUpdateOpen, onStoryThemeChange, onStoryModeChange };
     },
     template: `
-      <div class="story-root vi-theme-scope">
-        <div class="story-header">
-          <h3>VI 主题抽屉预览</h3>
-          <p>当前主题：{{ currentTheme?.name }}（{{ themeKey }}） / {{ isDark ? '暗黑模式' : '浅色模式' }}</p>
-          <el-button type="primary" class="sb-no-flex-stretch" @click="open = true">打开主题抽屉</el-button>
-          <el-button type="primary" class="sb-no-flex-stretch" @click="open = true">查询</el-button>
-        </div>
-
-        <ThemeDrawer
-          v-model:open="open"
-          :placement="args.placement"
-          :themes="themes"
-          @update:open="handleUpdateOpen"
-          @theme-change="handleThemeChange"
-          @mode-change="handleModeChange"
-        />
-      </div>
+      <ThemeDrawerPlayground
+        :open="args.open"
+        :placement="args.placement"
+        :themes="args.themes"
+        @story-update-open="onStoryUpdateOpen"
+        @story-theme-change="onStoryThemeChange"
+        @story-mode-change="onStoryModeChange"
+      />
     `,
   }),
 };
-
-/** 与 `theme-resolver` 中主色变体 token 一致的展示顺序。 */
-const VARIANT_SWATCH_KEYS: { key: keyof IThemeVariants; label: string }[] = [
-  { key: "light3", label: "Light 3" },
-  { key: "light5", label: "Light 5" },
-  { key: "light7", label: "Light 7" },
-  { key: "light8", label: "Light 8" },
-  { key: "light9", label: "Light 9" },
-  { key: "dark2", label: "Dark 2" },
-];
 
 export const ThemeVariantSwatches: Story = {
   name: "主题色卡",
@@ -196,82 +133,8 @@ export const ThemeVariantSwatches: Story = {
     },
   },
   render: () => ({
-    setup() {
-      initViTheme({ prefix: "vi" });
-      const { themeKey, isDark, setTheme, setDark, applyTheme } = useViTheme();
-      applyTheme();
-
-      const presetsWithVariants = THEME_PRESETS.map((preset) => ({
-        preset,
-        variants: getThemeVariants(preset.hex),
-      }));
-
-      return {
-        presetsWithVariants,
-        variantKeys: VARIANT_SWATCH_KEYS,
-        themeKey,
-        isDark,
-        setTheme,
-        setDark,
-      };
-    },
-    template: `
-      <div class="story-root vi-theme-scope theme-variant-swatches-story">
-        <div class="regression-toolbar">
-          <h3>主题变体色卡</h3>
-          <div class="toolbar-actions">
-            <el-switch
-              :model-value="isDark"
-              inline-prompt
-              active-text="暗"
-              inactive-text="亮"
-              @update:model-value="setDark"
-            />
-          </div>
-        </div>
-        <p class="theme-variant-swatches-story__hint">
-          每行：主色 + 由主色混合生成的亮阶 / 暗阶；与运行时注入的语义变量一致。点击整卡应用该主题。
-        </p>
-        <div class="theme-variant-grid">
-          <button
-            v-for="row in presetsWithVariants"
-            :key="row.preset.key"
-            type="button"
-            class="theme-variant-card"
-            :class="{ 'is-active': themeKey === row.preset.key }"
-            @click="setTheme(row.preset.key)"
-          >
-            <div class="theme-variant-card__head">
-              <span class="theme-variant-card__en">{{ row.preset.englishName }}</span>
-              <span class="theme-variant-card__zh">{{ row.preset.name }}</span>
-              <code class="theme-variant-card__key">{{ row.preset.key }}</code>
-            </div>
-            <div class="theme-variant-swatches" aria-label="主题色与变体">
-              <div class="theme-variant-swatch">
-                <span
-                  class="theme-variant-swatch__chip"
-                  :style="{ backgroundColor: row.preset.hex }"
-                  :title="'主色 ' + row.preset.hex"
-                />
-                <span class="theme-variant-swatch__label">Base</span>
-              </div>
-              <div
-                v-for="v in variantKeys"
-                :key="row.preset.key + '-' + v.key"
-                class="theme-variant-swatch"
-              >
-                <span
-                  class="theme-variant-swatch__chip"
-                  :style="{ backgroundColor: row.variants[v.key] }"
-                  :title="v.label + ' ' + row.variants[v.key]"
-                />
-                <span class="theme-variant-swatch__label">{{ v.label }}</span>
-              </div>
-            </div>
-          </button>
-        </div>
-      </div>
-    `,
+    components: { ThemeDrawerVariantSwatches },
+    template: "<ThemeDrawerVariantSwatches />",
   }),
 };
 
@@ -285,71 +148,7 @@ export const ThemeRegression: Story = {
     },
   },
   render: () => ({
-    setup() {
-      initViTheme({ prefix: "vi" });
-      const { themeKey, isDark, setTheme, setDark, applyTheme } = useViTheme();
-      const activeIndex = ref(
-        THEME_PRESETS.findIndex((item) => item.key === themeKey.value),
-      );
-
-      applyTheme();
-
-      watch(
-        themeKey,
-        (nextThemeKey) => {
-          activeIndex.value = THEME_PRESETS.findIndex(
-            (item) => item.key === nextThemeKey,
-          );
-        },
-        { immediate: true },
-      );
-
-      // 顺序切换到下一个预设主题，用于回归轮询。
-      function switchNextTheme(): void {
-        const nextIndex = (activeIndex.value + 1) % THEME_PRESETS.length;
-        activeIndex.value = nextIndex;
-        setTheme(THEME_PRESETS[nextIndex].key);
-      }
-
-      return {
-        presets: THEME_PRESETS,
-        themeKey,
-        isDark,
-        setTheme,
-        setDark,
-        switchNextTheme,
-      };
-    },
-    template: `
-      <div class="story-root vi-theme-scope">
-        <div class="regression-toolbar">
-          <h3>主题回归矩阵</h3>
-          <div class="toolbar-actions">
-            <el-switch
-              :model-value="isDark"
-              inline-prompt
-              active-text="暗"
-              inactive-text="亮"
-              @update:model-value="setDark"
-            />
-            <el-button type="primary" class="sb-no-flex-stretch" @click="switchNextTheme">下一主题</el-button>
-          </div>
-        </div>
-
-        <div class="theme-chip-grid">
-          <button
-            v-for="item in presets"
-            :key="item.key"
-            type="button"
-            class="theme-chip"
-            :class="{ 'is-active': themeKey === item.key }"
-            @click="setTheme(item.key)"
-          >
-            <span class="theme-chip__swatch" :style="{ backgroundColor: item.hex }" />
-            <span>{{ item.englishName }}</span>
-          </button>
-        </div>
-      </div>
-    `,
+    components: { ThemeDrawerRegressionMatrix },
+    template: "<ThemeDrawerRegressionMatrix />",
   }),
 };

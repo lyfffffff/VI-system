@@ -21,14 +21,30 @@
     gap: 0;
   }
 
-  .workbench-shell__main {
+  .workbench-shell__main,
+  .workbench-main-wrapper {
     display: flex;
     flex: 1;
     min-width: 0;
     min-height: 0;
     flex-direction: column;
     gap: 0;
+    overflow: hidden;
     padding-right: var(--wb-content-padding-right);
+  }
+
+  .workbench-shell__tabs,
+  .workbench-history-nav {
+    flex-shrink: 0;
+  }
+
+  .workbench-shell__content,
+  .workbench-main {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   .workbench-topbar {

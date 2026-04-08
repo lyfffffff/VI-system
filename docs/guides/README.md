@@ -10,8 +10,7 @@
 
 ## 2. 主题接入文档（功能域）
 
-- `docs/guides/theme-drawer.md`：ThemeDrawer API 与事件契约。  
-- `docs/guides/theme-drawer-integration.md`：应用接入步骤（初始化、局部覆盖、预览）。
+- `docs/guides/theme-drawer.md`：ThemeDrawer API、接入步骤（初始化、局部覆盖）与事件契约。  
 - `docs/guides/theme-mapping-checklist.md`：映射项核对清单。
 
 ## 3. 项目级规范（横向约束）

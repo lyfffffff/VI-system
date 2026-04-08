@@ -86,20 +86,10 @@ export function generatePageBackground(rgb: string, isDark: boolean, themeKey: T
 }
 
 /**
- * 规范化 CSS 变量前缀。
- * @param prefix 原始前缀。
- * @returns 合法前缀（为空或非法时回退为 `vi`）。
- */
-export function normalizePrefix(prefix = 'vi'): string {
-  return prefix.trim().replace(/^-+/, '').replace(/-+$/, '') || 'vi'
-}
-
-/**
- * 基于前缀与 token 构建 CSS 变量名。
- * @param prefix 变量前缀。
+ * 基于 token 构建 CSS 变量名（固定 `--vi-*`）。
  * @param token 变量 token 名称。
  * @returns 完整 CSS 变量名（如 `--vi-color-primary`）。
  */
-export function createVarName(prefix: string, token: string): string {
-  return `--${normalizePrefix(prefix)}-${token}`
+export function createVarName(token: string): string {
+  return `--vi-${token}`
 }

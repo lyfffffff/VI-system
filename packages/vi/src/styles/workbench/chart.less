@@ -1,4 +1,4 @@
-// 原型图表模块：图表容器、图例与模拟曲线样式。
+// 原型图表模块：图表容器与 ECharts 布局样式。
 .vi-theme-scope {
   .workbench-chart-panel,
   .wb-chart-shell {
@@ -31,43 +31,6 @@
     margin: 0;
   }
 
-  .workbench-chart-panel__legend,
-  .wb-chart-shell__legend {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 10px;
-    color: var(--wb-chart-legend-color);
-    font-size: 12px;
-  }
-
-  .workbench-chart-panel__legend-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .workbench-chart-panel__legend-item i {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-  }
-
-  .workbench-chart-panel__legend-item i.is-primary {
-    background: #3b82f6;
-  }
-
-  .workbench-chart-panel__legend-item i.is-comparison {
-    background: #6366f1;
-  }
-
-  .workbench-chart-panel__legend-item i.is-accent {
-    background: #f97316;
-  }
-
-  .workbench-chart-mock,
   .wb-chart-shell__body {
     position: relative;
     flex: 1;
@@ -78,115 +41,9 @@
     overflow: hidden;
   }
 
-  .workbench-chart-mock__svg {
-    position: absolute;
-    inset: 0;
+  .workbench-chart-echarts {
     width: 100%;
     height: 100%;
-  }
-
-  .workbench-chart-mock__grid line {
-    stroke: var(--wb-chart-split-line);
-    stroke-width: 1;
-  }
-
-  .workbench-chart-mock__area {
-    fill-opacity: 1;
-  }
-
-  .workbench-chart-mock__area--primary {
-    fill: rgba(59, 130, 246, 0.16);
-  }
-
-  .workbench-chart-mock__area--comparison {
-    fill: rgba(99, 102, 241, 0.12);
-  }
-
-  .workbench-chart-mock__line {
-    fill: none;
-    stroke-width: 2;
-  }
-
-  .workbench-chart-mock__line--primary {
-    stroke: #3b82f6;
-  }
-
-  .workbench-chart-mock__line--comparison {
-    stroke: #6366f1;
-  }
-
-  .workbench-chart-mock__line--accent {
-    stroke: #f97316;
-  }
-
-  .workbench-chart-mock__nodes circle {
-    stroke-width: 0;
-  }
-
-  .workbench-chart-mock__nodes--primary circle {
-    fill: #3b82f6;
-  }
-
-  .workbench-chart-mock__nodes--comparison circle {
-    fill: #6366f1;
-  }
-
-  .workbench-chart-mock__nodes--accent circle {
-    fill: #f97316;
-  }
-
-  .workbench-chart-mock__milestones circle {
-    fill: #ffffff;
-    stroke: #3b82f6;
-    stroke-width: 1.8;
-  }
-
-  .workbench-chart-mock__milestones circle.is-accent {
-    stroke: #f97316;
-  }
-
-  .workbench-chart-mock__milestones text {
-    fill: #3b82f6;
-    font-size: 10px;
-    font-weight: 600;
-    text-anchor: middle;
-  }
-
-  .workbench-chart-mock__milestones text.is-accent {
-    fill: #f97316;
-  }
-
-  .workbench-chart-mock__y-axis {
-    position: absolute;
-    top: 24px;
-    bottom: 46px;
-    left: 0;
-    width: 42px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding-right: 8px;
-    pointer-events: none;
-  }
-
-  .workbench-chart-mock__y-axis span {
-    color: var(--wb-chart-axis-label);
-    font-size: 11px;
-    line-height: 1;
-  }
-
-  .workbench-chart-mock__x-axis {
-    position: absolute;
-    left: 106px;
-    right: 58px;
-    bottom: 18px;
-    display: flex;
-    justify-content: space-between;
-    color: var(--wb-chart-axis-label);
-    font-size: 11px;
-    line-height: 1;
-    pointer-events: none;
   }
 
   .wb-chart-shell__body-empty {

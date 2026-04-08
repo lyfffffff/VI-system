@@ -1,6 +1,5 @@
 ﻿// 主题引擎：全局单例编排主题状态、变量注入与持久化。
 import { DARK_STORAGE_KEY, DEFAULT_THEME, THEME_PRESET_MAP, THEME_STORAGE_KEY, type ThemeColorKey } from './theme-config'
-import { normalizePrefix } from '../utils/color-utils'
 import { applyThemeToRoot } from './theme-applier'
 import { readPersistedThemeState, writePersistedThemeState } from './theme-persistence'
 import { resolveThemeVarMap, type IThemeVarMap } from './theme-resolver'
@@ -14,8 +13,6 @@ export interface IThemeEngineState {
   themeKey: ThemeColorKey
   /** 当前暗黑模式状态。 */
   isDark: boolean
-  /** 当前变量前缀。 */
-  prefix: string
 }
 
 interface IInternalState extends IThemeEngineState {
@@ -23,7 +20,6 @@ interface IInternalState extends IThemeEngineState {
   defaultThemeKey: ThemeColorKey
   themeStorageKey: string
   darkStorageKey: string
-  syncDefaultViPrefix: boolean
 }
 
 interface IConfigureResult {
@@ -54,15 +50,14 @@ export interface IThemeEngine {
 
 type ThemeListener = (state: IThemeEngineState) => void
 
+// 单例全局状态：应用内所有 useViTheme() 调用共享这一份状态。
 const state: IInternalState = {
   themeKey: DEFAULT_THEME,
   isDark: false,
-  prefix: 'vi',
   initialized: false,
   defaultThemeKey: DEFAULT_THEME,
   themeStorageKey: THEME_STORAGE_KEY,
   darkStorageKey: DARK_STORAGE_KEY,
-  syncDefaultViPrefix: true,
 }
 
 const listeners = new Set<ThemeListener>()
@@ -78,10 +73,10 @@ function getThemeStateSnapshot(): IThemeEngineState {
   return {
     themeKey: state.themeKey,
     isDark: state.isDark,
-    prefix: state.prefix,
   }
 }
 
+// 仅处理配置项，不做注入；便于 init/apply/hydrate 复用同一配置入口。
 function configure(options?: IViThemeOptions): IConfigureResult {
   if (!options) {
     return {
@@ -96,10 +91,6 @@ function configure(options?: IViThemeOptions): IConfigureResult {
     state.defaultThemeKey = options.defaultThemeKey
   }
 
-  if (options.prefix) {
-    state.prefix = normalizePrefix(options.prefix)
-  }
-
   if (options.themeStorageKey && options.themeStorageKey !== state.themeStorageKey) {
     state.themeStorageKey = options.themeStorageKey
     storageKeyChanged = true
@@ -108,10 +99,6 @@ function configure(options?: IViThemeOptions): IConfigureResult {
   if (options.darkStorageKey && options.darkStorageKey !== state.darkStorageKey) {
     state.darkStorageKey = options.darkStorageKey
     storageKeyChanged = true
-  }
-
-  if (typeof options.syncDefaultViPrefix === 'boolean') {
-    state.syncDefaultViPrefix = options.syncDefaultViPrefix
   }
 
   return {
@@ -135,40 +122,21 @@ function persistState(): void {
   })
 }
 
+// 变量映射来源唯一：统一由 resolver 根据当前状态计算。
 function buildVarMaps(): IThemeVarMap[] {
-  const maps: IThemeVarMap[] = []
-
-  const defaultMap = resolveThemeVarMap('vi', state.themeKey, state.isDark)
-  const customMap = state.prefix === 'vi' ? undefined : resolveThemeVarMap(state.prefix, state.themeKey, state.isDark)
-
-  // 默认前缀场景只输出一套变量，避免重复写入。
-  if (state.prefix === 'vi') {
-    maps.push(defaultMap)
-    return maps
-  }
-
-  // 自定义前缀场景按配置决定是否保留 --vi-* 兼容输出。
-  if (state.syncDefaultViPrefix) {
-    maps.push(defaultMap)
-  }
-
-  if (customMap) {
-    maps.push(customMap)
-  }
-
-  return maps
+  return [resolveThemeVarMap(state.themeKey, state.isDark)]
 }
 
 function applyThemeInternal(): void {
   applyThemeToRoot({
     themeKey: state.themeKey,
-    prefix: state.prefix,
     isDark: state.isDark,
     varMaps: buildVarMaps(),
   })
 }
 
 function commit(): void {
+  // 提交顺序：先注入 -> 再持久化 -> 最后广播，避免订阅方读到旧 DOM。
   applyThemeInternal()
   persistState()
   notify()
