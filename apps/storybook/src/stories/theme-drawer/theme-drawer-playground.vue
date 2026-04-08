@@ -1,6 +1,6 @@
 <!-- ThemeDrawer Playground：与 Storybook Controls / Actions 对接。 -->
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { computed, reactive, ref, watch } from "vue";
 import {
   ThemeDrawer,
   THEME_PRESETS,
@@ -8,18 +8,18 @@ import {
   useViTheme,
 } from "@yyxxfe/vi";
 import type { IThemePreset, ThemeColorKey } from "@yyxxfe/vi";
+import ThemeDrawerPlaygroundSamples from "./theme-drawer-playground-samples.vue";
 
-const props = withDefaults(
-  defineProps<{
-    open?: boolean;
-    placement?: "left" | "right";
-    themes?: IThemePreset<ThemeColorKey>[];
-  }>(),
-  {
-    open: false,
-    placement: "right",
-  },
-);
+interface Props {
+  open?: boolean;
+  placement?: "left" | "right";
+  themes?: IThemePreset<ThemeColorKey>[];
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  open: false,
+  placement: "right",
+});
 
 const emit = defineEmits<{
   storyUpdateOpen: [open: boolean];
@@ -30,19 +30,53 @@ const emit = defineEmits<{
 const innerOpen = ref(Boolean(props.open));
 const dialogOpen = ref(false);
 
-const selectValue = ref("");
-const selectMultipleValue = ref<string[]>([]);
-const inputValue = ref("");
-const dateValue = ref("");
-const checkboxValue = ref(false);
-const radioValue = ref("");
-const switchValue = ref(false);
-
-const options = [
-  { value: "1", label: "选项1" },
-  { value: "2", label: "选项2" },
-  { value: "3", label: "选项3" },
-];
+const sampleForm = reactive({
+  selectValue: "",
+  selectMultipleValue: [] as string[],
+  inputValue: "",
+  textareaValue: "",
+  inputNumberValue: 10,
+  dateValue: "",
+  dateRangeValue: [] as string[],
+  timeValue: "",
+  timeRangeValue: [] as string[],
+  cascaderValue: [] as string[],
+  checkboxValue1: false,
+  checkboxValue2: false,
+  checkboxGroupValue: ["Option 1"] as string[],
+  radioValue: "a",
+  radioButtonValue: "a",
+  switchValue1: false,
+  switchValue2: false,
+  sliderValue: 36,
+  rateValue: 3,
+  colorValue: "#14b8a6",
+  treeSelectValue: [] as string[],
+  paginationCurrentPage: 1,
+  paginationPageSize: 10,
+  tableData: [
+    {
+      date: "2016-05-03",
+      name: "Tom",
+      address: "No. 189, Grove St, Los Angeles",
+    },
+    {
+      date: "2016-05-02",
+      name: "Tom",
+      address: "No. 189, Grove St, Los Angeles",
+    },
+    {
+      date: "2016-05-04",
+      name: "Tom",
+      address: "No. 189, Grove St, Los Angeles",
+    },
+    {
+      date: "2016-05-01",
+      name: "Tom",
+      address: "No. 189, Grove St, Los Angeles",
+    },
+  ],
+});
 
 initViTheme();
 const { themeKey, isDark, currentTheme, applyTheme } = useViTheme();
@@ -54,6 +88,8 @@ const themes = computed<IThemePreset<ThemeColorKey>[] | undefined>(() => {
   }
   return THEME_PRESETS;
 });
+
+const modeLabel = computed(() => (isDark.value ? "暗黑模式" : "浅色模式"));
 
 watch(
   () => props.open,
@@ -74,18 +110,16 @@ function handleThemeChange(nextThemeKey: ThemeColorKey): void {
 function handleModeChange(nextDark: boolean): void {
   emit("storyModeChange", nextDark);
 }
-
-function openDialogHandle() {}
 </script>
 
 <template>
-  <div class="story-root vi-theme-scope">
-    <div class="story-header">
+  <div class="story-root vi-theme-scope tdp-playground">
+    <header class="tdp-playground__header story-header">
       <h3>VI 主题抽屉预览</h3>
       <div class="story-header-info">
         <p>
           当前主题：{{ currentTheme?.name }}（{{ themeKey }}） /
-          {{ isDark ? "暗黑模式" : "浅色模式" }}
+          {{ modeLabel }}
         </p>
         <el-button
           type="primary"
@@ -96,79 +130,36 @@ function openDialogHandle() {}
         </el-button>
       </div>
 
-      <el-button type="primary" class="sb-no-flex-stretch"> 查询 </el-button>
-      <el-button type="primary" size="small" class="sb-no-flex-stretch">
-        查询
-      </el-button>
-      <el-select v-model="selectValue" placeholder="请选择" style="width: 130px;">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        />
-      </el-select>
-      <el-select v-model="selectMultipleValue" placeholder="请选择" multiple style="width: 160px;">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        />
-      </el-select>
-      <el-input v-model="inputValue" placeholder="请输入" style="width: 130px;"/>
-      <el-date-picker
-        v-model="dateValue"
-        type="date"
-        placeholder="请选择日期"
-        style="width: 260px;"/>
-      <el-checkbox v-model="checkboxValue" label="请选择" />
-      <el-radio v-model="radioValue" label="请选择" />
-      <el-switch v-model="switchValue" />
+    </header>
 
-      <!-- 点击打开弹窗，弹窗中展示基础组件 -->
-      <el-button type="primary" @click="dialogOpen = true" class="sb-no-flex-stretch">打开弹窗</el-button>
-
-      <el-dialog v-model="dialogOpen" title="弹窗样式回归" width="520px">
-        <el-button type="primary" class="sb-no-flex-stretch"> 查询 </el-button>
-        <el-button type="primary" size="small" class="sb-no-flex-stretch">
-          查询
+    <section class="tdp-playground__section wb-soft-panel">
+      <div class="tdp-playground__section-header">
+        <h4>页面内展示（非弹窗）</h4>
+        <el-button
+          type="primary"
+          class="sb-no-flex-stretch"
+          @click="dialogOpen = true"
+        >
+          打开弹窗对比
         </el-button>
-        <el-select v-model="selectValue" placeholder="请选择">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-        <el-select v-model="selectMultipleValue" placeholder="请选择" multiple>
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-        <el-input v-model="inputValue" placeholder="请输入" />
-        <el-date-picker
-          v-model="dateValue"
-          type="date"
-          placeholder="请选择日期"
-        />
-        <el-checkbox v-model="checkboxValue" label="请选择" />
-        <el-radio v-model="radioValue" label="请选择" />
-        <el-switch v-model="switchValue" />
-        <template #footer>
-          <div class="dialog-footer-actions">
-            <el-button @click="dialogOpen = false">取消</el-button>
-            <el-button type="primary" @click="dialogOpen = false"
-              >确认</el-button
-            >
-          </div>
-        </template>
-      </el-dialog>
-    </div>
+      </div>
+      <ThemeDrawerPlaygroundSamples layout="dialog" :form="sampleForm" />
+    </section>
+
+    <el-dialog
+      v-model="dialogOpen"
+      title="弹窗样式回归"
+      width="789px"
+      destroy-on-close
+    >
+      <ThemeDrawerPlaygroundSamples layout="dialog" :form="sampleForm" />
+      <template #footer>
+        <div class="tdp-playground__dialog-footer dialog-footer-actions">
+          <el-button @click="dialogOpen = false">取消</el-button>
+          <el-button type="primary" @click="dialogOpen = false">确认</el-button>
+        </div>
+      </template>
+    </el-dialog>
 
     <ThemeDrawer
       v-model:open="innerOpen"
@@ -180,3 +171,23 @@ function openDialogHandle() {}
     />
   </div>
 </template>
+
+<style scoped lang="less">
+.tdp-playground__dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.tdp-playground__section {
+  margin-top: 12px;
+  padding: 12px;
+}
+
+.tdp-playground__section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+</style>

@@ -153,8 +153,6 @@ function handleHistoryTabCloseAll(): void {
   historyTabs.value = fallbackTab ? [{ ...fallbackTab }] : [];
   activeHistoryTab.value = fallbackTab?.key ?? "";
 }
-
-const inputVal = ref("");
 </script>
 
 <template>
@@ -232,7 +230,6 @@ const inputVal = ref("");
                   </div>
 
                   <div class="workbench-filter__right">
-                    <el-input v-model="inputVal"></el-input>
                     <el-radio-group
                       v-model="period"
                       class="dimension-radio-group"

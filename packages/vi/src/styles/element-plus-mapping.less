@@ -8,26 +8,31 @@
   --el-color-primary-light-8: var(--vi-color-primary-light-8);
   --el-color-primary-light-9: var(--vi-color-primary-light-9);
   --el-color-primary-dark-2: var(--vi-color-primary-dark-2);
+  --el-color-danger: #f56c6c;
 
   --el-bg-color-page: var(--vi-surface-body);
   --el-bg-color: var(--vi-surface-panel);
   --el-bg-color-overlay: var(--vi-surface-panel);
 
   --el-text-color-primary: var(--vi-text-primary);
-  --el-text-color-regular: var(--vi-text-secondary);
-  --el-text-color-secondary: var(--vi-text-muted);
+  --el-text-color-regular: var(--vi-text-regular);
+  --el-text-color-secondary: var(--vi-text-secondary);
   --el-text-color-placeholder: var(--vi-text-muted);
   --el-text-color-disabled: var(--vi-text-disabled);
 
   --el-border-color: var(--vi-border-default);
   --el-border-color-light: var(--vi-border-light);
-  --el-border-color-lighter: var(--vi-border-light);
+  --el-border-color-lighter: var(--vi-border-lighter);
   --el-border-color-dark: var(--vi-border-strong);
+  --el-border-color-darker: var(--vi-border-darker);
+  --el-border-color-extra-light: var(--vi-border-extra-light);
 
-  --el-fill-color: var(--vi-fill-soft);
-  --el-fill-color-light: var(--vi-fill-soft);
-  --el-fill-color-lighter: var(--vi-fill-soft);
-  --el-fill-color-dark: var(--vi-fill-muted);
+  --el-fill-color: var(--vi-el-fill-color);
+  --el-fill-color-light: var(--vi-el-fill-color-light);
+  --el-fill-color-lighter: var(--vi-el-fill-color-lighter);
+  --el-fill-color-dark: var(--vi-el-fill-color-dark);
+  --el-fill-color-darker: var(--vi-el-fill-color-darker);
+  --el-fill-color-extra-light: var(--vi-el-fill-color-extra-light);
   --el-fill-color-blank: var(--vi-surface-panel);
 
   --el-mask-color: rgba(0, 0, 0, 0.48);
@@ -36,7 +41,7 @@
   --el-box-shadow-light: var(--vi-shadow-panel);
   --el-box-shadow: var(--vi-shadow-popover);
 
-  --el-border-radius-base: var(--vi-radius-xs);
+  --el-border-radius-base: var(--vi-radius-md);
   --el-border-radius-small: var(--vi-radius-xxs);
   --el-border-radius-round: var(--vi-radius-md);
 
@@ -54,12 +59,14 @@
   --el-button-border-color: var(--vi-border-default);
   --el-button-hover-text-color: var(--vi-color-primary);
   --el-button-hover-border-color: var(--vi-color-primary-light-5);
+  --el-button-active-border-color: var(--vi-color-primary-light-3);
   --el-button-hover-bg-color: rgba(var(--vi-color-primary-rgb), 0.08);
 
   --el-table-border-color: var(--vi-border-light);
   --el-table-header-bg-color: var(--vi-fill-soft);
   --el-table-header-text-color: var(--vi-text-secondary);
-  --el-table-row-hover-bg-color: rgba(var(--vi-color-primary-rgb), 0.08);
+  --el-table-row-hover-bg-color: rgba(var(--vi-color-primary-rgb), 0.05);
+  --el-table-current-row-bg-color: var(--vi-wb-table-current-row-bg);
   --el-table-bg-color: var(--vi-surface-panel);
   --el-table-tr-bg-color: var(--vi-surface-panel);
   --el-table-text-color: var(--vi-text-primary);
@@ -90,6 +97,8 @@ html.dark {
   --el-button-hover-text-color: var(--vi-color-primary);
   --el-button-hover-border-color: var(--vi-color-primary-light-5);
   --el-button-hover-bg-color: rgba(var(--vi-color-primary-rgb), 0.14);
+  --el-table-row-hover-bg-color: rgba(var(--vi-color-primary-rgb), 0.08);
+  --el-table-current-row-bg-color: var(--vi-wb-table-current-row-bg);
 
   --el-mask-color: rgba(0, 0, 0, 0.68);
   --el-overlay-color: rgba(0, 0, 0, 0.54);

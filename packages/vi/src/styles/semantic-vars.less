@@ -27,16 +27,28 @@
   --vi-surface-overlay: rgba(248, 250, 252, 0.96);
 
   --vi-text-primary: @vi-token-text-primary-light;
+  --vi-text-regular: @vi-token-text-regular-light;
   --vi-text-secondary: @vi-token-text-secondary-light;
   --vi-text-muted: @vi-token-text-muted-light;
   --vi-text-disabled: @vi-token-text-disabled-light;
 
   --vi-border-default: @vi-token-border-default-light;
   --vi-border-light: @vi-token-border-light-light;
+  --vi-border-lighter: @vi-token-border-lighter-light;
   --vi-border-strong: @vi-token-border-strong-light;
+  --vi-border-darker: @vi-token-border-strong-light;
+  --vi-border-extra-light: @vi-token-border-extra-light-light;
 
   --vi-fill-soft: @vi-token-fill-soft-light;
   --vi-fill-muted: @vi-token-fill-muted-light;
+  // Element Plus 适配层填充阶梯：专供 --el-fill-color* 映射使用。
+  // 与通用语义 --vi-fill-* 分离，避免调整 EP 变量时影响业务/Workbench 语义填充。
+  --vi-el-fill-color: @vi-token-fill-base-light;
+  --vi-el-fill-color-light: @vi-token-fill-light-light;
+  --vi-el-fill-color-lighter: @vi-token-fill-lighter-light;
+  --vi-el-fill-color-dark: @vi-token-fill-muted-light;
+  --vi-el-fill-color-darker: @vi-token-fill-muted-light;
+  --vi-el-fill-color-extra-light: @vi-token-fill-extra-light-light;
   // 依赖主题色的交互高亮默认值；切换主题时会被运行时覆盖。
   --vi-focus-ring: fade(@vi-token-primary, 8%);
 
@@ -84,6 +96,7 @@
   --vi-chart-split-line: #eef2f7;
   --vi-chart-legend-color: var(--vi-text-secondary);
   --vi-chart-comparison: #9ca3af;
+  --vi-wb-table-current-row-bg: rgba(var(--vi-color-primary-rgb), 0.06);
 
   // 依赖主题色的业务态默认值；切换主题时会被运行时覆盖。
   --vi-sidebar-item-active: fade(@vi-token-primary, 14%);
@@ -109,16 +122,27 @@ html.dark {
   --vi-surface-overlay: rgba(20, 28, 32, 0.96);
 
   --vi-text-primary: @vi-token-text-primary-dark;
+  --vi-text-regular: @vi-token-text-regular-dark;
   --vi-text-secondary: @vi-token-text-secondary-dark;
   --vi-text-muted: @vi-token-text-muted-dark;
   --vi-text-disabled: @vi-token-text-disabled-dark;
 
   --vi-border-default: @vi-token-border-default-dark;
   --vi-border-light: @vi-token-border-light-dark;
+  --vi-border-lighter: @vi-token-border-lighter-dark;
   --vi-border-strong: @vi-token-border-strong-dark;
+  --vi-border-darker: @vi-token-border-darker-dark;
+  --vi-border-extra-light: @vi-token-border-extra-light-dark;
 
   --vi-fill-soft: @vi-token-fill-soft-dark;
   --vi-fill-muted: @vi-token-fill-muted-dark;
+  // Element Plus 适配层填充阶梯（暗色）：仅用于 --el-fill-color*，不直接承载通用业务语义。
+  --vi-el-fill-color: @vi-token-fill-base-dark;
+  --vi-el-fill-color-light: @vi-token-fill-light-dark;
+  --vi-el-fill-color-lighter: @vi-token-fill-lighter-dark;
+  --vi-el-fill-color-dark: @vi-token-fill-dark-dark;
+  --vi-el-fill-color-darker: @vi-token-fill-darker-dark;
+  --vi-el-fill-color-extra-light: @vi-token-fill-extra-light-dark;
 
   --vi-shadow-panel: @vi-shadow-panel-dark;
   --vi-shadow-card: @vi-shadow-card-dark;
@@ -129,6 +153,7 @@ html.dark {
   --vi-chart-split-line: #262b33;
   --vi-chart-legend-color: var(--vi-text-secondary);
   --vi-chart-comparison: #7b8496;
+  --vi-wb-table-current-row-bg: rgba(var(--vi-color-primary-rgb), 0.1);
 
   // 依赖主题色的暗色业务态默认值；切换主题时会被运行时覆盖。
   --vi-sidebar-item-active: fade(@vi-token-primary, 22%);

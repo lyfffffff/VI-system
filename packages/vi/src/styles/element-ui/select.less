@@ -21,3 +21,21 @@
   background: var(--el-bg-color-overlay);
   border-color: var(--wb-panel-border);
 }
+
+/* ========== el-select 多选标签样式 ========== */
+/* 已选项标签 - 使用主色文字 */
+.el-select .el-tag {
+  color: var(--el-text-color-primary) !important;
+  background-color: var(--el-fill-color-light) !important;
+  border-color: var(--el-border-color) !important;
+}
+
+/* 已选项关闭按钮 */
+.el-select .el-tag .el-tag__close {
+  color: var(--el-text-color-secondary) !important;
+}
+
+.el-select .el-tag .el-tag__close:hover {
+  color: var(--el-color-danger) !important;
+  background-color: transparent !important;
+}
