@@ -3,7 +3,25 @@
 interface ITableRow {
   date: string;
   name: string;
+  category: string;
+  status: string;
+  amount: string;
+  region: string;
   address: string;
+  remark: string;
+}
+
+interface ITreeTableRow {
+  id: string;
+  date: string;
+  name: string;
+  category: string;
+  status: string;
+  amount: string;
+  region: string;
+  address: string;
+  remark: string;
+  children?: ITreeTableRow[];
 }
 
 interface ICascaderOption {
@@ -47,6 +65,7 @@ defineProps<{
     tableData: ITableRow[];
     paginationCurrentPage: number;
     paginationPageSize: number;
+    treeTableData: ITreeTableRow[];
   };
 }>();
 
@@ -291,18 +310,90 @@ const TREE_OPTIONS: ITreeOption[] = [
       </el-form-item>
 
       <el-form-item label="表格与分页">
-        <el-table :data="form.tableData" class="tdp-samples__table">
-          <el-table-column prop="date" label="Date" width="160" />
-          <el-table-column prop="name" label="Name" width="120" />
-          <el-table-column prop="address" label="Address" min-width="220" />
-        </el-table>
+        <div class="tdp-samples__tables">
+          <div class="tdp-samples__table-block">
+            <p class="tdp-samples__table-title">基础表格（多列）</p>
+            <el-table :data="form.tableData" border class="tdp-samples__table">
+              <el-table-column type="index" label="#" width="48" fixed="left" />
+              <el-table-column prop="date" label="日期" width="112" fixed="left" />
+              <el-table-column prop="name" label="名称" min-width="120" show-overflow-tooltip />
+              <el-table-column prop="category" label="类目" width="100" />
+              <el-table-column prop="status" label="状态" width="96">
+                <template #default="{ row }">
+                  <el-tag
+                    :type="
+                      row.status === '已上线'
+                        ? 'success'
+                        : row.status === '冻结'
+                          ? 'danger'
+                          : 'info'
+                    "
+                    size="small"
+                  >
+                    {{ row.status }}
+                  </el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column prop="amount" label="金额(万)" width="100" align="right" />
+              <el-table-column prop="region" label="区域" width="88" />
+              <el-table-column prop="address" label="地址" min-width="160" show-overflow-tooltip />
+              <el-table-column prop="remark" label="备注" min-width="120" show-overflow-tooltip />
+            </el-table>
+          </div>
+
+          <div class="tdp-samples__table-block">
+            <p class="tdp-samples__table-title">斑马纹表格</p>
+            <el-table
+              :data="form.tableData"
+              stripe
+              border
+              class="tdp-samples__table"
+            >
+              <el-table-column type="selection" width="44" />
+              <el-table-column prop="date" label="日期" width="112" />
+              <el-table-column prop="name" label="名称" min-width="120" show-overflow-tooltip />
+              <el-table-column prop="category" label="类目" width="100" />
+              <el-table-column prop="amount" label="金额(万)" width="100" align="right" />
+              <el-table-column prop="region" label="区域" width="88" />
+              <el-table-column prop="address" label="地址" min-width="180" show-overflow-tooltip />
+            </el-table>
+          </div>
+
+          <div class="tdp-samples__table-block">
+            <p class="tdp-samples__table-title">树形表格</p>
+            <el-table
+              :data="form.treeTableData"
+              row-key="id"
+              border
+              default-expand-all
+              class="tdp-samples__table"
+            >
+              <el-table-column prop="name" label="节点" min-width="200" />
+              <el-table-column prop="category" label="类目" width="100" />
+              <el-table-column prop="status" label="状态" width="96">
+                <template #default="{ row }">
+                  <el-tag
+                    :type="row.status === '已上线' ? 'success' : 'warning'"
+                    size="small"
+                  >
+                    {{ row.status }}
+                  </el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column prop="amount" label="金额(万)" width="100" align="right" />
+              <el-table-column prop="region" label="区域" width="88" />
+              <el-table-column prop="date" label="更新日" width="112" />
+              <el-table-column prop="address" label="地址" min-width="160" show-overflow-tooltip />
+            </el-table>
+          </div>
+        </div>
 
         <div class="tdp-samples__pagination">
           <el-pagination
             v-model:current-page="form.paginationCurrentPage"
             v-model:page-size="form.paginationPageSize"
-            layout="total, prev, pager, next, jumper"
-            :total="form.tableData.length * 10"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="Math.max(form.tableData.length, 1) * 8"
             :page-sizes="[10, 20, 50]"
           />
         </div>
@@ -366,15 +457,33 @@ const TREE_OPTIONS: ITreeOption[] = [
     }
   }
 
+  &__tables {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+
+  &__table-block {
+    min-width: 0;
+  }
+
+  &__table-title {
+    margin: 0 0 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--el-text-color-secondary);
+  }
+
   &__table {
-    margin-top: 10px;
     width: 100%;
   }
 
   &__pagination {
-    margin-top: 10px;
+    margin-top: 16px;
     display: flex;
     justify-content: flex-end;
+    flex-wrap: wrap;
   }
 }
 </style>

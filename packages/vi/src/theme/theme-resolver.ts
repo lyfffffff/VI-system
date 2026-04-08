@@ -13,7 +13,7 @@ export type IThemeVarMap = Record<string, string>
  */
 export function resolveThemeVarMap(themeKey: ThemeColorKey, isDark: boolean): IThemeVarMap {
   const preset = THEME_PRESET_MAP[themeKey]
-  const variants = getThemeVariants(preset.hex)
+  const variants = getThemeVariants(preset.hex, isDark)
 
   // 交互态相关的半透明色值，按亮/暗模式微调透明度。
   const focusRing = `rgba(${preset.rgb}, 0.26)`

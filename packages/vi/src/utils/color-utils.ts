@@ -50,20 +50,25 @@ export function hexToRgb(hex: string): string {
 /**
  * 生成主题主色的亮阶与暗阶变体。
  * @param hex 十六进制主题主色。
+ * @param isDark 是否暗黑模式；暗黑模式下亮阶改为与暗底混合。
  * @returns 包含 `light3/light5/light7/light8/light9/dark2` 的颜色变体集合。
  */
-export function getThemeVariants(hex: string): IThemeVariants {
+export function getThemeVariants(hex: string, isDark = false): IThemeVariants {
   const rgb = parseHex(hex)
   const white: [number, number, number] = [255, 255, 255]
-  const black: [number, number, number] = [0, 0, 0]
+  // 与 demo generateElShades 对齐：暗色模式使用 #141414 作为混色底板。
+  const darkBase: [number, number, number] = [20, 20, 20]
+  const lightTarget = isDark ? darkBase : white
+  const dark2Target = isDark ? white : darkBase
 
   return {
-    light3: toHex(mixRgb(rgb, white, 0.3)),
-    light5: toHex(mixRgb(rgb, white, 0.5)),
-    light7: toHex(mixRgb(rgb, white, 0.7)),
-    light8: toHex(mixRgb(rgb, white, 0.8)),
-    light9: toHex(mixRgb(rgb, white, 0.9)),
-    dark2: toHex(mixRgb(rgb, black, 0.2)),
+    light3: toHex(mixRgb(rgb, lightTarget, 0.3)),
+    light5: toHex(mixRgb(rgb, lightTarget, 0.5)),
+    light7: toHex(mixRgb(rgb, lightTarget, 0.7)),
+    light8: toHex(mixRgb(rgb, lightTarget, 0.8)),
+    light9: toHex(mixRgb(rgb, lightTarget, 0.9)),
+    // 暗色模式下的 dark2 对齐 demo 的 darkDark2（主色与白底混合）。
+    dark2: toHex(mixRgb(rgb, dark2Target, isDark ? 0.3 : 0.2)),
   }
 }
 

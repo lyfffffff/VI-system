@@ -4,7 +4,8 @@
 :root {
   // 依赖 @vi-token-primary 的主题色变量；切换主题时会被运行时覆盖（resolveThemeVarMap）。
   --vi-color-primary: @vi-token-primary;
-  --vi-color-primary-rgb: red(@vi-token-primary), green(@vi-token-primary), blue(@vi-token-primary);
+  --vi-color-primary-rgb:
+    red(@vi-token-primary), green(@vi-token-primary), blue(@vi-token-primary);
   --vi-color-primary-light-3: mix(#fff, @vi-token-primary, 30%);
   --vi-color-primary-light-5: mix(#fff, @vi-token-primary, 50%);
   --vi-color-primary-light-7: mix(#fff, @vi-token-primary, 70%);
@@ -115,6 +116,13 @@ html.dark {
       transparent 32%
     ),
     linear-gradient(180deg, #141618 0%, #111214 48%, #0f1012 100%);
+
+  --vi-color-primary-light-3: mix(#000, @vi-token-primary, 30%);
+  --vi-color-primary-light-5: mix(#000, @vi-token-primary, 50%);
+  --vi-color-primary-light-7: mix(#000, @vi-token-primary, 70%);
+  --vi-color-primary-light-8: mix(#000, @vi-token-primary, 80%);
+  --vi-color-primary-light-9: mix(#000, @vi-token-primary, 90%);
+  --vi-color-primary-dark-2: mix(#fff, @vi-token-primary, 20%);
 
   --vi-surface-body: @vi-token-surface-body-dark;
   --vi-surface-panel: @vi-token-surface-panel-dark;

@@ -1,12 +1,14 @@
 // ELP Table 覆盖：表格基础边框、固定列与胶囊标签差异。
 .el-table {
-  border: none;
-  font-size: var(--vi-font-size-xs);
   --el-table-border-color: transparent;
+  --el-table-header-bg-color: var(--wb-table-header-bg);
   --el-table-tr-bg-color: transparent;
   --el-table-row-hover-bg-color: var(--wb-table-row-hover-bg);
-  --el-table-current-row-bg-color: rgba(var(--el-color-primary-rgb), 0.06);
+  --el-table-current-row-bg-color: var(--wb-table-current-row-bg);
   --el-table-header-text-color: var(--el-text-color-secondary);
+  --el-table-text-color: var(--el-text-color-primary);
+  font-size: 14px;
+  border: none;
 }
 
 .el-table::before,
@@ -32,21 +34,41 @@
   background: transparent;
 }
 
+.el-table th.el-table__cell {
+  background: var(--wb-table-header-bg);
+}
+
+/* ── 修复固定列（position:sticky）背景透明问题 ── */
+/* 固定列的 td 必须使用不透明背景，否则滚动时会透出下层列数据 */
+.el-table td.el-table__cell.is-fixed,
+.el-table td.el-table__cell.is-fixed-left,
+.el-table td.el-table__cell.is-fixed-right,
+.el-table .el-table-fixed-column--left td.el-table__cell,
+.el-table .el-table-fixed-column--right td.el-table__cell,
 .el-table td.el-table__cell.el-table-fixed-column--left,
 .el-table td.el-table__cell.el-table-fixed-column--right {
   background: var(--el-bg-color) !important;
 }
 
+/* 固定列表头也需要不透明背景 */
 .el-table th.el-table__cell.el-table-fixed-column--left,
 .el-table th.el-table__cell.el-table-fixed-column--right {
   background: var(--wb-table-header-bg) !important;
 }
 
-.el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell.el-table-fixed-column--left,
-.el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell.el-table-fixed-column--right {
+/* stripe条纹行的固定列：使用fill-color-lighter交替色 */
+.el-table--striped
+  .el-table__body
+  tr.el-table__row--striped
+  td.el-table__cell.el-table-fixed-column--left,
+.el-table--striped
+  .el-table__body
+  tr.el-table__row--striped
+  td.el-table__cell.el-table-fixed-column--right {
   background: var(--el-fill-color-lighter) !important;
 }
 
+/* hover行的固定列背景 */
 .el-table__body tr:hover td.el-table__cell.el-table-fixed-column--left,
 .el-table__body tr:hover td.el-table__cell.el-table-fixed-column--right,
 .el-table__body tr.hover-row td.el-table__cell.el-table-fixed-column--left,
@@ -54,15 +76,17 @@
   background: var(--wb-table-row-hover-bg) !important;
 }
 
-.el-table .cell {
-  overflow: visible !important;
-  text-overflow: clip !important;
-  white-space: nowrap !important;
-}
 
-.vi-theme-scope {
-  .el-tag {
-    border-radius: 999px;
-    font-size: var(--vi-font-size-xs);
-  }
+/* ── 全局等宽数字（表格/指标卡/数据区必备） ── */
+.el-table,
+.el-table__body,
+.el-table .cell,
+.el-descriptions__content,
+.stat-number,
+.amount,
+.percent,
+.workbench-metrics__value,
+.workbench-trend__summary-value {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
 }
