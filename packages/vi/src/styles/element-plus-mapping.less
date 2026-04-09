@@ -33,7 +33,6 @@
   --el-fill-color-dark: var(--vi-el-fill-color-dark);
   --el-fill-color-darker: var(--vi-el-fill-color-darker);
   --el-fill-color-extra-light: var(--vi-el-fill-color-extra-light);
-  --el-fill-color-blank: var(--vi-surface-panel);
 
   --el-mask-color: rgba(0, 0, 0, 0.48);
   --el-overlay-color: rgba(0, 0, 0, 0.36);
@@ -48,39 +47,15 @@
   --el-font-size-base: var(--vi-font-size-body);
   --el-font-family: var(--vi-font-family);
 
-  --el-input-bg-color: var(--vi-surface-panel);
-  --el-input-text-color: var(--vi-text-primary);
-  --el-input-border-color: var(--vi-border-default);
-  --el-input-hover-border-color: var(--vi-border-strong);
-  --el-input-focus-border-color: var(--vi-color-primary);
-
-  --el-select-input-focus-border-color: var(--vi-color-primary);
-
-  --el-button-border-color: var(--vi-border-default);
-  --el-button-hover-text-color: var(--vi-color-primary);
-  --el-button-hover-border-color: var(--vi-color-primary-light-5);
-  --el-button-active-border-color: var(--vi-color-primary-light-3);
-  --el-button-hover-bg-color: rgba(var(--vi-color-primary-rgb), 0.08);
-
-  --el-table-border-color: var(--vi-border-light);
-  --el-table-header-bg-color: var(--vi-fill-soft);
-  --el-table-header-text-color: var(--vi-text-secondary);
-  --el-table-row-hover-bg-color: rgba(var(--vi-color-primary-rgb), 0.05);
-  --el-table-current-row-bg-color: var(--vi-wb-table-current-row-bg);
-  --el-table-bg-color: var(--vi-surface-panel);
-  --el-table-tr-bg-color: var(--vi-surface-panel);
-  --el-table-text-color: var(--vi-text-primary);
-
-  --el-drawer-bg-color: var(--vi-surface-overlay);
-  --el-drawer-padding-primary: var(--vi-spacing-xl);
-
-  --el-tabs-header-height: 32px;
-  --el-tabs-item-active-color: var(--vi-color-primary);
-  --el-tabs-item-hover-color: var(--vi-color-primary);
-
-  --el-radio-button-checked-bg-color: var(--vi-color-primary);
-  --el-radio-button-checked-border-color: var(--vi-color-primary);
-  --el-radio-button-checked-text-color: #fff;
+  /*
+   * 行悬停：勿用半透明 rgba。固定列横向滚动时，透明底会从 z-index 叠层里透出下方单元格文字。
+   * color-mix 得到不透明显式色，视觉仍接近「主色轻染在表底上」。
+   */
+  --vi-el-table-row-hover-bg: color-mix(
+    in srgb,
+    var(--vi-color-primary) 6%,
+    var(--vi-surface-panel)
+  );
 }
 
 html.dark {
@@ -94,11 +69,11 @@ html.dark {
   --el-color-primary-light-9: var(--vi-color-primary-light-9);
   --el-color-primary-dark-2: var(--vi-color-primary-dark-2);
 
-  --el-button-hover-text-color: var(--vi-color-primary);
-  --el-button-hover-border-color: var(--vi-color-primary-light-5);
-  --el-button-hover-bg-color: rgba(var(--vi-color-primary-rgb), 0.14);
-  --el-table-row-hover-bg-color: rgba(var(--vi-color-primary-rgb), 0.08);
-  --el-table-current-row-bg-color: var(--vi-wb-table-current-row-bg);
+  --vi-el-table-row-hover-bg: color-mix(
+    in srgb,
+    var(--vi-color-primary) 12%,
+    var(--vi-surface-panel)
+  );
 
   --el-mask-color: rgba(0, 0, 0, 0.68);
   --el-overlay-color: rgba(0, 0, 0, 0.54);

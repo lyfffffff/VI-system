@@ -4,6 +4,14 @@
   --el-date-editor-daterange-width: 250px; // 改变宽度
 }
 
+// 日期范围选择器阴影
+.el-range-editor.el-input__wrapper.is-active,
+.el-range-editor.el-input__wrapper.is-active:hover {
+  box-shadow:
+    0 0 0 1px rgba(var(--el-color-primary-rgb), 0.42) inset,
+    0 0 0 3px rgba(var(--el-color-primary-rgb), 0.08);
+}
+
 /* ---------------------------------------- 通过增加其他类名改样式 ---------------------------------------- */
 
 .vi-theme-scope {

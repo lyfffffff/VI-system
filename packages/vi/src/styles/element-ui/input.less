@@ -1,15 +1,8 @@
 /* ---------------------------------------- 直接改样式 ---------------------------------------- */
-.el-input__wrapper,
-.el-date-editor.el-input__wrapper {
-  border-radius: var(--vi-radius-md);
-  background: var(--wb-input-bg);
-  box-shadow: 0 0 0 1px var(--wb-input-border) inset;
-}
 
-.el-input__wrapper.is-focus,
-.el-date-editor.el-input__wrapper.is-focus {
+// 输入控件聚焦时阴影
+.el-input__wrapper.is-focus {
   box-shadow:
     0 0 0 1px rgba(var(--el-color-primary-rgb), 0.42) inset,
-    0 0 0 3px rgba(var(--el-color-primary-rgb), 0.08);
+    0 0 0 3px rgba(var(--el-color-primary-rgb), 0.08) !important;
 }
-

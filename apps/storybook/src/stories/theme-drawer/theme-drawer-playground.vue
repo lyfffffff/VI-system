@@ -44,6 +44,8 @@ const sampleForm = reactive({
   checkboxValue1: false,
   checkboxValue2: false,
   checkboxGroupValue: ["Option 1"] as string[],
+  checkboxButtonGroupValue: ["daily", "weekly"] as string[],
+  checkboxBorderGroupValue: ["staging"] as string[],
   radioValue: "a",
   radioButtonValue: "a",
   switchValue1: false,

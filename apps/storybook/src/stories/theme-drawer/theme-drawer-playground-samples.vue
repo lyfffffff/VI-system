@@ -62,6 +62,8 @@ defineProps<{
     checkboxValue1: boolean;
     checkboxValue2: boolean;
     checkboxGroupValue: string[];
+    checkboxButtonGroupValue: string[];
+    checkboxBorderGroupValue: string[];
     radioValue: string;
     radioButtonValue: string;
     switchValue1: boolean;
@@ -92,6 +94,18 @@ const CHECKBOX_ITEMS = [
   { value: "Option 1", label: "Option 1" },
   { value: "Option 2", label: "Option 2" },
   { value: "Option 3", label: "Option 3" },
+] as const;
+
+const CHECKBOX_BUTTON_ITEMS = [
+  { value: "daily", label: "日报" },
+  { value: "weekly", label: "周报" },
+  { value: "monthly", label: "月报" },
+] as const;
+
+const CHECKBOX_BORDER_ITEMS = [
+  { value: "prod", label: "线上" },
+  { value: "staging", label: "预发" },
+  { value: "dev", label: "测试" },
 ] as const;
 
 const CASCADER_OPTIONS: ICascaderOption[] = [
@@ -236,6 +250,66 @@ const TREE_OPTIONS: ITreeOption[] = [
         </div>
       </el-form-item>
 
+      <el-form-item label="输入与选择（禁用）">
+        <div class="tdp-samples__grid tdp-samples__grid--2">
+          <el-input v-model="form.inputValue" placeholder="请输入" clearable disabled />
+          <el-input-number
+            v-model="form.inputNumberValue"
+            :min="0"
+            :max="999"
+            disabled
+          />
+          <el-input
+            v-model="form.textareaValue"
+            type="textarea"
+            :rows="3"
+            placeholder="请输入备注"
+            disabled
+          />
+          <el-select v-model="form.selectValue" placeholder="单选" disabled>
+            <el-option
+              v-for="item in OPTION_ITEMS"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+          <el-select
+            v-model="form.selectMultipleValue"
+            placeholder="多选"
+            multiple
+            collapse-tags
+            collapse-tags-tooltip
+            disabled
+          >
+            <el-option
+              v-for="item in OPTION_ITEMS"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+          <el-cascader
+            v-model="form.cascaderValue"
+            :options="CASCADER_OPTIONS"
+            placeholder="级联选择"
+            disabled
+          />
+          <el-tree-select
+            v-model="form.treeSelectValue"
+            :data="TREE_OPTIONS"
+            multiple
+            filterable
+            show-checkbox
+            check-strictly
+            collapse-tags
+            collapse-tags-tooltip
+            placeholder="树选择"
+            disabled
+          />
+        </div>
+      </el-form-item>
+
       <el-form-item label="日期与时间">
         <div class="tdp-samples__grid tdp-samples__grid--2">
           <el-date-picker
@@ -278,6 +352,27 @@ const TREE_OPTIONS: ITreeOption[] = [
               v-for="item in CHECKBOX_ITEMS"
               :key="item.value"
               :label="item.value"
+            >
+              {{ item.label }}
+            </el-checkbox>
+          </el-checkbox-group>
+
+          <el-checkbox-group v-model="form.checkboxButtonGroupValue">
+            <el-checkbox-button
+              v-for="item in CHECKBOX_BUTTON_ITEMS"
+              :key="`cb-btn-${item.value}`"
+              :label="item.value"
+            >
+              {{ item.label }}
+            </el-checkbox-button>
+          </el-checkbox-group>
+
+          <el-checkbox-group v-model="form.checkboxBorderGroupValue">
+            <el-checkbox
+              v-for="item in CHECKBOX_BORDER_ITEMS"
+              :key="`cb-border-${item.value}`"
+              :label="item.value"
+              border
             >
               {{ item.label }}
             </el-checkbox>
