@@ -79,3 +79,127 @@ const presetsWithVariants = THEME_PRESETS.map((preset) => ({
     </div>
   </div>
 </template>
+
+<style>
+/* Story 画布：主题变体色卡（原 `.storybook/story-styles/theme-drawer.stories.css`） */
+.regression-toolbar h3 {
+  margin: 0;
+  color: var(--el-text-color-primary);
+}
+
+.regression-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-variant-swatches-story__hint {
+  margin: 0 0 16px;
+  color: var(--el-text-color-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.theme-variant-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 1200px;
+}
+
+.theme-variant-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  padding: 12px 14px;
+  margin: 0;
+  text-align: left;
+  border: 1px solid var(--el-border-color-light);
+  border-radius: var(--vi-radius-md);
+  background: var(--el-bg-color);
+  color: var(--el-text-color-primary);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.theme-variant-card:hover {
+  border-color: var(--el-color-primary-light-5);
+}
+
+.theme-variant-card.is-active {
+  border-color: var(--el-color-primary);
+  box-shadow: 0 0 0 2px rgba(var(--el-color-primary-rgb), 0.12);
+}
+
+.theme-variant-card__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 12px;
+}
+
+.theme-variant-card__en {
+  font-weight: 600;
+}
+
+.theme-variant-card__zh {
+  color: var(--el-text-color-secondary);
+  font-size: 13px;
+}
+
+.theme-variant-card__key {
+  margin-left: auto;
+  padding: 2px 8px;
+  border-radius: var(--vi-radius-sm);
+  background: var(--el-fill-color-light);
+  color: var(--el-text-color-secondary);
+  font-size: 12px;
+}
+
+.theme-variant-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  align-items: flex-end;
+}
+
+.theme-variant-swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 52px;
+}
+
+.theme-variant-swatch__chip {
+  display: block;
+  width: 44px;
+  height: 28px;
+  border-radius: var(--vi-radius-sm);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+}
+
+html.dark .theme-variant-swatch__chip {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.theme-variant-swatch__label {
+  font-size: 10px;
+  line-height: 1.2;
+  color: var(--el-text-color-secondary);
+  text-align: center;
+  max-width: 56px;
+}
+</style>

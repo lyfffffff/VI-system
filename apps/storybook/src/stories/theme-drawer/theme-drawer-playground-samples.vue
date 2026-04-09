@@ -9,6 +9,14 @@ interface ITableRow {
   region: string;
   address: string;
   remark: string;
+  channel: string;
+  owner: string;
+  phone: string;
+  email: string;
+  sku: string;
+  warehouse: string;
+  settleDays: string;
+  platform: string;
 }
 
 interface ITreeTableRow {
@@ -176,7 +184,11 @@ const TREE_OPTIONS: ITreeOption[] = [
       <el-form-item label="输入与选择">
         <div class="tdp-samples__grid tdp-samples__grid--2">
           <el-input v-model="form.inputValue" placeholder="请输入" clearable />
-          <el-input-number v-model="form.inputNumberValue" :min="0" :max="999" />
+          <el-input-number
+            v-model="form.inputNumberValue"
+            :min="0"
+            :max="999"
+          />
           <el-input
             v-model="form.textareaValue"
             type="textarea"
@@ -313,10 +325,20 @@ const TREE_OPTIONS: ITreeOption[] = [
         <div class="tdp-samples__tables">
           <div class="tdp-samples__table-block">
             <p class="tdp-samples__table-title">基础表格（多列）</p>
-            <el-table :data="form.tableData" border class="tdp-samples__table">
+            <el-table :data="form.tableData" class="tdp-samples__table">
               <el-table-column type="index" label="#" width="48" fixed="left" />
-              <el-table-column prop="date" label="日期" width="112" fixed="left" />
-              <el-table-column prop="name" label="名称" min-width="120" show-overflow-tooltip />
+              <el-table-column
+                prop="date"
+                label="日期"
+                width="112"
+                fixed="left"
+              />
+              <el-table-column
+                prop="name"
+                label="名称"
+                min-width="120"
+                show-overflow-tooltip
+              />
               <el-table-column prop="category" label="类目" width="100" />
               <el-table-column prop="status" label="状态" width="96">
                 <template #default="{ row }">
@@ -334,28 +356,96 @@ const TREE_OPTIONS: ITreeOption[] = [
                   </el-tag>
                 </template>
               </el-table-column>
-              <el-table-column prop="amount" label="金额(万)" width="100" align="right" />
+              <el-table-column
+                prop="amount"
+                label="金额(万)"
+                width="100"
+                align="right"
+              />
               <el-table-column prop="region" label="区域" width="88" />
-              <el-table-column prop="address" label="地址" min-width="160" show-overflow-tooltip />
-              <el-table-column prop="remark" label="备注" min-width="120" show-overflow-tooltip />
+              <el-table-column
+                prop="channel"
+                label="渠道"
+                width="104"
+                show-overflow-tooltip
+              />
+              <el-table-column
+                prop="owner"
+                label="负责人"
+                width="96"
+                show-overflow-tooltip
+              />
+              <el-table-column prop="phone" label="联系电话" width="120" />
+              <el-table-column
+                prop="email"
+                label="邮箱"
+                min-width="168"
+                show-overflow-tooltip
+              />
+              <el-table-column
+                prop="sku"
+                label="SKU"
+                width="112"
+                show-overflow-tooltip
+              />
+              <el-table-column
+                prop="warehouse"
+                label="仓库"
+                width="100"
+                show-overflow-tooltip
+              />
+              <el-table-column
+                prop="settleDays"
+                label="账期(天)"
+                width="92"
+                align="right"
+              />
+              <el-table-column
+                prop="platform"
+                label="发行平台"
+                width="120"
+                show-overflow-tooltip
+              />
+              <el-table-column
+                prop="address"
+                label="地址"
+                min-width="160"
+                show-overflow-tooltip
+              />
+              <el-table-column
+                prop="remark"
+                label="备注"
+                min-width="120"
+                show-overflow-tooltip
+              />
             </el-table>
           </div>
 
           <div class="tdp-samples__table-block">
             <p class="tdp-samples__table-title">斑马纹表格</p>
-            <el-table
-              :data="form.tableData"
-              stripe
-              border
-              class="tdp-samples__table"
-            >
+            <el-table :data="form.tableData" stripe class="tdp-samples__table">
               <el-table-column type="selection" width="44" />
               <el-table-column prop="date" label="日期" width="112" />
-              <el-table-column prop="name" label="名称" min-width="120" show-overflow-tooltip />
+              <el-table-column
+                prop="name"
+                label="名称"
+                min-width="120"
+                show-overflow-tooltip
+              />
               <el-table-column prop="category" label="类目" width="100" />
-              <el-table-column prop="amount" label="金额(万)" width="100" align="right" />
+              <el-table-column
+                prop="amount"
+                label="金额(万)"
+                width="100"
+                align="right"
+              />
               <el-table-column prop="region" label="区域" width="88" />
-              <el-table-column prop="address" label="地址" min-width="180" show-overflow-tooltip />
+              <el-table-column
+                prop="address"
+                label="地址"
+                min-width="180"
+                show-overflow-tooltip
+              />
             </el-table>
           </div>
 
@@ -364,11 +454,15 @@ const TREE_OPTIONS: ITreeOption[] = [
             <el-table
               :data="form.treeTableData"
               row-key="id"
-              border
               default-expand-all
               class="tdp-samples__table"
             >
-              <el-table-column prop="name" label="节点" min-width="200" />
+              <el-table-column
+                prop="name"
+                label="节点"
+                min-width="200"
+                fixed="left"
+              />
               <el-table-column prop="category" label="类目" width="100" />
               <el-table-column prop="status" label="状态" width="96">
                 <template #default="{ row }">
@@ -380,10 +474,20 @@ const TREE_OPTIONS: ITreeOption[] = [
                   </el-tag>
                 </template>
               </el-table-column>
-              <el-table-column prop="amount" label="金额(万)" width="100" align="right" />
+              <el-table-column
+                prop="amount"
+                label="金额(万)"
+                width="100"
+                align="right"
+              />
               <el-table-column prop="region" label="区域" width="88" />
               <el-table-column prop="date" label="更新日" width="112" />
-              <el-table-column prop="address" label="地址" min-width="160" show-overflow-tooltip />
+              <el-table-column
+                prop="address"
+                label="地址"
+                min-width="160"
+                show-overflow-tooltip
+              />
             </el-table>
           </div>
         </div>

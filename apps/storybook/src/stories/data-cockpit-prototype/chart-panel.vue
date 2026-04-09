@@ -36,55 +36,25 @@ import { nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import * as echarts from "echarts";
 import type { EChartsOption } from "echarts";
 import { useViTheme } from "@yyxxfe/vi";
+import {
+  type CockpitTrendMetricKey,
+  cockpitTrendChartMetricOptions as chartMetricOptions,
+  cockpitTrendBaseData as trendBaseData,
+  cockpitTrendDates as trendDates,
+  cockpitTrendDefaultCompareGames,
+  cockpitTrendDefaultMetrics,
+  cockpitTrendGameTreeData as trendGameTreeData,
+  cockpitTrendMetricMeta as metricMeta,
+} from "./mock-data";
 
-type MetricKey = "revenue" | "income" | "cost" | "profit";
-
-interface MetricMetaItem {
-  label: string;
-  factor: number;
-  unit: string;
-}
-
-const chartMetrics = ref<MetricKey[]>(["revenue"]);
-const compareGames = ref<string[]>(["fumo-main", "xianyu-main", "origin-main"]);
+const chartMetrics = ref<CockpitTrendMetricKey[]>([
+  ...cockpitTrendDefaultMetrics,
+]);
+const compareGames = ref<string[]>([...cockpitTrendDefaultCompareGames]);
 const trendChartRef = ref<HTMLDivElement>();
 let trendChartInstance: echarts.ECharts | null = null;
 
 const { themeKey, isDark } = useViTheme();
-
-const chartMetricOptions = [
-  { label: "流水", value: "revenue" },
-  { label: "收入", value: "income" },
-  { label: "消耗", value: "cost" },
-  { label: "毛利润", value: "profit" },
-];
-
-const trendGameTreeData = [
-  {
-    value: "all",
-    label: "全部游戏",
-    children: [
-      { value: "fumo-main", label: "伏魔主版本" },
-      { value: "xianyu-main", label: "仙遇主版本" },
-      { value: "origin-main", label: "源星战域" },
-    ],
-  },
-];
-
-const trendDates = ["3/27", "3/28", "3/29", "3/30", "3/31", "4/1", "4/2"];
-
-const trendBaseData: Record<string, number[]> = {
-  "fumo-main": [758, 784, 803, 789, 812, 835, 860],
-  "xianyu-main": [412, 426, 439, 448, 462, 455, 470],
-  "origin-main": [233, 240, 245, 252, 248, 260, 268],
-};
-
-const metricMeta: Record<MetricKey, MetricMetaItem> = {
-  revenue: { label: "流水", factor: 1, unit: "万" },
-  income: { label: "收入", factor: 0.7, unit: "万" },
-  cost: { label: "消耗", factor: 0.58, unit: "万" },
-  profit: { label: "毛利润", factor: 0.16, unit: "万" },
-};
 
 function readCssVar(name: string, fallback: string): string {
   const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
@@ -106,7 +76,8 @@ function ensureTrendChartInstance(): echarts.ECharts | null {
 
 function buildTrendChartOption(): EChartsOption {
   const selectedGames = compareGames.value;
-  const selectedMetrics = chartMetrics.value.length > 0 ? chartMetrics.value : ["revenue"];
+  const selectedMetrics =
+    chartMetrics.value.length > 0 ? chartMetrics.value : cockpitTrendDefaultMetrics;
 
   const primary = readCssVar("--el-color-primary", "#3b82f6");
   const palette = [primary, "#6366f1", "#f97316", "#22c55e", "#a855f7"];
@@ -125,7 +96,7 @@ function buildTrendChartOption(): EChartsOption {
     const baseData = trendBaseData[gameKey] ?? trendBaseData["fumo-main"];
 
     selectedMetrics.forEach((metricKey, metricIndex) => {
-      const meta = metricMeta[metricKey] ?? metricMeta.revenue;
+      const meta = metricMeta[metricKey];
       const seriesName = selectedMetrics.length > 1 ? `${gameLabel}-${meta.label}` : gameLabel;
       const data = baseData.map((value) => Number((value * meta.factor).toFixed(2)));
 

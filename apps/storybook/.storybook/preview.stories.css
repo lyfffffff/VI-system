@@ -1,9 +1,0 @@
-/* Story-level UI stylesheet index.
- * 仅承载 Storybook 演示页面样式，不属于 @yyxxfe/vi 组件库发布样式。
- */
-
-/* Story: 主题/主题抽屉（theme-drawer.stories.ts） */
-@import "./story-styles/theme-drawer.stories.css";
-
-/* Story: 主题/驾驶舱原型 */
-@import "./story-styles/data-cockpit-prototype.stories.css";

@@ -1,4 +1,4 @@
-﻿import type { Decorator, Preview } from '@storybook/vue3'
+import type { Decorator, Preview } from '@storybook/vue3'
 import { setup } from '@storybook/vue3'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
@@ -6,7 +6,6 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 import { initViTheme, useViTheme } from '@yyxxfe/vi'
 import '@yyxxfe/vi/styles'
 import './preview.css'
-import './preview.stories.css'
 
 setup((app) => {
   app.use(ElementPlus)

@@ -64,6 +64,14 @@ const sampleForm = reactive({
       region: "华东",
       address: "上海市浦东新区张江",
       remark: "首日 ROI 达标",
+      channel: "商店 A",
+      owner: "林某",
+      phone: "13800001001",
+      email: "lin@demo.game",
+      sku: "SKU-MMORPG-CN-01",
+      warehouse: "沪东仓",
+      settleDays: "T+7",
+      platform: "iOS / Android",
     },
     {
       date: "2026-04-02",
@@ -74,6 +82,14 @@ const sampleForm = reactive({
       region: "北美",
       address: "美西 CDN 节点",
       remark: "投放爬坡中",
+      channel: "FB / Google",
+      owner: "赵某",
+      phone: "+1-415-555-0199",
+      email: "zhao.ops@demo.game",
+      sku: "SKU-ARPG-NA-02",
+      warehouse: "美西云仓",
+      settleDays: "T+14",
+      platform: "Steam / Epic",
     },
     {
       date: "2026-04-02",
@@ -84,6 +100,14 @@ const sampleForm = reactive({
       region: "华南",
       address: "深圳市南山区",
       remark: "预算冻结",
+      channel: "联运 B",
+      owner: "钱某",
+      phone: "13800001003",
+      email: "qian@demo.game",
+      sku: "SKU-SLG-ORG-03",
+      warehouse: "粤南仓",
+      settleDays: "—",
+      platform: "H5 / 小程序",
     },
     {
       date: "2026-04-03",
@@ -94,6 +118,14 @@ const sampleForm = reactive({
       region: "华北",
       address: "北京市海淀区",
       remark: "周活跃稳定",
+      channel: "硬核联盟",
+      owner: "孙某",
+      phone: "13800001004",
+      email: "sun@demo.game",
+      sku: "SKU-FPS-BUNDLE-04",
+      warehouse: "京津仓",
+      settleDays: "T+5",
+      platform: "Android",
     },
     {
       date: "2026-04-03",
@@ -104,6 +136,14 @@ const sampleForm = reactive({
       region: "华西",
       address: "成都市高新区",
       remark: "接入支付中",
+      channel: "直播联运",
+      owner: "周某",
+      phone: "13800001005",
+      email: "zhou@demo.game",
+      sku: "SKU-TCG-LIVE-05",
+      warehouse: "川渝仓",
+      settleDays: "T+10",
+      platform: "全渠道",
     },
   ],
   treeTableData: [
@@ -315,5 +355,38 @@ function handleModeChange(nextDark: boolean): void {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 12px;
+}
+</style>
+
+<style>
+/* Story 画布：Playground 头部与内联按钮（原 `.storybook/story-styles/theme-drawer.stories.css`） */
+.story-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.story-header-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.story-header h3 {
+  margin: 0;
+  color: var(--el-text-color-primary);
+}
+
+.story-header p {
+  margin: 0;
+  color: var(--el-text-color-secondary);
+}
+
+.sb-no-flex-stretch,
+.el-button.sb-no-flex-stretch {
+  flex: 0 0 auto;
+  width: auto;
+  max-width: fit-content;
+  align-self: flex-start;
 }
 </style>

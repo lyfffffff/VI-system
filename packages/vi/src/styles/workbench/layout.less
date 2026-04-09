@@ -399,13 +399,19 @@
   }
 
   .workbench-sidebar.is-collapsed {
-    width: 56px;
-    min-width: 56px;
+    width: var(--wb-sidebar-collapsed-width);
+    min-width: var(--wb-sidebar-collapsed-width);
+    /* 折叠后仅保留底边距，避免左右 padding 挤窄菜单触发裁剪 / 错位 */
+    padding: 0 0 8px;
   }
 
   .workbench-sidebar__scroll {
     flex: 1;
     min-height: 0;
+  }
+
+  .workbench-sidebar.is-collapsed .workbench-sidebar__scroll .el-scrollbar__wrap {
+    overflow-x: hidden;
   }
 
   .workbench-sidebar__menu {
@@ -522,14 +528,49 @@
     cursor: not-allowed;
   }
 
+  .workbench-sidebar.is-collapsed .workbench-sidebar__menu.el-menu--collapse {
+    /* 覆盖 EP 固定 calc 宽度，铺满侧栏，避免与容器宽度不一致导致裁切 */
+    width: 100% !important;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
   .workbench-sidebar.is-collapsed .workbench-sidebar__menu > .el-menu-item,
   .workbench-sidebar.is-collapsed .workbench-sidebar__menu > .el-sub-menu > .el-sub-menu__title {
     justify-content: center;
+    /* 折叠后标题占位隐藏，gap 仍会在图标与空 span 之间留缝，导致图标视觉上偏左 */
+    gap: 0;
     padding: 0 !important;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .workbench-sidebar.is-collapsed .workbench-sidebar__group-label {
+    display: none !important;
+    flex: 0;
+    width: 0 !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .workbench-sidebar.is-collapsed .workbench-sidebar__group-icon {
+    margin: 0 !important;
   }
 
   .workbench-sidebar.is-collapsed .workbench-sidebar__menu > .el-sub-menu > .el-sub-menu__title .el-sub-menu__icon-arrow {
     display: none;
+  }
+
+  /* Element Plus 折叠时为入口包一层 tooltip trigger，需单独拉满宽以便图标居中 */
+  .workbench-sidebar.is-collapsed .workbench-sidebar__menu .el-menu-tooltip__trigger {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0 !important;
+    box-sizing: border-box;
   }
 
   .workbench-sidebar__toggle {
@@ -538,6 +579,11 @@
     justify-content: center;
     padding: 4px 0 0;
     border-top: 1px solid var(--el-border-color-lighter);
+  }
+
+  .workbench-sidebar.is-collapsed .workbench-sidebar__toggle {
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .workbench-sidebar__toggle-btn {

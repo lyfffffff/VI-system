@@ -182,170 +182,11 @@
 <script setup lang="ts">
 import { ArrowDown, ArrowRight, Operation } from "@element-plus/icons-vue";
 import { useAutoTableColWidth } from "@yyxxfe/vi";
-
-interface ITableRow {
-  id: string;
-  name: string;
-  revenue: string;
-  revenueMom: string;
-  revenueYoy: string;
-  income: string;
-  cost: string;
-  costMom: string;
-  costYoy: string;
-  grossProfit: string;
-  firstDayRoi: string;
-  registerUnitPrice: string;
-  newAccounts: string;
-  activeAccounts: string;
-  paidAccounts: string;
-  payRate: string;
-  arppu: string;
-  isSummary?: boolean;
-}
-
-const tableMetricTemplates = [
-  { key: "system-default", label: "系统模板-核心指标" },
-  { key: "system-growth", label: "系统模板-增长指标" },
-  { key: "custom", label: "新建自定义指标" },
-];
-
-const tableData: ITableRow[] = [
-  {
-    id: "summary",
-    name: "合计(共 6 个产品)",
-    revenue: "600",
-    revenueMom: "-0.6%",
-    revenueYoy: "+4%",
-    income: "413",
-    cost: "322",
-    costMom: "+0.6%",
-    costYoy: "+4.4%",
-    grossProfit: "132",
-    firstDayRoi: "143%",
-    registerUnitPrice: "¥36.2",
-    newAccounts: "11,777",
-    activeAccounts: "29,443",
-    paidAccounts: "1,767",
-    payRate: "6.25%",
-    arppu: "¥234",
-    isSummary: true,
-  },
-  {
-    id: "fumo",
-    name: "伏魔",
-    revenue: "311",
-    revenueMom: "-2.1%",
-    revenueYoy: "+5.2%",
-    income: "217",
-    cost: "115",
-    costMom: "+4.8%",
-    costYoy: "+6.2%",
-    grossProfit: "110",
-    firstDayRoi: "152%",
-    registerUnitPrice: "¥36.2",
-    newAccounts: "4,136",
-    activeAccounts: "10,340",
-    paidAccounts: "620",
-    payRate: "6.25%",
-    arppu: "¥315",
-  },
-  {
-    id: "xianyu",
-    name: "仙遇",
-    revenue: "159",
-    revenueMom: "+3.5%",
-    revenueYoy: "-1.8%",
-    income: "110",
-    cost: "90",
-    costMom: "-2.3%",
-    costYoy: "+8.1%",
-    grossProfit: "45",
-    firstDayRoi: "141%",
-    registerUnitPrice: "¥36.2",
-    newAccounts: "3,430",
-    activeAccounts: "8,575",
-    paidAccounts: "515",
-    payRate: "6.25%",
-    arppu: "¥213",
-  },
-  {
-    id: "qingyunjue2",
-    name: "青云诀2",
-    revenue: "86",
-    revenueMom: "-5.2%",
-    revenueYoy: "+12.5%",
-    income: "56",
-    cost: "42",
-    costMom: "+1.2%",
-    costYoy: "-3.5%",
-    grossProfit: "16",
-    firstDayRoi: "135%",
-    registerUnitPrice: "¥36.2",
-    newAccounts: "2,285",
-    activeAccounts: "5,713",
-    paidAccounts: "343",
-    payRate: "6.25%",
-    arppu: "¥163",
-  },
-  {
-    id: "originwar",
-    name: "源星战域",
-    revenue: "19",
-    revenueMom: "+8.3%",
-    revenueYoy: "-4.2%",
-    income: "13",
-    cost: "38",
-    costMom: "-6.1%",
-    costYoy: "+2.8%",
-    grossProfit: "-23",
-    firstDayRoi: "154%",
-    registerUnitPrice: "¥36.2",
-    newAccounts: "856",
-    activeAccounts: "2,140",
-    paidAccounts: "128",
-    payRate: "6.25%",
-    arppu: "¥102",
-  },
-  {
-    id: "swordrecord",
-    name: "御剑封神录",
-    revenue: "15",
-    revenueMom: "-1.5%",
-    revenueYoy: "+7.8%",
-    income: "10",
-    cost: "22",
-    costMom: "+3.2%",
-    costYoy: "-5.3%",
-    grossProfit: "-10",
-    firstDayRoi: "130%",
-    registerUnitPrice: "¥36.2",
-    newAccounts: "620",
-    activeAccounts: "1,550",
-    paidAccounts: "93",
-    payRate: "6.25%",
-    arppu: "¥95",
-  },
-  {
-    id: "qingyunchuan",
-    name: "青云传",
-    revenue: "10",
-    revenueMom: "+4.2%",
-    revenueYoy: "-2.5%",
-    income: "7",
-    cost: "15",
-    costMom: "-1.8%",
-    costYoy: "+9.2%",
-    grossProfit: "-6",
-    firstDayRoi: "110%",
-    registerUnitPrice: "¥36.2",
-    newAccounts: "450",
-    activeAccounts: "1,125",
-    paidAccounts: "68",
-    payRate: "6.25%",
-    arppu: "¥88",
-  },
-];
+import {
+  type ICockpitGameOverviewRow,
+  cockpitGameOverviewTableData as tableData,
+  cockpitTableMetricTemplates as tableMetricTemplates,
+} from "./mock-data";
 
 const autoColWidths = useAutoTableColWidth(
   tableData,
@@ -455,7 +296,7 @@ function rowTrendClass(value: string): string {
   return value.startsWith("+") ? "is-up" : "is-down";
 }
 
-function tableRowClassName({ row }: { row: ITableRow }): string {
+function tableRowClassName({ row }: { row: ICockpitGameOverviewRow }): string {
   return row.isSummary ? "product-row" : "";
 }
 

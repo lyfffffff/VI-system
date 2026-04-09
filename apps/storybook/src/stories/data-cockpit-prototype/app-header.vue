@@ -1,3 +1,4 @@
+<!-- 组件：顶部导航栏 -->
 <template>
   <header class="workbench-topbar">
     <div class="workbench-topbar__left">
@@ -27,7 +28,7 @@
             />
           </svg>
         </span>
-        <span class="workbench-topbar__brand-title">{{ BRAND_TITLE }}</span>
+        <span class="workbench-topbar__brand-title">{{ cockpitBrandTitle }}</span>
       </div>
       <nav class="workbench-topbar__nav" aria-label="一级导航">
         <button
@@ -87,8 +88,8 @@
           <el-icon><UserFilled /></el-icon>
         </span>
         <span class="workbench-topbar__user-meta">
-          <span class="workbench-topbar__user-name">{{ DEMO_USER.name }}</span>
-          <span class="workbench-topbar__user-role">{{ DEMO_USER.role }}</span>
+          <span class="workbench-topbar__user-name">{{ cockpitDemoUser.name }}</span>
+          <span class="workbench-topbar__user-role">{{ cockpitDemoUser.role }}</span>
         </span>
         <el-icon class="workbench-topbar__user-arrow"><ArrowDown /></el-icon>
       </button>
@@ -98,6 +99,7 @@
 
 <script setup lang="ts">
 import { ArrowDown, Bell, Download, MoonNight, Service, Setting, UserFilled } from "@element-plus/icons-vue";
+import { cockpitBrandTitle, cockpitDemoUser } from "./mock-data";
 
 interface NavItem {
   key: string;
@@ -108,12 +110,6 @@ interface Props {
   navItems: NavItem[];
   activeNav: string;
 }
-
-const BRAND_TITLE = "天问 · 数据平台";
-const DEMO_USER = {
-  name: "Demo账号",
-  role: "管理员",
-} as const;
 
 defineProps<Props>();
 

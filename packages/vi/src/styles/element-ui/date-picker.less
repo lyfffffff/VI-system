@@ -1,0 +1,20 @@
+/* ---------------------------------------- 直接改样式 ---------------------------------------- */
+
+.el-date-editor {
+  --el-date-editor-daterange-width: 250px; // 改变宽度
+}
+
+/* ---------------------------------------- 通过增加其他类名改样式 ---------------------------------------- */
+
+.vi-theme-scope {
+  .date-picker-joined {
+    margin-left: -1px;
+    width: 160px;
+  }
+
+  .date-picker-joined .el-input__wrapper {
+    height: 30px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
