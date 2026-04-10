@@ -40,14 +40,12 @@
 @vi-token-border-extra-light-dark: #2b2b2c;
 
 // 面板填充色
-@vi-token-fill-soft-light: #f7f8fb;
 @vi-token-fill-muted-light: #f0f3f8;
 @vi-token-fill-base-light: #f5f7fb;
 @vi-token-fill-light-light: #f8f9fc;
 @vi-token-fill-lighter-light: #fbfcfe;
 @vi-token-fill-extra-light-light: #f5f7fb;
 
-@vi-token-fill-soft-dark: #1a1b1c;
 @vi-token-fill-muted-dark: #303030;
 @vi-token-fill-base-dark: #303030;
 @vi-token-fill-light-dark: #262727;
@@ -84,3 +82,12 @@
 @vi-shadow-panel-dark: 0 6px 18px rgba(0, 0, 0, 0.2);
 @vi-shadow-card-dark: 0 8px 24px rgba(0, 0, 0, 0.2);
 @vi-shadow-popover-dark: 0 12px 32px rgba(0, 0, 0, 0.32);
+
+// 字体
+/* 字体栈 = 系统字体 + Windows西文 + 中文 + 西文兜底 + Emoji */
+@vi-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+  "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", "Helvetica Neue",
+  Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji";
+/* 代码/等宽字体 */
+@vi-font-family-mono: "SF Mono", SFMono-Regular, Consolas, "Liberation Mono",
+  Menlo, Monaco, monospace;

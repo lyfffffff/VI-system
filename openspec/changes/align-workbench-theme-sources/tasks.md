@@ -38,3 +38,17 @@
 - [x] 6.4 修正暗色主题色阶算法：`getThemeVariants` 增加 `isDark` 分支，`theme-resolver` 按模式传参。
 - [x] 6.5 修正表格 hover 变量优先级链路：在 `.el-table` 层回写 `--el-table-row-hover-bg-color`，避免固定列滚动穿透。
 - [x] 6.6 扩充 ThemeDrawer 回归样例（页面内展示 + 弹窗展示 + 禁用态/多类型表格），提升视觉回归覆盖度。
+
+## 7. 增量执行（2026-04-10，文档收敛）
+
+- [x] 7.1 将根目录 `README.md`、`VI-System.md` 与 `docs/guides/*.md` 关键信息归并到 `总结.md` 的既有结构中。
+- [x] 7.2 保留 `总结.md` 中原有关键代码块/结构图，避免文档收敛后丢失实现上下文。
+- [x] 7.3 移除冗余文档（`VI-System.md`、`docs/guides/*.md`），降低多入口维护成本。
+- [x] 7.4 将文档收敛要求以 spec 增量并入本 change（不另起独立 change）。
+
+## 8. 增量执行（2026-04-10，主题导出与接入文档）
+
+- [x] 8.1 移除 `use-auto-table-col-width` 源码与 `@yyxxfe/vi` 入口导出，收敛主题主包能力边界。
+- [x] 8.2 将 `data-cockpit-prototype/table-panel.vue` 改为静态列宽配置，去除自动列宽依赖。
+- [x] 8.3 在 `README.md` 增补“使用主题组件”简要步骤，明确 `initViTheme + ThemeDrawer + useViTheme` 最小接入路径。
+- [x] 8.4 执行构建验证：`pnpm -C packages/vi build`、`pnpm -C apps/storybook build` 均通过。

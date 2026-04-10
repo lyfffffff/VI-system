@@ -34,6 +34,10 @@
 - 以输入白名单为基线，分层校准 `tokens/semantic/mapping/overrides` 细节。
 - 对 `Theme/Prototype Regression` 场景增加模块级对齐检查与验收记录。
 - 同步更新规范文档，明确“输入来源、比对方法、回归口径”。
+- 文档收敛到单一总结入口：保留 `总结.md` 作为团队主阅读文档，移除冗余说明文档。
+- 移除非主题核心导出 `use-auto-table-col-width`，收敛 `@yyxxfe/vi` 公共 API 到主题能力本身。
+- 将 `data-cockpit-prototype/table-panel` 的列宽策略改为静态配置，移除对自动测量列宽逻辑的依赖。
+- 在 `README.md` 增补“使用主题组件”简要步骤，明确 `initViTheme + ThemeDrawer + useViTheme` 最小接入方式。
 - 增量补充 Storybook 联调链路：`@yyxxfe/vi` 与 `@yyxxfe/vi/styles` 在开发态指向 `packages/vi/src/index.ts`，避免仅消费 `dist` 导致的调试偏差。
 - 增量补充 Story 样式归属：将 `theme-drawer` 与 `data-cockpit` Story 的页面样式迁移到对应 `.vue` 文件内，移除 `.storybook/story-styles/*` 的分散入口。
 - 增量补充原型拆分约束：`data-cockpit-prototype` 拆分为 `header/menu/history/conditions/metrics/chart/table` 组件，统一由 `mock-data.ts` 提供页面级与组件级数据。
@@ -46,6 +50,7 @@
 
 ### Modified Capabilities
 - `theme-system`: 增加“样式调优输入来源白名单”与“细节统一化回归口径”要求。
+- `component-docs`: 增加“文档主入口收敛”与“Story 文档同步总结文档”要求。
 
 ## Impact
 
@@ -63,8 +68,16 @@
   - `packages/vi/src/styles/workbench/*.less`
   - `packages/vi/src/theme/theme-resolver.ts`
   - `packages/vi/src/utils/color-utils.ts`
+  - `packages/vi/src/index.ts`
+  - `packages/vi/src/composables/use-auto-table-col-width.ts`（移除）
+  - `apps/storybook/src/stories/data-cockpit-prototype/table-panel.vue`
+  - `README.md`
+  - `总结.md`
+  - `VI-System.md`（移除）
+  - `docs/guides/*.md`（移除）
 - **受影响系统**
   - VI 主题样式分层体系
   - Storybook 原型回归链路
+  - 组件文档维护流程
 - **依赖影响**
   - 无新增运行时依赖

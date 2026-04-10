@@ -1,5 +1,6 @@
 // Element Plus 变量映射层：将 VI 语义变量映射到 --el-*。
 :root {
+  /* ---------------------------------------- 直接改 ELP 变量 ---------------------------------------- */
   --el-color-primary: var(--vi-color-primary);
   --el-color-primary-rgb: var(--vi-color-primary-rgb);
   --el-color-primary-light-3: var(--vi-color-primary-light-3);
@@ -8,7 +9,6 @@
   --el-color-primary-light-8: var(--vi-color-primary-light-8);
   --el-color-primary-light-9: var(--vi-color-primary-light-9);
   --el-color-primary-dark-2: var(--vi-color-primary-dark-2);
-  --el-color-danger: #f56c6c;
 
   --el-bg-color-page: var(--vi-surface-body);
   --el-bg-color: var(--vi-surface-panel);
@@ -27,12 +27,12 @@
   --el-border-color-darker: var(--vi-border-darker);
   --el-border-color-extra-light: var(--vi-border-extra-light);
 
-  --el-fill-color: var(--vi-el-fill-color);
-  --el-fill-color-light: var(--vi-el-fill-color-light);
-  --el-fill-color-lighter: var(--vi-el-fill-color-lighter);
-  --el-fill-color-dark: var(--vi-el-fill-color-dark);
-  --el-fill-color-darker: var(--vi-el-fill-color-darker);
-  --el-fill-color-extra-light: var(--vi-el-fill-color-extra-light);
+  --el-fill-color: var(--vi-fill-color);
+  --el-fill-color-light: var(--vi-fill-color-light);
+  --el-fill-color-lighter: var(--vi-fill-color-lighter);
+  --el-fill-color-dark: var(--vi-fill-color-dark);
+  --el-fill-color-darker: var(--vi-fill-color-darker);
+  --el-fill-color-extra-light: var(--vi-fill-color-extra-light);
 
   --el-mask-color: rgba(0, 0, 0, 0.48);
   --el-overlay-color: rgba(0, 0, 0, 0.36);
@@ -47,15 +47,14 @@
   --el-font-size-base: var(--vi-font-size-body);
   --el-font-family: var(--vi-font-family);
 
-  /*
-   * 行悬停：勿用半透明 rgba。固定列横向滚动时，透明底会从 z-index 叠层里透出下方单元格文字。
-   * color-mix 得到不透明显式色，视觉仍接近「主色轻染在表底上」。
-   */
-  --vi-el-table-row-hover-bg: color-mix(
-    in srgb,
-    var(--vi-color-primary) 6%,
-    var(--vi-surface-panel)
-  );
+  /* ---------------------------------------- 自定义ELP变量 ---------------------------------------- */
+
+  /** 表格行悬停背景色 */
+  --el-table-row-hover-bg: var(--vi-table-row-hover-bg);
+  /** 输入框聚焦阴影 */
+  --el-input-focus-box-shadow: var(--vi-input-focus-box-shadow);
+  /** size 为 small 的按钮高度 */
+  --el-button-small-height: 28px;
 }
 
 html.dark {
@@ -68,12 +67,6 @@ html.dark {
   --el-color-primary-light-8: var(--vi-color-primary-light-8);
   --el-color-primary-light-9: var(--vi-color-primary-light-9);
   --el-color-primary-dark-2: var(--vi-color-primary-dark-2);
-
-  --vi-el-table-row-hover-bg: color-mix(
-    in srgb,
-    var(--vi-color-primary) 12%,
-    var(--vi-surface-panel)
-  );
 
   --el-mask-color: rgba(0, 0, 0, 0.68);
   --el-overlay-color: rgba(0, 0, 0, 0.54);

@@ -99,3 +99,42 @@
 - 仍保留人工视觉回归待办：
   - `5.1` 亮/暗模式全场景核验
   - `5.2` 交互态截图归档
+
+---
+
+## Incremental Report (2026-04-10)
+
+### C. 文档收敛执行摘要（3652874）
+
+1. 文档主入口收敛  
+   - 以 `总结.md` 作为项目总结主入口，承载规范、项目、design-system、story 文档要点。  
+   - 保留总结文档中关键代码块与结构图，避免信息损耗。
+
+2. 冗余文档移除  
+   - 移除 `VI-System.md`。  
+   - 移除 `docs/guides/README.md`、`storybook-guide.md`、`theme-drawer.md`、`theme-mapping-checklist.md`。  
+   - `README.md` 调整为精简入口并与总结文档口径对齐。
+
+3. OpenSpec 并入策略  
+   - 不新开独立 change。  
+   - 将文档收敛作为 `align-workbench-theme-sources` 的增量执行项并入 proposal/design/tasks/spec，保持一次变更闭环。
+
+---
+
+## Incremental Report (2026-04-10)
+
+### D. 主题导出与接入文档收敛摘要
+
+1. 移除自动列宽相关逻辑  
+   - 删除 `packages/vi/src/composables/use-auto-table-col-width.ts`。  
+   - 删除 `packages/vi/src/index.ts` 中 `useAutoTableColWidth` 及其类型导出。  
+   - `data-cockpit-prototype/table-panel.vue` 改为静态列宽配置，取消对该 composable 的依赖。
+
+2. README 补充主题组件接入步骤  
+   - 在 `README.md` 增加“使用主题组件”简要步骤。  
+   - 覆盖 `initViTheme` 初始化、`ThemeDrawer` 挂载、`useViTheme` 状态消费三个最小环节。
+
+3. 验证结果  
+   - `pnpm -C packages/vi build`：通过  
+   - `pnpm -C apps/storybook build`：通过  
+   - 全仓检索 `useAutoTableColWidth|IAutoTableColWidth|use-auto-table-col-width`：无残留引用
