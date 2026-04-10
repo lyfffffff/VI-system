@@ -34,6 +34,10 @@
 - 以输入白名单为基线，分层校准 `tokens/semantic/mapping/overrides` 细节。
 - 对 `Theme/Prototype Regression` 场景增加模块级对齐检查与验收记录。
 - 同步更新规范文档，明确“输入来源、比对方法、回归口径”。
+- 增量补充 Storybook 联调链路：`@yyxxfe/vi` 与 `@yyxxfe/vi/styles` 在开发态指向 `packages/vi/src/index.ts`，避免仅消费 `dist` 导致的调试偏差。
+- 增量补充 Story 样式归属：将 `theme-drawer` 与 `data-cockpit` Story 的页面样式迁移到对应 `.vue` 文件内，移除 `.storybook/story-styles/*` 的分散入口。
+- 增量补充原型拆分约束：`data-cockpit-prototype` 拆分为 `header/menu/history/conditions/metrics/chart/table` 组件，统一由 `mock-data.ts` 提供页面级与组件级数据。
+- 增量补充主题算法与表格规则：暗色主题色阶改为暗底混色；表格 hover 色在 `el-table` 层强制回写不透明变量，避免固定列滚动穿透。
 
 ## Capabilities
 
@@ -46,6 +50,10 @@
 ## Impact
 
 - **受影响代码**
+  - `apps/storybook/.storybook/main.ts`
+  - `apps/storybook/.storybook/preview.ts`
+  - `apps/storybook/src/stories/theme-drawer/*.vue`
+  - `apps/storybook/src/stories/data-cockpit-prototype/*`
   - `packages/vi/src/styles/tokens.less`
   - `packages/vi/src/styles/semantic-vars.less`
   - `packages/vi/src/styles/element-plus-mapping.less`
@@ -53,7 +61,8 @@
   - `packages/vi/src/styles/workbench-overrides.less`
   - `packages/vi/src/styles/element-ui/*.less`
   - `packages/vi/src/styles/workbench/*.less`
-  - `apps/storybook/src/stories/data-cockpit-prototype/*`
+  - `packages/vi/src/theme/theme-resolver.ts`
+  - `packages/vi/src/utils/color-utils.ts`
 - **受影响系统**
   - VI 主题样式分层体系
   - Storybook 原型回归链路

@@ -42,6 +42,36 @@
 - 备选：仅通过代码 diff 与 Less 对比验收。
   - 未选原因：无法直观看出交互态与暗黑态差异。
 
+### 4. Storybook 开发态强制走源码联调
+- 决策：在 Storybook `viteFinal` 中将 `@yyxxfe/vi` 与 `@yyxxfe/vi/styles` alias 到 `packages/vi/src/index.ts`，并放开 workspace 根目录读盘权限。
+- 理由：避免 Storybook 仅消费 `dist` 产物导致“源码已改、预览未跟”的调试假象。
+- 备选：继续依赖包导出默认走 `dist`。
+  - 未选原因：本轮高频样式细节调优需要源码级即时反馈，`dist` 链路会放大验证延迟。
+
+### 5. Story 样式本地化归属
+- 决策：将 `theme-drawer` 与 `data-cockpit` 的 Story 专用样式迁移到对应 `.vue`，并移除 `.storybook/story-styles/*` 作为主入口。
+- 理由：样式与模板同文件维护，减少全局样式漂移与故事间串扰。
+- 备选：继续集中放在 `.storybook/story-styles`。
+  - 未选原因：在多故事并行迭代时，可追溯性弱，回归时难定位归属。
+
+### 6. 原型拆分为模块化组件
+- 决策：将 `data-cockpit-prototype` 页拆分为 `app-header/app-menu/app-history-nav/conditions-panel/metrics-panel/chart-panel/table-panel`，统一由 `mock-data.ts` 提供数据契约。
+- 理由：模块边界清晰后，样式偏差可按模块回归，避免“大页面一次性联动”降低定位效率。
+- 备选：维持单文件大模板。
+  - 未选原因：单文件结构使样式与交互耦合过高，不利于持续增量调优。
+
+### 7. 主题色阶暗色模式独立计算
+- 决策：`getThemeVariants` 增加 `isDark` 参数，暗色模式下 `light3/light5/light7/light8/light9` 改为暗底混色，并在 resolver 中显式传入 `isDark`。
+- 理由：亮色混白算法在暗黑模式下对比不稳定，无法贴合原型的暗色色阶表现。
+- 备选：继续复用同一套亮色混白算法。
+  - 未选原因：暗黑模式下视觉会偏灰或发脏，主题切换一致性不足。
+
+### 8. 表格 hover 变量在组件层回写
+- 决策：保留 `mapping` 层统一定义，但在 `.el-table` 层显式回写 `--el-table-row-hover-bg-color` 为不透明色变量，覆盖 EP 在 `.el-table` 自身的默认变量定义。
+- 理由：EP 在组件层本地变量优先级高于 `:root` 继承值；仅改映射层会在固定列滚动时出现穿透。
+- 备选：仅在 `:root` 修改 `--el-table-row-hover-bg-color`。
+  - 未选原因：会被 EP `.el-table { --el-table-row-hover-bg-color: ... }` 覆盖，实际不生效。
+
 ## 架构方案
 
 本次不新增架构层，只在现有链路增加“输入约束 + 校准流程”：
@@ -54,6 +84,8 @@
 1. 差异发现：在 Storybook 场景定位视觉差异。
 2. 来源追溯：为每项差异标注来源（design-system 或 workbench-theme）。
 3. 分层修正：按 `tokens -> semantic -> mapping -> overrides` 逐层落位。
+4. Storybook 联调：开发态直接消费 `packages/vi/src`，确保改动即时生效。
+5. 回归验收：按拆分后的模块组件执行亮/暗与交互态核验。
 4. 运行时验证：通过主题引擎注入链路验证亮/暗与主题切换一致性。
 5. 回归闭环：记录修正项与验收结果，避免重复漂移。
 

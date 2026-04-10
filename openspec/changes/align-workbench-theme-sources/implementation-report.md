@@ -68,3 +68,34 @@
 
 - `5.1`：`Theme/Prototype Regression` 亮/暗模式人工视觉回归（待执行）
 - `5.2`：关键交互态截图记录（待执行）
+
+---
+
+## Incremental Report (2026-04-09)
+
+### A. 本轮增量提交摘要（915cf10 / 59fdde0 / 701ddb0）
+
+1. Storybook 联调链路增强  
+   - 在 `.storybook/main.ts` 增加 workspace alias：`@yyxxfe/vi` 与 `@yyxxfe/vi/styles` 指向 `packages/vi/src/index.ts`。  
+   - 扩展 `server.fs.allow`，放开 Storybook 工程根与仓库根目录读取。
+
+2. Story 样式归属收敛  
+   - 移除 `.storybook/story-styles/*`。  
+   - 将 `theme-drawer` 与 `data-cockpit` 的 story 页面样式迁移到对应 `.vue`。
+
+3. Data Cockpit 原型模块化  
+   - `prototype-*` 组件重命名并拆分为：`app-header`、`app-menu`、`app-history-nav`、`conditions-panel`、`metrics-panel`、`chart-panel`、`table-panel`。  
+   - `mock-data.ts` 扩展为页面级与组件级统一数据契约。
+
+4. 主题算法与映射细节修正  
+   - `getThemeVariants(hex, isDark)` 支持暗色分支混色策略；`theme-resolver` 传入 `isDark`。  
+   - `table` hover 变量链路收敛到组件层回写，避免 EP 本地变量覆盖导致的 fixed-column 透底问题。  
+   - `workbench-overrides` 引入 `date-picker.less` 与 `ai-assistant.less`，并清理部分无效入口。
+
+### B. 增量执行结论
+
+- `proposal/design/tasks/spec` 已同步增量条目。  
+- `tasks` 新增第 6 组“增量执行（2026-04-09）”并标记完成。  
+- 仍保留人工视觉回归待办：
+  - `5.1` 亮/暗模式全场景核验
+  - `5.2` 交互态截图归档

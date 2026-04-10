@@ -1,144 +1,254 @@
-# VI System
+## 规范
+### 主要说明
+本节定义项目执行边界与决策依据：输入来源、工程规范、事实校验标准与 OpenSpec 变更流程，确保后续实现和样式裁决可追溯、可复现。
 
-## 项目本质
-VI System 是一个面向 Vue 3 生态的“主题能力公共库 + 文档回归工程”：
-- `packages/vi` 提供可复用的主题引擎、主题变量体系与主题抽屉组件。
-- `apps/storybook` 作为唯一文档与回归入口，用于演示与验证主题能力在真实页面原型中的表现。
+### 输入基线
+- 主题/样式统一仅使用以下来源：
+  - `junelce-workbench-design-system`
+  - `askdata-dashboard / data-cockpit`（原型实现基线）
+- 禁止引入未约定来源作为视觉裁决依据。
 
-它的核心目标不是承载完整业务，而是为业务项目提供稳定、可迁移、可验证的主题基础设施。
+### 项目规范
+- 代码与工程规范：`.codex/skills/vi-system-code-style/SKILL.md`
+- 对话与事实校验规范：`.codex/skills/advanced-civilization/SKILL.md`
 
-## 核心功能
-- 固定 17 个预设主题色，支持即时切换。
-- 浅色 / 暗黑模式切换（基于 `html.dark` + 运行时变量注入）。
-- 主题状态持久化（刷新后恢复用户选择）。
-- `ThemeDrawer` 组件：统一提供主题与模式切换交互。
-- Storybook 回归场景：
-  - `主题/主题抽屉`
-  - `主题/原型回归`（data-cockpit 高保真模块回归）。
+### 工作流（OpenSpec）
+- 活跃规范：`openspec/specs/*`
+- 变更工作区：`openspec/changes/*`
+- 历史归档：`openspec/changes/archive/*`
 
-## 目录结构（关键部分）
+标准流程：
+1. 先写 `proposal/design/tasks`。
+2. 再实施代码。
+3. 构建与 Storybook 回归。
+4. 归档 change 并回填主规格。
+
+---
+
+## 项目
+### 主要说明
+本节描述仓库的功能定位、能力边界、目录职责、运行方式与接入方式，用于快速理解“这个库是什么、怎么跑、怎么用”。
+
+### 项目本质
+VI System 是主题能力公共库 + Storybook 文档回归工程：
+- `packages/vi`：主题引擎、变量体系、ThemeDrawer 组件。
+- `apps/storybook`：唯一文档与回归入口。
+
+### 核心能力
+- 17 个预设主题色（默认 `teal`）。
+- 浅色 / 暗黑模式切换（`html.dark` + 运行时变量注入）。
+- 主题持久化恢复。
+- `ThemeDrawer` 统一主题入口。
+
+### 项目框架
+```text
+┌──────────────────────────────────────────────────────────┐
+│ Topbar (56px, 透明背景，水平导航)                            │
+│ [Logo·品牌] [首页][推广][创编][素材][资产][归因][报表][分析][设置] │
+├────────┬─────────────────────────────────────────────────┤
+│Sidebar │ TagsView (带底部毛玻璃效果)                        │
+│(192px) ├─────────────────────────────────────────────────┤
+│可折叠    │ Main Content (el-scrollbar)                      │
+│到56px   │ (页面内容区，各种 wb-soft-panel)                   │
+└────────┴─────────────────────────────────────────────────┘
+```
+
+### 主题组件结构
+```text
+┌────────────────────────────────────────────────────────┐
+│ ThemeDrawer                                            │
+├────────────────────────────────────────────────────────┤
+│ Header                                                 │
+│ [主题设置]                                    [✕ 关闭] │
+├────────────────────────────────────────────────────────┤
+│ 模式设置                                               │
+│ ┌──────────────────────┬──────────────────────┐       │
+│ │ 浅色模式             │ 暗黑模式             │       │
+│ │ 明亮清爽             │ 护眼舒适             │       │
+│ └──────────────────────┴──────────────────────┘       │
+├────────────────────────────────────────────────────────┤
+│ 主题颜色（Theme Grid）                                │
+│ [red][orange][amber][yellow]                          │
+│ [lime][green][emerald][teal]                          │
+│ [cyan][sky][blue][indigo]                             │
+│ [violet][purple][fuchsia][pink]                       │
+│ [rose]  （共 17 种）                                   │
+├────────────────────────────────────────────────────────┤
+│ 交互输出（Emits）                                      │
+│ - update:open(open: boolean)                          │
+│ - theme-change(themeKey: ThemeColorKey)               │
+│ - mode-change(isDark: boolean)                        │
+└────────────────────────────────────────────────────────┘
+```
+
+### 关键目录
 ```text
 VI-system/
-├─ apps/
-│  └─ storybook/
-│     ├─ .storybook/
-│     │  ├─ main.ts
-│     │  ├─ preview.ts
-│     │  ├─ preview.css
-│     │  └─ preview.stories.css
-│     └─ src/stories/
-│        ├─ theme-drawer.stories.ts
-│        ├─ prototype-regression.stories.ts
-│        |─ prototype-regression/*.vue
-|        └─ theme-drawer/*.vue
-├─ packages/
-│  └─ vi/
-│     ├─ src/components/theme-drawer/
-│     ├─ src/composables/use-vi-theme.ts
-│     ├─ src/theme/
-│     │  ├─ init-theme.ts
-│     │  ├─ theme-engine.ts
-│     │  ├─ theme-resolver.ts
-│     │  ├─ theme-applier.ts
-│     │  └─ theme-persistence.ts
-│     ├─ src/styles/
-│     │  ├─ tokens.less
-│     │  ├─ semantic-vars.less
-│     │  ├─ element-plus-mapping.less
-│     │  ├─ workbench-mapping.less
-│     │  ├─ workbench-overrides.less
-│     │  ├─ element-ui/*.less
-│     │  └─ workbench/*.less
-│     └─ src/index.ts
-├─ docs/guides/
+├─ apps/storybook/
+│  ├─ .storybook/{main.ts,preview.ts,preview.css,preview.stories.css}
+│  └─ src/stories/
+│     ├─ theme-drawer*.stories.ts + theme-drawer/*.vue
+│     └─ data-cockpit-prototype.stories.ts + data-cockpit-prototype/*.vue
+├─ packages/vi/src/
+│  ├─ theme/{init-theme,theme-engine,theme-resolver,theme-applier,theme-persistence}.ts
+│  ├─ composables/use-vi-theme.ts
+│  ├─ components/theme-drawer/*
+│  └─ styles/{tokens,semantic-vars,element-plus-mapping,workbench-mapping,workbench-overrides}.less
 └─ openspec/
-   ├─ specs/
-   └─ changes/archive/
 ```
 
-## 快速开始（Storybook）
-前置要求：
-- Node.js（建议 LTS）
-- `pnpm@9.12.0`（见根 `package.json`）
-
-安装依赖：
+### 启动与构建
 ```bash
 pnpm install
+pnpm dev:storybook
+pnpm build:storybook
+pnpm preview:storybook
+pnpm build:vi
 ```
 
-启动 Storybook：
+### 在目标项目接入
+1. 依赖：`@yyxxfe/vi` + `element-plus` + `@element-plus/icons-vue` + `vue`。
+2. 入口初始化（唯一配置入口）：
+```ts
+import { initViTheme } from "@yyxxfe/vi";
+import "@yyxxfe/vi/styles";
+
+initViTheme({ defaultThemeKey: "blue" });
+```
+3. 页面使用：
+- `useViTheme()`：读取/切换主题状态。
+- `ThemeDrawer`：主题与明暗模式交互入口。
+
+---
+
+## design-system
+### 主要说明
+本节聚焦主题系统的技术主干：Token 分层、变量映射链、运行时注入机制、组件消费路径与修改优先级规则。
+
+### Design Token 主题链结构图
+```text
+┌──────────────────────────────┐
+│ Design Tokens                │
+│ tokens.less                  │
+└──────────────┬───────────────┘
+               │
+               v
+┌──────────────────────────────┐
+│ 语义变量层                   │
+│ semantic-vars.less           │
+│ --vi-*                       │
+└──────────────┬───────────────┘
+               │
+       ┌───────┴────────┐
+       v                v
+┌──────────────────┐  ┌──────────────────┐
+│ ELP 映射层       │  │ WB 映射层        │
+│ element-plus-    │  │ workbench-       │
+│ mapping.less     │  │ mapping.less     │
+│ --el-*           │  │ --wb-*           │
+└────────┬─────────┘  └────────┬─────────┘
+         │                     │
+         └─────────┬───────────┘
+                   v
+┌──────────────────────────────────────────────┐
+│ 覆盖层（最小差异）                           │
+│ workbench-overrides.less                     │
+│ + element-ui/*.less + workbench/*.less       │
+└───────────────────────────┬──────────────────┘
+                            v
+┌──────────────────────────────────────────────┐
+│ 组件渲染层                                   │
+│ Button / Input / Table / Dialog / ...        │
+└──────────────────────────────────────────────┘
+
+运行时注入：useViTheme / initViTheme -> 语义变量层
+局部作用域：.vi-theme-scope -> 组件渲染层
+```
+
+### 运行时状态流
+1. `initViTheme(options)` 初始化全局单例引擎。
+2. 读取持久化 `themeKey/isDark`。
+3. `theme-resolver` 计算变量（含亮/暗模式分支）。
+4. `theme-applier` 注入 CSS 变量并同步 `html.dark`。
+5. 组件通过 `--vi-* -> --el-* / --wb-*` 消费主题值。
+
+### Token 设计要点
+- 主色：`@vi-token-primary`
+  - 默认 Teal，支持 17 主题切换，按主色动态计算色阶并映射到 `--el-color-primary-*`
+- 文本色：`@vi-token-text-*`
+  - 蓝灰色调，区别于 ELP 默认纯灰
+- 边框色：`@vi-token-border-*`
+  - 更浅更柔和
+- 面板填充：`@vi-token-fill-*`
+  - 白色微投影体系
+- 背景色：`@vi-token-surface-*`
+  - 白色微投影体系
+- 圆角：`@vi-radius-*`
+  - `xl=14, lg=12, md=10, sm=8, xs=6, xxs=4`
+  - 默认控件 `10px`，弹窗/抽屉内控件 `6px`
+- 间距：`@vi-spacing-*`
+  - `xl=20, lg=16, md=12, sm=8, xs=4`
+- 字号：`@vi-font-size-*`
+  - 正文 `14px`、表格 `14px`、历史导航栏 `13px`
+
+### 修改原则
+1. 先改 `semantic-vars.less`。
+2. 再改 `element-plus-mapping.less` / `workbench-mapping.less`。
+3. 最后才在 `workbench-overrides.less` 或组件覆盖文件兜底。
+
+### ThemeDrawer 契约
+- Props：`open`、`placement`、`themes`
+- Emits：
+  - `update:open(open: boolean)`
+  - `theme-change(themeKey: ThemeColorKey)`
+  - `mode-change(isDark: boolean)`
+
+---
+
+## story文档
+### 主要说明
+本节约束 Storybook 的组织方式与回归口径，确保主题能力在演示环境中可验证、可维护，并与实际组件行为一致。
+
+### Story 分组
+- `主题/主题抽屉`
+  - `Playground`
+  - `ThemeVariantSwatches`
+  - `ThemeRegression`
+- `主题/驾驶舱原型`
+  - `DataCockpitPrototype`
+
+### Storybook 配置约束
+- `main.ts`
+  - `stories`: `../src/**/*.stories.@(ts|tsx|js|jsx|mjs)`
+  - `addons`: essentials + interactions
+  - `framework`: `@storybook/vue3-vite`
+- `preview.ts`
+  - 注册 `ElementPlus`
+  - 初始化 `initViTheme()`
+  - `themeMode` toolbar + decorator 同步亮/暗模式
+
+### 启动
 ```bash
 pnpm dev:storybook
-```
-
-构建/预览文档站点：
-```bash
 pnpm build:storybook
 pnpm preview:storybook
 ```
 
-## 在目标项目中使用本库
+### 依赖
+- `@storybook/vue3-vite`
+- `@storybook/addon-essentials`
+- `@storybook/addon-interactions`
+- `storybook`
+- `element-plus`
+- `vue`
 
-### 1. 安装与依赖
-本库依赖 `vue`、`element-plus`、`@element-plus/icons-vue`。
+### 样式归属规则
+- 宿主通用样式：`.storybook/preview.css`
+- 演示通用样式：`.storybook/preview.stories.css`
+- 业务 story 专属样式：就近放在对应 story 组件 `.vue` 内
 
-在同一 monorepo 下，推荐用 workspace 方式接入：
-```json
-{
-  "dependencies": {
-    "@yyxxfe/vi": "workspace:*",
-    "element-plus": "^2.11.3",
-    "@element-plus/icons-vue": "^2.3.2",
-    "vue": "^3.5.18"
-  }
-}
-```
-
-### 2. 应用入口初始化（唯一配置入口）
-```ts
-import { createApp } from "vue";
-import App from "./App.vue";
-import { initViTheme } from "@yyxxfe/vi";
-import "@yyxxfe/vi/styles";
-
-const app = createApp(App);
-app.mount("#app");
-
-initViTheme({
-  defaultThemeKey: "blue",
-});
-```
-
-### 3. 页面中使用主题能力
-```vue
-<script setup lang="ts">
-import { ref } from "vue";
-import { ThemeDrawer, useViTheme } from "@yyxxfe/vi";
-
-const open = ref(false);
-const { toggleDark } = useViTheme();
-</script>
-
-<template>
-  <button type="button" @click="open = true">主题设置</button>
-  <button type="button" @click="toggleDark()">切换明暗</button>
-  <ThemeDrawer v-model:open="open" />
-</template>
-```
-
-### 4. 业务局部覆盖（推荐）
-```css
-.vi-theme-scope {
-  --vi-color-primary: #0ea5e9;
-  --vi-color-primary-rgb: 14, 165, 233;
-}
-```
-
-建议优先覆盖语义变量（`--vi-*`），不要把直接覆盖 `--el-*` 作为常规方案。
-
-## 参考文档
-- `docs/guides/storybook-guide.md`
-- `docs/guides/theme-drawer.md`
-- `docs/guides/theme-mapping-checklist.md`
-- `openspec/specs/theme-system/spec.md`
-- `openspec/specs/component-docs/spec.md`
+### 维护与验收
+- 新增/调整 story 后必须同步本文件的“Story 分组（当前）”。
+- 主题改动必须至少回归：
+  - 主题抽屉场景
+  - 驾驶舱原型场景（含亮/暗和关键交互态）

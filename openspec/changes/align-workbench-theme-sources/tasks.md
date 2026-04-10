@@ -29,3 +29,12 @@
 - [ ] 5.2 执行关键交互态检查：`hover/focus/active/disabled`，记录通过/失败项及截图。
 - [x] 5.3 校验 `tokens -> semantic -> mapping -> overrides` 分层顺序未被破坏，确保覆盖层仅保留最小兜底。
 - [x] 5.4 输出本轮验收结论：已收敛项、剩余差异项、下一轮建议。
+
+## 6. 增量执行（2026-04-09）
+
+- [x] 6.1 Storybook 开发态 alias 到 `packages/vi/src/index.ts`，并补充 workspace 读盘 allow，确保源码联调不依赖 `dist`。
+- [x] 6.2 清理 `.storybook/story-styles/*`，将 `theme-drawer` 与 `data-cockpit` 的故事样式迁移到对应 `.vue`，减少全局样式串扰。
+- [x] 6.3 将 `data-cockpit-prototype` 拆分为独立模块组件（`header/menu/history/conditions/metrics/chart/table`），并统一 `mock-data.ts` 数据契约。
+- [x] 6.4 修正暗色主题色阶算法：`getThemeVariants` 增加 `isDark` 分支，`theme-resolver` 按模式传参。
+- [x] 6.5 修正表格 hover 变量优先级链路：在 `.el-table` 层回写 `--el-table-row-hover-bg-color`，避免固定列滚动穿透。
+- [x] 6.6 扩充 ThemeDrawer 回归样例（页面内展示 + 弹窗展示 + 禁用态/多类型表格），提升视觉回归覆盖度。
