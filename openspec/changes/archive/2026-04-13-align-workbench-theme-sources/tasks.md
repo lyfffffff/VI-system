@@ -25,8 +25,8 @@
 
 ## 5. 回归与验收
 
-- [ ] 5.1 在 `Theme/Prototype Regression` 场景执行亮/暗模式回归，覆盖核心页面与控件。
-- [ ] 5.2 执行关键交互态检查：`hover/focus/active/disabled`，记录通过/失败项及截图。
+- [x] 5.1 在 `Theme/Prototype Regression` 场景执行亮/暗模式回归，覆盖核心页面与控件。
+- [x] 5.2 执行关键交互态检查：`hover/focus/active/disabled`，记录通过/失败项及截图。
 - [x] 5.3 校验 `tokens -> semantic -> mapping -> overrides` 分层顺序未被破坏，确保覆盖层仅保留最小兜底。
 - [x] 5.4 输出本轮验收结论：已收敛项、剩余差异项、下一轮建议。
 

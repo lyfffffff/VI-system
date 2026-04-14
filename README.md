@@ -121,16 +121,88 @@ pnpm preview:storybook
 pnpm build:vi
 ```
 
+#### Storybook 双模式
+
+Storybook 支持两种模式：
+
+- **源码模式**：读取 `packages/vi/src/` 源码，支持热更新，用于开发调试
+- **构建模式**：读取 `packages/vi/dist/` 打包产物，用于验证构建产物
+
+```bash
+# 源码模式（默认）
+pnpm dev:storybook
+
+# 源码模式（显式）
+pnpm --filter @vi/storybook dev:source
+
+# 构建模式（显式，先构建 vi 库）
+pnpm --filter @vi/storybook dev:dist
+
+# 构建静态文档（默认源码模式）
+pnpm --filter @vi/storybook build:source
+
+# 构建静态文档（构建模式）
+pnpm --filter @vi/storybook build:dist
+```
+
+#### VI 库构建
+
+```bash
+# 标准构建
+pnpm build:vi
+```
+
+构建产物包含：
+
+- **ESM 格式**：`index.js`, `theme.js`, `theme-drawer.js`
+- **CJS 格式**：`index.cjs`, `theme.cjs`, `theme-drawer.cjs`
+- **类型定义**：`index.d.ts`, `theme.d.ts`, `theme-drawer.d.ts`
+- **样式文件**：`style.css`
+
 ### 在目标项目接入
 
-1. 依赖：`@yyxxfe/vi` + `element-plus` + `@element-plus/icons-vue` + `vue`。
-2. 入口初始化（唯一配置入口）：
+#### 安装
+
+注意：vi 库依赖 element-plus、@element-plus/icons-vue、vue
+
+```bash
+# npm
+npm install @yyxxfe/vi
+```
+
+#### ESM 项目使用
 
 ```ts
-import { initViTheme } from "@yyxxfe/vi";
+import { initViTheme, ThemeDrawer, useViTheme } from "@yyxxfe/vi";
 import "@yyxxfe/vi/styles";
 
+// 入口初始化（唯一配置入口）
 initViTheme({ defaultThemeKey: "blue" });
+```
+
+#### CJS 项目使用
+
+```ts
+const { initViTheme, ThemeDrawer, useViTheme } = require("@yyxxfe/vi");
+require("@yyxxfe/vi/styles");
+
+// 入口初始化
+initViTheme({ defaultThemeKey: "blue" });
+```
+
+#### 按需导入
+
+如果只需要特定功能，可以按需导入：
+
+```ts
+// 仅导入主题组合式 API
+import { useViTheme } from "@yyxxfe/vi/theme";
+
+// 仅导入 ThemeDrawer 组件
+import ThemeDrawer from "@yyxxfe/vi/theme-drawer";
+
+// 仅导入样式
+import "@yyxxfe/vi/styles";
 ```
 
 `initViTheme(options)` 配置项：
@@ -152,6 +224,8 @@ initViTheme({ defaultThemeKey: "blue" });
 
 ### 使用主题组件
 
+#### ESM 项目使用示例
+
 1. 在应用入口初始化主题引擎并引入样式：
 
 ```ts
@@ -167,6 +241,39 @@ initViTheme({ defaultThemeKey: "teal" });
 <script setup lang="ts">
 import { ref } from "vue";
 import { ThemeDrawer, useViTheme } from "@yyxxfe/vi";
+
+const drawerOpen = ref(false);
+const { themeKey, isDark } = useViTheme();
+</script>
+
+<template>
+  <el-button type="primary" @click="drawerOpen = true">主题设置</el-button>
+  <ThemeDrawer
+    v-model:open="drawerOpen"
+    @theme-change="(nextThemeKey) => console.log('theme', nextThemeKey)"
+    @mode-change="(nextDark) => console.log('dark', nextDark)"
+  />
+  <div>当前主题：{{ themeKey }} / 暗黑模式：{{ isDark }}</div>
+</template>
+```
+
+#### CJS 项目使用示例
+
+1. 在应用入口初始化主题引擎并引入样式：
+
+```ts
+const { initViTheme } = require("@yyxxfe/vi");
+require("@yyxxfe/vi/styles");
+
+initViTheme({ defaultThemeKey: "teal" });
+```
+
+2. 在页面中挂载 `ThemeDrawer`：
+
+```vue
+<script setup lang="ts">
+import { ref } from "vue";
+const { ThemeDrawer, useViTheme } = require("@yyxxfe/vi");
 
 const drawerOpen = ref(false);
 const { themeKey, isDark } = useViTheme();
@@ -292,7 +399,7 @@ const { themeKey, isDark } = useViTheme();
 
 ---
 
-## story文档
+## story 文档
 
 ### 主要说明
 

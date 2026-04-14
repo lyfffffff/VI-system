@@ -1,0 +1,4 @@
+schema: spec-driven
+created: 2026-04-13
+title: VI 项目构建与 Storybook 优化
+description: 优化 VI 项目的打包导出能力，并实现 Storybook 的源码/构建模式切换
