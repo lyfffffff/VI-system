@@ -17,19 +17,21 @@
       "require": "./dist/index.cjs",
       "default": "./dist/index.js"
     },
-    "./theme": {
-      "types": "./dist/theme.d.ts",
-      "import": "./dist/theme.js",
-      "require": "./dist/theme.cjs",
-      "default": "./dist/theme.js"
+    "./element-plus": {
+      "types": "./dist/element-plus.d.ts",
+      "import": "./dist/element-plus.js",
+      "require": "./dist/element-plus.cjs",
+      "default": "./dist/element-plus.js"
     },
-    "./theme-drawer": {
-      "types": "./dist/theme-drawer.d.ts",
-      "import": "./dist/theme-drawer.js",
-      "require": "./dist/theme-drawer.cjs",
-      "default": "./dist/theme-drawer.js"
+    "./workbench": {
+      "types": "./dist/workbench.d.ts",
+      "import": "./dist/workbench.js",
+      "require": "./dist/workbench.cjs",
+      "default": "./dist/workbench.js"
     },
-    "./styles": "./dist/style.css"
+    "./styles": "./dist/style.css",
+    "./styles/element-plus": "./dist/element-plus.css",
+    "./styles/workbench": "./dist/workbench.css"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -53,6 +55,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",
     "less": "^4.2.0",
+    "rollup-plugin-styles": "^4.0.0",
     "terser": "^5.46.1",
     "vite": "^5.4.11",
     "vite-plugin-dts": "^4.5.4"

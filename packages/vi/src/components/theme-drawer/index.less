@@ -1,0 +1,136 @@
+.theme-drawer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  padding: 4px;
+}
+
+.theme-drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.theme-drawer__title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--el-text-color-primary);
+}
+
+.theme-drawer__close {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: var(--vi-radius-sm);
+  background: transparent;
+  color: var(--el-text-color-secondary);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--vi-surface-panel-muted, rgba(15, 23, 42, 0.08));
+  }
+}
+
+.theme-drawer__section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.theme-drawer__section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--el-text-color-primary);
+  font-size: 14px;
+  font-weight: 600;
+
+  .el-icon {
+    color: var(--el-color-primary);
+    font-size: 16px;
+  }
+}
+
+.mode-switch {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.mode-switch__item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  border: 1px solid var(--el-border-color-light);
+  border-radius: var(--vi-radius-md);
+  background: var(--el-bg-color);
+  text-align: left;
+  cursor: pointer;
+
+  &.is-active {
+    border-color: var(--el-color-primary);
+    background: rgba(var(--el-color-primary-rgb), 0.08);
+  }
+}
+
+.mode-switch__name {
+  color: var(--el-text-color-primary);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.mode-switch__desc {
+  color: var(--el-text-color-secondary);
+  font-size: 12px;
+}
+
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px 4px;
+}
+
+.theme-grid__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.theme-grid__swatch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--vi-radius-md);
+  border: 2px solid transparent;
+  color: #fff;
+  transition: transform 0.15s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &.is-active {
+    border-color: var(--el-color-primary);
+    box-shadow: 0 0 0 2px var(--el-bg-color), 0 0 0 4px var(--el-color-primary);
+  }
+}
+
+.theme-grid__en,
+.theme-grid__zh {
+  color: var(--el-text-color-secondary);
+  font-size: 12px;
+}
+
+.theme-grid__en {
+  font-weight: 500;
+}

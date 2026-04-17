@@ -57,20 +57,6 @@
   --wb-theme-drawer-bg: var(--vi-surface-overlay);
 }
 
-html,
-body {
-  font-family: var(--vi-font-family);
-  font-size: var(--vi-font-size-body);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code,
-pre,
-.code {
-  font-family: var(--vi-font-family-mono);
-}
-
 :where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root)
   .el-table,
 :where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root)
@@ -83,23 +69,7 @@ pre,
 :where(.vi-theme-scope, .workbench-layout, .cockpit-page, .story-root)
   [data-numeric="true"] {
   font-variant-numeric: tabular-nums;
-  font-feature-settings:
-    "tnum" 1,
-    "lnum" 1;
-}
-
-/* 自动集成页面背景：消费方安装库后无需额外写 body 背景绑定。 */
-body {
-  background: var(--wb-page-bg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  background-color: transparent !important;
-}
-
-#app {
-  background: transparent !important;
-  background-color: transparent !important;
+  font-feature-settings: "tnum" 1, "lnum" 1;
 }
 
 html.dark {

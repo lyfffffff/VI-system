@@ -4,7 +4,9 @@ import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 import "element-plus/theme-chalk/dark/css-vars.css";
 import { initViTheme, useViTheme } from "@yyxxfe/vi";
-import "@yyxxfe/vi/styles";
+import "@yyxxfe/vi/styles"; // 通用样式（含所有组件样式）
+import '@yyxxfe/vi/styles/element-plus';
+
 import "./preview.css";
 
 setup((app) => {

@@ -126,23 +126,35 @@ pnpm build:vi
 Storybook 支持两种模式：
 
 - **源码模式**：读取 `packages/vi/src/` 源码，支持热更新，用于开发调试
-- **构建模式**：读取 `packages/vi/dist/` 打包产物，用于验证构建产物
+- **构建模式**（`DOC_ENV=production`）：读取 `packages/vi/dist/` 打包产物，用于验证构建产物
 
 ```bash
 # 源码模式（默认）
 pnpm dev:storybook
 
-# 源码模式（显式）
-pnpm --filter @vi/storybook dev:source
-
 # 构建模式（显式，先构建 vi 库）
-pnpm --filter @vi/storybook dev:dist
+pnpm --filter @vi/storybook dev:prod
+```
 
-# 构建静态文档（默认源码模式）
-pnpm --filter @vi/storybook build:source
+**技术实现**：
 
-# 构建静态文档（构建模式）
-pnpm --filter @vi/storybook build:dist
+双模式通过 `apps/storybook/.storybook/vite-config.ts` 中的别名配置实现：
+
+| 模式 | DOC_ENV | 别名配置 | fs.allow | 说明 |
+|---|---|---|---|---|
+| 源码模式 |  | 指向 src/ | 包含 viPackageRoot | 热更新支持 |
+| 构建模式 | production | 不设别名 | 仅 storybookAppRoot | 使用 dist 产物 |
+
+别名顺序（更具体的路径放前面）：
+
+```typescript
+// 源码模式别名配置
+[
+  { find: "@yyxxfe/vi/styles/element-plus", replacement: "src/element-plus.ts" },
+  { find: "@yyxxfe/vi/styles/workbench", replacement: "src/workbench.ts" },
+  { find: "@yyxxfe/vi/styles", replacement: "src/styles/index.less" },
+  { find: "@yyxxfe/vi", replacement: "src/index.ts" },
+]
 ```
 
 #### VI 库构建
@@ -188,21 +200,6 @@ require("@yyxxfe/vi/styles");
 
 // 入口初始化
 initViTheme({ defaultThemeKey: "blue" });
-```
-
-#### 按需导入
-
-如果只需要特定功能，可以按需导入：
-
-```ts
-// 仅导入主题组合式 API
-import { useViTheme } from "@yyxxfe/vi/theme";
-
-// 仅导入 ThemeDrawer 组件
-import ThemeDrawer from "@yyxxfe/vi/theme-drawer";
-
-// 仅导入样式
-import "@yyxxfe/vi/styles";
 ```
 
 `initViTheme(options)` 配置项：

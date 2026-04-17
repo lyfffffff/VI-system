@@ -5,11 +5,9 @@
     "type": "module",
     "scripts": {
         "dev": "storybook dev -p 6006",
-        "dev:source": "cross-env VI_SOURCE_MODE=true storybook dev -p 6006",
-        "dev:dist": "pnpm build:vi && cross-env VI_SOURCE_MODE=false storybook dev -p 6006",
+        "dev:prod": "pnpm build:vi && cross-env DOC_ENV=production storybook dev -p 6006",
         "build": "storybook build",
-        "build:source": "cross-env VI_SOURCE_MODE=true storybook build",
-        "build:dist": "pnpm build:vi && cross-env VI_SOURCE_MODE=false storybook build",
+        "build:prod": "pnpm build:vi && cross-env DOC_ENV=production storybook build",
         "preview": "storybook preview -p 6007 --no-open",
         "build:vi": "cd ../../packages/vi && pnpm build"
     },

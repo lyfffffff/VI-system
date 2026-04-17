@@ -1,54 +1,70 @@
-﻿import { resolve } from 'node:path'
-import vue from '@vitejs/plugin-vue'
-import { defineConfig } from 'vite'
-import dts from 'vite-plugin-dts'
+﻿import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import path from "path";
 
 export default defineConfig({
-  plugins: [
-    vue(),
-    dts({
-      tsconfigPath: resolve(__dirname, 'tsconfig.json'),
-      outDir: 'dist',
-      insertTypesEntry: true,
-      rollupTypes: true,
-    }),
-  ],
+  plugins: [vue()],
+
   build: {
-    target: 'es2019',
-    outDir: 'dist',
-    emptyOutDir: true,
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-    },
+    outDir: "dist",
+    cssCodeSplit: true,
+
     lib: {
       entry: {
-        index: resolve(__dirname, 'src/index.ts'), // 主入口
-        theme: resolve(__dirname, 'src/composables/use-vi-theme.ts'), // 主题组合式函数
-        'theme-drawer': resolve(__dirname, 'src/components/theme-drawer/index.ts'), // 主题设置抽屉
+        index: path.resolve(__dirname, "src/index.ts"),
+        "element-plus": path.resolve(__dirname, "src/element-plus.ts"),
+        workbench: path.resolve(__dirname, "src/workbench.ts"),
       },
-      formats: ['es', 'cjs'],
-      fileName: (format, entryName) => (format === 'es' ? `${entryName}.js` : `${entryName}.cjs`),
+      formats: ["es", "cjs"],
     },
-    rollupOptions: {
-      external: ['vue', 'element-plus', '@element-plus/icons-vue'],
-      output: {
-        assetFileNames: (assetInfo) => {
-          if (assetInfo.name === 'style.css') {
-            return 'style.css'
-          }
 
-          return 'assets/[name][extname]'
+    rollupOptions: {
+      external: ["vue", "element-plus", "@element-plus/icons-vue"],
+
+      output: [
+        // ESM 输出
+        {
+          format: "es",
+          entryFileNames: "[name].js",
+          assetFileNames(assetInfo) {
+            if (assetInfo.name?.endsWith(".css")) {
+              // index.css → style.css，其他保持原名
+              const baseName = assetInfo.name.replace(/\.css$/, "");
+              if (baseName === "index") {
+                return "style[extname]";
+              }
+              return "[name][extname]";
+            }
+            return "assets/[name][extname]";
+          },
+          preserveModules: false,
         },
-        globals: {
-          vue: 'Vue',
-          'element-plus': 'ElementPlus',
-          '@element-plus/icons-vue': 'ElementPlusIconsVue',
+        // CJS 输出
+        {
+          format: "cjs",
+          entryFileNames: "[name].cjs",
+          assetFileNames(assetInfo) {
+            // CJS 输出不重复生成 CSS，CSS 只由 ESM 产出
+            if (assetInfo.name?.endsWith(".css")) {
+              const baseName = assetInfo.name.replace(/\.css$/, "");
+              if (baseName === "index") {
+                return "style[extname]";
+              }
+              return "[name][extname]";
+            }
+            return "assets/[name][extname]";
+          },
+          preserveModules: false,
         },
+      ],
+    },
+  },
+
+  css: {
+    preprocessorOptions: {
+      less: {
+        javascriptEnabled: true,
       },
     },
   },
-})
+});

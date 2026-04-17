@@ -284,3 +284,48 @@ TBD - created by archiving change add-vi-theme-drawer. Update Purpose after arch
 - **WHEN** Storybook 原型场景存在对弱相关工具导出的依赖
 - **THEN** 场景实现 MUST 改为本地可维护策略（如静态配置）
 - **AND** 不得影响主题切换、亮暗模式与样式链路回归能力
+
+### Requirement: 主题库多格式导出支持
+系统 MUST 提供同时支持 ESM 和 CJS 格式的主题库导出，并 SHALL 包含完整的 TypeScript 类型定义。
+
+#### Scenario: ESM 项目导入
+- **WHEN** ESM 项目导入 `@yyxxfe/vi`
+- **THEN** 系统 MUST 提供标准的 ESM 入口 (`./dist/index.js`)
+- **AND** 类型定义 MUST 可用 (`./dist/index.d.ts`)
+
+#### Scenario: CJS 项目导入
+- **WHEN** CJS 项目通过 require 导入 `@yyxxfe/vi`
+- **THEN** 系统 MUST 提供标准的 CJS 入口 (`./dist/index.cjs`)
+- **AND** 类型定义 MUST 可用
+
+#### Scenario: 按需导入
+- **WHEN** 使用方仅导入特定功能（如主题 API 或 ThemeDrawer 组件）
+- **THEN** 系统 MUST 提供独立的导出入口
+- **AND** Tree Shaking MUST 生效以减小包体积
+
+### Requirement: 主题库样式正确导出
+系统 MUST 将主题样式正确导出为独立的 CSS 文件，并 SHALL 支持使用方按需引入。
+
+#### Scenario: 样式文件导出
+- **WHEN** 使用方导入 `@yyxxfe/vi/styles`
+- **THEN** 系统 MUST 返回编译后的 CSS 文件 (`./dist/style.css`)
+- **AND** CSS MUST 包含所有必要的 CSS 变量定义
+
+#### Scenario: 样式按需引入
+- **WHEN** 使用方仅使用部分主题功能
+- **THEN** 使用方 MAY 选择性地引入样式文件
+- **AND** 样式文件 MUST 包含所有必要的样式（不支持部分样式抽取）
+
+#### Scenario: 双入口样式打包
+- **WHEN** 执行 vi 库构建
+- **THEN** 系统 MUST 产出 `style.css`（通用样式入口）
+- **AND** 系统 MUST 产出 `element-plus.css`（Element Plus 组件样式覆盖）
+- **AND** 系统 MUST 产出 `workbench.css`（Workbench 业务样式）
+- **AND** `style.css` MUST NOT 包含 workbench-mapping 和 workbench/ 目录下的样式
+
+#### Scenario: 样式入口文件职责
+- **WHEN** 维护样式入口文件
+- **THEN** `src/index.ts` MUST 导入 `styles/index.less` 和组件样式
+- **AND** `src/element-plus.ts` MUST 导入 EP 变量映射和组件覆盖样式
+- **AND** `src/workbench.ts` MUST 导入 WB 变量映射和业务样式
+- **AND** 各入口 MUST 保持依赖顺序正确（基础变量 → 映射层 → 覆盖层）

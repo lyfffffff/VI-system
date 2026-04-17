@@ -27,21 +27,21 @@ export const repoRoot = path.resolve(storybookDir, "../../..");
 export const viPackageRoot = path.join(repoRoot, "packages/vi");
 
 /**
- * VI 库源码入口文件路径（源码模式）
+ * VI 库 JS 主入口文件路径（源码模式）
  */
 export const viSourceEntry = path.join(viPackageRoot, "src/index.ts");
 
 /**
- * VI 库构建入口文件路径（构建模式）
+ * VI 库通用样式入口文件路径（源码模式，.less 文件）
  */
-export const viDistEntry = path.join(viPackageRoot, "dist/index.js");
+export const viStylesEntry = path.join(viPackageRoot, "src/styles/index.less");
 
 /**
- * VI 库源码样式入口文件路径（源码模式）
+ * VI 库 Element Plus 样式入口文件路径（源码模式）
  */
-export const viSourceStylesEntry = path.join(viPackageRoot, "src/index.ts");
+export const viElementPlusEntry = path.join(viPackageRoot, "src/element-plus.ts");
 
 /**
- * VI 库构建样式文件路径（构建模式）
+ * VI 库 Workbench 样式入口文件路径（源码模式）
  */
-export const viDistStylesEntry = path.join(viPackageRoot, "dist/style.css");
+export const viWorkbenchEntry = path.join(viPackageRoot, "src/workbench.ts");

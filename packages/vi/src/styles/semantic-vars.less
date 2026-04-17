@@ -4,8 +4,8 @@
 :root {
   // 主色阶（亮色基线）：默认值来自 token，运行时会按 themeKey 覆盖。
   --vi-color-primary: @vi-token-primary;
-  --vi-color-primary-rgb:
-    red(@vi-token-primary), green(@vi-token-primary), blue(@vi-token-primary);
+  --vi-color-primary-rgb: red(@vi-token-primary), green(@vi-token-primary),
+    blue(@vi-token-primary);
   --vi-color-primary-light-3: mix(#fff, @vi-token-primary, 30%);
   --vi-color-primary-light-5: mix(#fff, @vi-token-primary, 50%);
   --vi-color-primary-light-7: mix(#fff, @vi-token-primary, 70%);
@@ -15,8 +15,7 @@
 
   // 页面背景（亮色基线）：可被运行时主题背景覆盖。
   // 依赖主题色的页面背景默认值；切换主题时会被运行时覆盖。
-  --vi-page-bg:
-    radial-gradient(
+  --vi-page-bg: radial-gradient(
       circle at top right,
       fade(@vi-token-primary, 12%),
       transparent 32%
@@ -45,8 +44,8 @@
   --vi-border-extra-light: @vi-token-border-extra-light-light;
 
   // 输入框聚焦阴影：与主题主色联动。
-  --vi-input-focus-box-shadow:
-    0 0 0 1px rgba(var(--vi-color-primary-rgb), 0.42) inset,
+  --vi-input-focus-box-shadow: 0 0 0 1px rgba(var(--vi-color-primary-rgb), 0.42)
+      inset,
     0 0 0 3px rgba(var(--vi-color-primary-rgb), 0.08);
 
   // 圆角体系。
@@ -120,8 +119,7 @@
 html.dark {
   // 页面背景（暗色基线）：可被运行时主题背景覆盖。
   // 依赖主题色的暗色背景默认值；切换主题时会被运行时覆盖。
-  --vi-page-bg:
-    radial-gradient(
+  --vi-page-bg: radial-gradient(
       circle at top right,
       fade(@vi-token-primary, 6%),
       transparent 32%
@@ -189,4 +187,31 @@ html.dark {
   --vi-sidebar-item-hover: fade(@vi-token-primary, 14%);
   --vi-tag-bg: fade(@vi-token-primary, 20%);
   --vi-tag-border: fade(@vi-token-primary, 32%);
+}
+
+html,
+body {
+  font-family: var(--vi-font-family);
+  font-size: var(--vi-font-size-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code,
+pre,
+.code {
+  font-family: var(--vi-font-family-mono);
+}
+
+body {
+  background: var(--vi-page-bg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-color: transparent !important;
+}
+
+#app {
+  background: transparent !important;
+  background-color: transparent !important;
 }

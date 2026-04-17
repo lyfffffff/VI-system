@@ -1,4 +1,5 @@
 // 驾驶舱原型 Story：用于验证 data-cockpit 关键模块在主题系统下的视觉一致性。
+import '@yyxxfe/vi/styles/workbench'
 import type { Meta, StoryObj } from "@storybook/vue3";
 import DataCockpitPrototypeView from "./data-cockpit-prototype/data-cockpit-prototype.vue";
 

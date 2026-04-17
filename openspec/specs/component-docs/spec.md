@@ -74,3 +74,31 @@ TBD - created by archiving change adopt-storybook-docs. Update Purpose after arc
 - **THEN** 文档 MUST 包含 `initViTheme` 初始化步骤
 - **AND** 文档 MUST 包含 `ThemeDrawer` 挂载方式与 `useViTheme` 基本用法
 
+### Requirement: Storybook 支持源码与构建模式切换
+系统 MUST 支持 Storybook 在读取 vi 库源码和读取打包产物之间切换，并 SHALL 提供明确的模式指示。
+
+#### Scenario: 源码模式验证
+- **WHEN** 开发者使用源码模式启动 Storybook
+- **THEN** 系统 MUST 读取 `packages/vi/src/` 下的源码
+- **AND** 系统 MUST 在启动日志中明确显示"源码模式"
+- **AND** 开发者 MUST 能享受热更新和源码调试
+
+#### Scenario: 构建模式验证
+- **WHEN** 开发者使用构建模式启动 Storybook
+- **THEN** 系统 MUST 先执行 vi 库构建
+- **AND** 系统 MUST 读取 `packages/vi/dist/` 下的打包产物
+- **AND** 系统 MUST 在启动日志中明确显示"构建模式"
+- **AND** 组件行为 MUST 与源码模式保持一致
+
+#### Scenario: Vite 别名配置正确
+- **WHEN** 源码模式启动时
+- **THEN** Vite 别名 MUST 将 `@yyxxfe/vi` 映射到 `src/index.ts`
+- **AND** Vite 别名 MUST 将 `@yyxxfe/vi/styles` 映射到 `src/styles/index.less`
+- **AND** 更具体的路径别名 MUST 排在前面以避免被截获
+- **AND** `fs.allow` MUST 包含 `viPackageRoot` 以允许访问源码目录
+
+#### Scenario: 文件系统访问权限对齐
+- **WHEN** 构建模式启动时
+- **THEN** Vite 不设源码别名，MUST 通过 package.json exports 解析到 dist
+- **AND** `fs.allow` MUST 不包含 `viPackageRoot`，仅需 `storybookAppRoot`
+
