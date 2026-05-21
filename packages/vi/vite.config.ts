@@ -1,6 +1,21 @@
 ﻿import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import path from "path";
+import { fileURLToPath } from "node:url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const assetFileNames = (assetInfo) => {
+  if (assetInfo.names[0].endsWith(".css")) {
+    // index.css → style.css，其他保持原名
+    const baseName = assetInfo.names[0].replace(/\.css$/, "");
+    if (baseName === "index") {
+      return "style[extname]";
+    }
+    return "[name][extname]";
+  }
+  return "assets/[name][extname]";
+};
 
 export default defineConfig({
   plugins: [vue()],
@@ -26,34 +41,14 @@ export default defineConfig({
         {
           format: "es",
           entryFileNames: "[name].js",
-          assetFileNames(assetInfo) {
-            if (assetInfo.name?.endsWith(".css")) {
-              // index.css → style.css，其他保持原名
-              const baseName = assetInfo.name.replace(/\.css$/, "");
-              if (baseName === "index") {
-                return "style[extname]";
-              }
-              return "[name][extname]";
-            }
-            return "assets/[name][extname]";
-          },
+          assetFileNames: assetFileNames,
           preserveModules: false,
         },
         // CJS 输出
         {
           format: "cjs",
           entryFileNames: "[name].cjs",
-          assetFileNames(assetInfo) {
-            // CJS 输出不重复生成 CSS，CSS 只由 ESM 产出
-            if (assetInfo.name?.endsWith(".css")) {
-              const baseName = assetInfo.name.replace(/\.css$/, "");
-              if (baseName === "index") {
-                return "style[extname]";
-              }
-              return "[name][extname]";
-            }
-            return "assets/[name][extname]";
-          },
+          assetFileNames: assetFileNames,
           preserveModules: false,
         },
       ],
