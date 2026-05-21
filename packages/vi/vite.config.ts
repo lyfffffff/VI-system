@@ -6,9 +6,11 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const assetFileNames = (assetInfo) => {
-  if (assetInfo.names[0].endsWith(".css")) {
+  // names 在某些阶段可能为 undefined，使用 name 作为回退
+  const fileName = assetInfo.names?.[0] ?? assetInfo.name;
+  if (fileName?.endsWith(".css")) {
     // index.css → style.css，其他保持原名
-    const baseName = assetInfo.names[0].replace(/\.css$/, "");
+    const baseName = fileName.replace(/\.css$/, "");
     if (baseName === "index") {
       return "style[extname]";
     }
